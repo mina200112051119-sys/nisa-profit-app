@@ -1,4 +1,4 @@
-# v8 confidence-ranked hot stocks
+# v9 long-term stability
 name: Update topic data
 on:
   schedule:
@@ -88,10 +88,37 @@ jobs:
               s=s[:a]+new+s[b:]
           p.write_text(s,encoding='utf-8')
           PY
+      - name: Add long-term resilience and offline fallbacks
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html'); s=p.read_text(encoding='utf-8')
+          marker="async function fetchPrice(p){"
+          helper="""async function fetchWithTimeout(url,ms=12000){const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);try{return await fetch(url,{signal:c.signal,cache:'no-store'})}finally{clearTimeout(t)}}function cacheSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}function cacheGet(k,fallback){try{const v=JSON.parse(localStorage.getItem(k)||'null');return v??fallback}catch(e){return fallback}}"""
+          if helper not in s and marker in s: s=s.replace(marker,helper+marker)
+          s=s.replace("const r=await fetch('https://api.twelvedata.com/price?symbol='+encodeURIComponent(p.symbol)+'&exchange=TSE&apikey='+encodeURIComponent(apiKey)),d=await r.json();", "const r=await fetchWithTimeout('https://api.twelvedata.com/price?symbol='+encodeURIComponent(p.symbol)+'&exchange=TSE&apikey='+encodeURIComponent(apiKey));if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();")
+          old="""async function loadHotStocks(){try{const d=await fetch('data/hot-stocks.json?v='+Date.now()).then(r=>r.json());dynamicHot=Array.isArray(d.stocks)?d.stocks:[];searchProducts()}catch(e){dynamicHot=[];searchProducts()}}"""
+          new="""async function loadHotStocks(){try{const r=await fetchWithTimeout('data/hot-stocks.json?v='+Date.now());if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();if(!Array.isArray(d.stocks))throw new Error('invalid data');dynamicHot=d.stocks;cacheSet('nisaHotCache',d);searchProducts()}catch(e){const d=cacheGet('nisaHotCache',{stocks:[]});dynamicHot=Array.isArray(d.stocks)?d.stocks:[];searchProducts()}}"""
+          if old in s:s=s.replace(old,new)
+          old2="""function loadTopics(){fetch('data/topic-update.json?v='+Date.now()).then(r=>r.json()).then(d=>{document.getElementById('topicUpdated').textContent=d.updated_at?'更新 '+new Date(d.updated_at).toLocaleString('ja-JP'):'更新情報なし';document.getElementById('topicThemes').innerHTML=(d.themes||[]).slice(0,6).map(x=>'<span class=\"tag\">'+esc(x.name)+' '+x.count+'</span>').join(' ');document.getElementById('topicHeadlines').innerHTML=(d.headlines||[]).slice(0,8).map(x=>'<div class=\"saved\"><a href=\"'+x.link+'\" target=\"_blank\" rel=\"noopener\">'+esc(x.title)+'</a><div class=\"small\">'+esc(x.source||'')+'</div></div>').join('')}).catch(()=>{})}"""
+          new2="""function renderTopics(d){document.getElementById('topicUpdated').textContent=d.updated_at?'更新 '+new Date(d.updated_at).toLocaleString('ja-JP'):'更新情報なし';document.getElementById('topicThemes').innerHTML=(d.themes||[]).slice(0,6).map(x=>'<span class=\"tag\">'+esc(x.name)+' '+x.count+'</span>').join(' ');document.getElementById('topicHeadlines').innerHTML=(d.headlines||[]).slice(0,8).map(x=>'<div class=\"saved\"><a href=\"'+esc(x.link||'#')+'\" target=\"_blank\" rel=\"noopener\">'+esc(x.title)+'</a><div class=\"small\">'+esc(x.source||'')+'</div></div>').join('')}function loadTopics(){fetchWithTimeout('data/topic-update.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(d=>{cacheSet('nisaTopicCache',d);renderTopics(d)}).catch(()=>{const d=cacheGet('nisaTopicCache',null);if(d)renderTopics(d);else document.getElementById('topicUpdated').textContent='最新情報を取得できません。'})}"""
+          if old2 in s:s=s.replace(old2,new2)
+          s=s.replace("setInterval(updateAllPrices,30000);", "setInterval(updateAllPrices,300000);")
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Validate app data before commit
+        run: |
+          python - <<'PY'
+          import json
+          for path,key in [('data/topic-update.json','headlines'),('data/hot-stocks.json','stocks')]:
+              with open(path,encoding='utf-8') as f:d=json.load(f)
+              assert isinstance(d.get(key),list), path+' invalid'
+          print('data validation OK')
+          PY
       - name: Commit update
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/topic-update.json data/hot-stocks.json index.html
-          git diff --cached --quiet || git commit -m 'chore: rank hot stocks by confidence'
+          git diff --cached --quiet || git commit -m 'chore: harden app for long-term use'
           git push
