@@ -1,3 +1,4 @@
+# v5 hot-stock trigger
 name: Update topic data
 on:
   schedule:
@@ -24,8 +25,7 @@ jobs:
           for q in queries:
               url='https://news.google.com/rss/search?q='+urllib.parse.quote(q)+'&hl=ja&gl=JP&ceid=JP:ja'
               try:
-                  data=urllib.request.urlopen(url,timeout=20).read()
-                  root=ET.fromstring(data)
+                  data=urllib.request.urlopen(url,timeout=20).read(); root=ET.fromstring(data)
                   for it in root.findall('./channel/item')[:10]:
                       title=unescape((it.findtext('title') or '').strip()); link=(it.findtext('link') or '').strip(); pub=(it.findtext('pubDate') or '').strip(); source=it.findtext('source') or ''
                       if title and link: items.append({'title':title,'link':link,'pubDate':pub,'source':source})
@@ -34,8 +34,7 @@ jobs:
           for x in items:
               if x['title'] not in seen: seen.add(x['title']); unique.append(x)
           keywords={'AI':['AI','人工知能','生成AI'],'半導体':['半導体','メモリ','GPU'],'防衛':['防衛','ミサイル','安全保障'],'電力':['電力','原発','再生可能エネルギー'],'データセンター':['データセンター','データセンタ'],'宇宙':['宇宙','衛星','月面'],'レアアース':['レアアース','重要鉱物','海底資源'],'インフラ':['インフラ','建設','設備投資']}
-          text=' '.join(x['title'] for x in unique).lower()
-          themes=[]
+          text=' '.join(x['title'] for x in unique).lower(); themes=[]
           for name,ks in keywords.items():
               count=sum(text.count(k.lower()) for k in ks)
               if count: themes.append({'name':name,'count':count})
