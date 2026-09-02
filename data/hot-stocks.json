@@ -1,0 +1,15 @@
+{
+  "updated_at": "2026-09-02T00:00:00+00:00",
+  "stocks": [
+    {"name":"伊藤園（2593）","type":"個別株","theme":"本日の話題・ニュース","base":5,"down":-20,"up":20,"confidence":50,"symbol":"2593","rank":10,"reason":"第1四半期の進捗率が高いことなどで注目"},
+    {"name":"ZenmuTech（338A）","type":"個別株","theme":"本日の話題・ニュース","base":5,"down":-20,"up":20,"confidence":50,"symbol":"338A","rank":9,"reason":"サイバーセキュリティ事業開始で注目"},
+    {"name":"かどや製油（2612）","type":"個別株","theme":"本日の話題・ニュース","base":5,"down":-20,"up":20,"confidence":50,"symbol":"2612","rank":9,"reason":"ストップ高買い気配などで注目"},
+    {"name":"キオクシアHD（285A）","type":"個別株","theme":"本日の話題・ニュース","base":5,"down":-20,"up":20,"confidence":50,"symbol":"285A","rank":8,"reason":"TOPIX浮動株比率調整への期待などで注目"},
+    {"name":"IIJ（3774）","type":"個別株","theme":"本日の話題・ニュース","base":5,"down":-20,"up":20,"confidence":50,"symbol":"3774","rank":6,"reason":"レーティング変更で注目"},
+    {"name":"東プレ（5975）","type":"個別株","theme":"本日の話題・ニュース","base":5,"down":-20,"up":20,"confidence":50,"symbol":"5975","rank":6,"reason":"証券会社の評価変更で注目"},
+    {"name":"電通グループ（4324）","type":"個別株","theme":"本日の話題・ニュース","base":5,"down":-20,"up":20,"confidence":50,"symbol":"4324","rank":5,"reason":"証券会社の評価変更で注目"},
+    {"name":"日本システム技術（4323）","type":"個別株","theme":"本日の話題・ニュース","base":5,"down":-20,"up":20,"confidence":50,"symbol":"4323","rank":5,"reason":"TOPIXからの除外予想で注目"},
+    {"name":"unbanked（8746）","type":"個別株","theme":"本日の話題・ニュース","base":5,"down":-20,"up":20,"confidence":50,"symbol":"8746","rank":5,"reason":"事業再開などで注目"},
+    {"name":"マクアケ（4479）","type":"個別株","theme":"本日の話題・ニュース","base":5,"down":-20,"up":20,"confidence":50,"symbol":"4479","rank":5,"reason":"今期経常の上方修正で注目"}
+  ]
+}
