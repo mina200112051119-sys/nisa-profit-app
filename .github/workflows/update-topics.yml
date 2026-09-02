@@ -16,16 +16,10 @@ jobs:
       - name: Fetch Japanese market topics
         run: |
           python - <<'PY'
-          import json, urllib.request, xml.etree.ElementTree as ET
+          import json, urllib.request, urllib.parse, xml.etree.ElementTree as ET
           from datetime import datetime, timezone
           from html import unescape
-
-          queries = [
-            '日本株 AI 半導体',
-            '日本株 防衛 インフラ',
-            '日本株 電力 データセンター',
-            '日本株 宇宙 レアアース'
-          ]
+          queries = ['日本株 AI 半導体','日本株 防衛 インフラ','日本株 電力 データセンター','日本株 宇宙 レアアース']
           items=[]
           for q in queries:
               url='https://news.google.com/rss/search?q='+urllib.parse.quote(q)+'&hl=ja&gl=JP&ceid=JP:ja'
@@ -33,52 +27,33 @@ jobs:
                   data=urllib.request.urlopen(url,timeout=20).read()
                   root=ET.fromstring(data)
                   for it in root.findall('./channel/item')[:10]:
-                      title=unescape((it.findtext('title') or '').strip())
-                      link=(it.findtext('link') or '').strip()
-                      pub=(it.findtext('pubDate') or '').strip()
-                      source=it.findtext('source') or ''
-                      if title and link:
-                          items.append({'title':title,'link':link,'pubDate':pub,'source':source})
-              except Exception as e:
-                  print('feed error:', q, e)
+                      title=unescape((it.findtext('title') or '').strip()); link=(it.findtext('link') or '').strip(); pub=(it.findtext('pubDate') or '').strip(); source=it.findtext('source') or ''
+                      if title and link: items.append({'title':title,'link':link,'pubDate':pub,'source':source})
+              except Exception as e: print('feed error:',q,e)
           seen=set(); unique=[]
           for x in items:
-              k=x['title']
-              if k not in seen:
-                  seen.add(k); unique.append(x)
-          keywords={
-            'AI': ['AI','人工知能','生成AI'],
-            '半導体': ['半導体','メモリ','GPU'],
-            '防衛': ['防衛','ミサイル','安全保障'],
-            '電力': ['電力','原発','再生可能エネルギー'],
-            'データセンター': ['データセンター','データセンタ'],
-            '宇宙': ['宇宙','衛星','月面'],
-            'レアアース': ['レアアース','重要鉱物','海底資源'],
-            'インフラ': ['インフラ','建設','設備投資']
-          }
+              if x['title'] not in seen: seen.add(x['title']); unique.append(x)
+          keywords={'AI':['AI','人工知能','生成AI'],'半導体':['半導体','メモリ','GPU'],'防衛':['防衛','ミサイル','安全保障'],'電力':['電力','原発','再生可能エネルギー'],'データセンター':['データセンター','データセンタ'],'宇宙':['宇宙','衛星','月面'],'レアアース':['レアアース','重要鉱物','海底資源'],'インフラ':['インフラ','建設','設備投資']}
           text=' '.join(x['title'] for x in unique).lower()
-          themes=sorted([
-              {'name':name,'count':sum(text.count(k.lower()) for k in ks)}
-              for name,ks in keywords.items()
-              if sum(text.count(k.lower()) for k in ks)>0
-          ], key=lambda x:x['count'], reverse=True)
+          themes=[]
+          for name,ks in keywords.items():
+              count=sum(text.count(k.lower()) for k in ks)
+              if count: themes.append({'name':name,'count':count})
+          themes.sort(key=lambda x:x['count'],reverse=True)
           out={'updated_at':datetime.now(timezone.utc).isoformat(),'headlines':unique[:25],'themes':themes}
-          import os
-          os.makedirs('data',exist_ok=True)
-          with open('data/topic-update.json','w',encoding='utf-8') as f:
-              json.dump(out,f,ensure_ascii=False,indent=2)
+          import os; os.makedirs('data',exist_ok=True)
+          with open('data/topic-update.json','w',encoding='utf-8') as f: json.dump(out,f,ensure_ascii=False,indent=2)
           PY
       - name: Add topic panel to app
         run: |
           python - <<'PY'
           from pathlib import Path
-          p=Path('index.html')
-          s=p.read_text(encoding='utf-8')
-          marker='<!-- AUTO TOPICS -->'
-          if marker not in s:
-              panel='''<section id="topics" class="hidden"><div class="card"><h2>最新の話題</h2><div id="topicUpdated" class="small">読み込み中…</div><div id="topicThemes" class="quick"></div><div id="topicHeadlines"></div></div></section>'''
+          p=Path('index.html'); s=p.read_text(encoding='utf-8')
+          if 'id="topicHeadlines"' not in s:
+              panel='''<section id="topics"><div class="card"><h2>最新の話題</h2><div id="topicUpdated" class="small">読み込み中…</div><div id="topicThemes" class="quick"></div><div id="topicHeadlines"></div></div></section>'''
               s=s.replace('</main>',panel+'</main>')
-              s=s.replace('</script></body>', '''function loadTopics(){fetch('data/topic-update.json?v='+Date.now()).then(r=>r.json()).then(d=>{const u=document.getElementById('topicUpdated');const t=document.getElementById('topicThemes');const h=document.getElementById('topicHeadlines');if(!u)return;u.textContent=d.updated_at?'更新 '+new Date(d.updated_at).toLocaleString('ja-JP'):'更新情報なし';t.innerHTML=(d.themes||[]).slice(0,6).map(x=>'<span class="tag">'+esc(x.name)+' '+x.count+'</span>').join(' ');h.innerHTML=(d.headlines||[]).slice(0,8).map(x=>'<div class="saved"><a href="'+esc(x.link)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a><div class="small">'+esc(x.source||'')+'</div></div>').join('')||'<p class="small">まだ話題データがありません。</p>'}).catch(()=>{const u=document.getElementById('topicUpdated');if(u)u.textContent='話題データを取得できませんでした。'})}loadTopics();setInterval(loadTopics,3600000);\n</script></body>''')
+              script='''function loadTopics(){fetch('data/topic-update.json?v='+Date.now()).then(r=>r.json()).then(d=>{const u=document.getElementById('topicUpdated'),t=document.getElementById('topicThemes'),h=document.getElementById('topicHeadlines');if(!u)return;u.textContent=d.updated_at?'更新 '+new Date(d.updated_at).toLocaleString('ja-JP'):'更新情報なし';t.innerHTML=(d.themes||[]).slice(0,6).map(x=>'<span class="tag">'+esc(x.name)+' '+x.count+'</span>').join(' ');h.innerHTML=(d.headlines||[]).slice(0,8).map(x=>'<div class="saved"><a href="'+x.link+'" target="_blank" rel="noopener">'+esc(x.title)+'</a><div class="small">'+esc(x.source||'')+'</div></div>').join('')||'<p class="small">まだ話題データがありません。</p>'}).catch(()=>{const u=document.getElementById('topicUpdated');if(u)u.textContent='話題データを取得できませんでした。'})}loadTopics();setInterval(loadTopics,3600000);'''
+              s=s.replace('</script></body>',''+script+'</script></body>')
               p.write_text(s,encoding='utf-8')
           PY
       - name: Commit update
