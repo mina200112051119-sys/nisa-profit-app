@@ -1,4 +1,4 @@
-# v6 dynamic hot stocks
+# v7 dynamic hot stocks
 name: Update topic data
 on:
   schedule:
@@ -18,159 +18,77 @@ jobs:
       - name: Fetch Japanese market topics and hot stocks
         run: |
           python - <<'PY'
-          import json, urllib.request, urllib.parse, xml.etree.ElementTree as ET, re
+          import json, urllib.request, urllib.parse, xml.etree.ElementTree as ET, re, os
           from datetime import datetime, timezone
           from html import unescape
-
           def get(url):
               req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
               return urllib.request.urlopen(req,timeout=25).read()
-
-          queries = [
-              '日本株 注目銘柄 今日', '日本株 話題銘柄 今日',
-              '日本株 AI 半導体', '日本株 防衛 インフラ',
-              '日本株 電力 データセンター', '日本株 宇宙 レアアース'
-          ]
+          queries=['日本株 注目銘柄 今日','日本株 話題銘柄 今日','日本株 AI 半導体','日本株 防衛 インフラ','日本株 電力 データセンター','日本株 宇宙 レアアース']
           items=[]
           for q in queries:
-              url='https://news.google.com/rss/search?q='+urllib.parse.quote(q)+'&hl=ja&gl=JP&ceid=JP:ja'
               try:
-                  root=ET.fromstring(get(url))
+                  root=ET.fromstring(get('https://news.google.com/rss/search?q='+urllib.parse.quote(q)+'&hl=ja&gl=JP&ceid=JP:ja'))
                   for it in root.findall('./channel/item')[:12]:
-                      title=unescape((it.findtext('title') or '').strip())
-                      link=(it.findtext('link') or '').strip()
-                      pub=(it.findtext('pubDate') or '').strip()
-                      source=it.findtext('source') or ''
+                      title=unescape((it.findtext('title') or '').strip()); link=(it.findtext('link') or '').strip(); pub=(it.findtext('pubDate') or '').strip(); source=it.findtext('source') or ''
                       if title and link: items.append({'title':title,'link':link,'pubDate':pub,'source':source})
-              except Exception as e: print('feed error:',q,e)
-
-          # 日本証券新聞の個別株速報から「会社名(コード)」を取得
+              except Exception as e: print('feed error',q,e)
           hot={}
           try:
               html=get('https://www.nsjournal.jp/category/nsj_short_live/121-1/').decode('utf-8','ignore')
-              text=re.sub(r'<[^>]+>',' ',html)
-              text=unescape(re.sub(r'\\s+',' ',text))
-              for m in re.finditer(r'([A-Za-z0-9一-龯ぁ-んァ-ヶー＆・\.\s]{2,40}?)\\((\\d{3,4}[A-Z]?)・(?:東[PSG]|[PSG])\\)',text):
-                  name=re.sub(r'\\s+','',m.group(1)).strip()
-                  code=m.group(2)
+              text=unescape(re.sub(r'\s+',' ',re.sub(r'<[^>]+>',' ',html)))
+              pat=r'([A-Za-z0-9一-龯ぁ-んァ-ヶー＆・.\s]{2,40}?)\((\d{3,4}[A-Z]?)・(?:東[PSG]|[PSG])\)'
+              for m in re.finditer(pat,text):
+                  name=re.sub(r'\s+','',m.group(1)).strip(' ・'); code=m.group(2)
                   if name and code and not name.startswith(('ＮＳＪ','Free')):
                       hot.setdefault(code,{'name':name,'symbol':code,'mentions':0,'reasons':[]})['mentions']+=1
-          except Exception as e: print('NSJ error:',e)
-
-          # ニュース見出しにコードが直接入っている場合も拾う
+          except Exception as e: print('NSJ error',e)
+          # Google News見出しからコードが取れるものも追加
           for x in items:
               title=x['title']
-              for m in re.finditer(r'([A-Za-z0-9一-龯ぁ-んァ-ヶー＆・\.]{2,40})[ 　]*[<(（](\\d{3,4}[A-Z]?)[>）)・]',title):
-                  name=m.group(1).strip(' ・')
-                  code=m.group(2)
+              for m in re.finditer(r'([A-Za-z0-9一-龯ぁ-んァ-ヶー＆・.]{2,40})\s*[<(（](\d{3,4}[A-Z]?)[>）)・]',title):
+                  name=m.group(1).strip(' ・'); code=m.group(2)
                   if name and code:
-                      hot.setdefault(code,{'name':name,'symbol':code,'mentions':0,'reasons':[]})['mentions']+=1
-                      hot[code]['reasons'].append(title[:90])
-
-          # 「注目」「急騰」「ストップ高」などの見出しに出た銘柄を優先
-          signal_words=['注目','話題','急騰','ストップ高','上方修正','自社株買い','好材料','買い気配','高値','材料']
-          for code,v in hot.items():
-              score=v['mentions']
-              for r in v['reasons']:
-                  score += sum(1 for w in signal_words if w in r)
-              v['rank']=score
-
-          hotlist=sorted(hot.values(),key=lambda x:(x['rank'],x['mentions']),reverse=True)[:30]
+                      hot.setdefault(code,{'name':name,'symbol':code,'mentions':0,'reasons':[]})['mentions']+=1; hot[code]['reasons'].append(title[:100])
+          signals=['注目','話題','急騰','ストップ高','上方修正','自社株買い','好材料','買い気配','高値','材料']
+          for v in hot.values(): v['rank']=v['mentions']+sum(sum(w in r for w in signals) for r in v['reasons'])
           dynamic=[]
-          for v in hotlist:
-              dynamic.append({
-                  'name':v['name']+'（'+v['symbol']+'）',
-                  'type':'個別株',
-                  'theme':'本日の話題・ニュース',
-                  'base':5,
-                  'down':-20,
-                  'up':20,
-                  'confidence':50,
-                  'symbol':v['symbol'],
-                  'rank':v['rank'],
-                  'reason':v['reasons'][0] if v['reasons'] else '本日の市場ニュースで掲載'
-              })
-
-          keywords={'AI':['AI','人工知能','生成AI'],'半導体':['半導体','メモリ','GPU'],'防衛':['防衛','ミサイル','安全保障'],'電力':['電力','原発','再生可能エネルギー'],'データセンター':['データセンター','データセンタ'],'宇宙':['宇宙','衛星','月面'],'レアアース':['レアアース','重要鉱物','海底資源'],'インフラ':['インフラ','建設','設備投資']}
+          for v in sorted(hot.values(),key=lambda x:(x['rank'],x['mentions']),reverse=True)[:30]:
+              dynamic.append({'name':v['name']+'（'+v['symbol']+'）','type':'個別株','theme':'本日の話題・ニュース','base':5,'down':-20,'up':20,'confidence':50,'symbol':v['symbol'],'rank':v['rank'],'reason':v['reasons'][0] if v['reasons'] else '本日の市場ニュースで掲載'})
           seen=set(); unique=[]
           for x in items:
               if x['title'] not in seen: seen.add(x['title']); unique.append(x)
-          text=' '.join(x['title'] for x in unique).lower()
-          themes=[]
+          keywords={'AI':['AI','人工知能','生成AI'],'半導体':['半導体','メモリ','GPU'],'防衛':['防衛','ミサイル','安全保障'],'電力':['電力','原発','再生可能エネルギー'],'データセンター':['データセンター','データセンタ'],'宇宙':['宇宙','衛星','月面'],'レアアース':['レアアース','重要鉱物','海底資源'],'インフラ':['インフラ','建設','設備投資']}
+          text=' '.join(x['title'] for x in unique).lower(); themes=[]
           for name,ks in keywords.items():
               count=sum(text.count(k.lower()) for k in ks)
               if count: themes.append({'name':name,'count':count})
           themes.sort(key=lambda x:x['count'],reverse=True)
-          osdata={'updated_at':datetime.now(timezone.utc).isoformat(),'headlines':unique[:25],'themes':themes}
-          import os; os.makedirs('data',exist_ok=True)
-          with open('data/topic-update.json','w',encoding='utf-8') as f: json.dump(osdata,f,ensure_ascii=False,indent=2)
-          with open('data/hot-stocks.json','w',encoding='utf-8') as f: json.dump({'updated_at':osdata['updated_at'],'stocks':dynamic},f,ensure_ascii=False,indent=2)
+          updated=datetime.now(timezone.utc).isoformat(); os.makedirs('data',exist_ok=True)
+          with open('data/topic-update.json','w',encoding='utf-8') as f: json.dump({'updated_at':updated,'headlines':unique[:25],'themes':themes},f,ensure_ascii=False,indent=2)
+          with open('data/hot-stocks.json','w',encoding='utf-8') as f: json.dump({'updated_at':updated,'stocks':dynamic},f,ensure_ascii=False,indent=2)
           print('dynamic hot stocks:',len(dynamic))
-          print(json.dumps(dynamic[:10],ensure_ascii=False))
           PY
-
-      - name: Add automatic hot-stock search to app
+      - name: Patch app for dynamic hot-stock search
         run: |
           python - <<'PY'
           from pathlib import Path
           p=Path('index.html'); s=p.read_text(encoding='utf-8')
-
-          # 「今話題」ボタン
           if "quickSearch('今話題のもの')" not in s:
               s=s.replace("<button type=\"button\" onclick=\"quickSearch('レアアース')\">レアアース</button>","<button type=\"button\" onclick=\"quickSearch('レアアース')\">レアアース</button><button type=\"button\" onclick=\"quickSearch('今話題のもの')\">今話題</button>")
-
-          # 動的データを読み込むコードを一度だけ追加
-          marker='/* dynamic-hot-v1 */'
+          marker='/* dynamic-hot-v2 */'
           if marker not in s:
-              addon=r'''/* dynamic-hot-v1 */
+              addon=r'''/* dynamic-hot-v2 */
 let dynamicHot=[];
-function dynamicAll(){
-  const a=list.concat(dynamicHot||[]), seen=new Set();
-  return a.filter(x=>{const k=(x.name||'')+'|'+(x.symbol||'');if(seen.has(k))return false;seen.add(k);return true;});
-}
-function registerDynamic(i){
-  const s=dynamicHot[Number(i)];
-  if(!s)return;
-  const canonical=s.name;
-  if(products.some(p=>clean(p.name)===clean(canonical))){
-    document.getElementById('result').innerHTML='<p><b>'+esc(canonical)+'</b>は登録済みです。</p>';
-  }else{
-    products.push({...s});save();document.getElementById('result').innerHTML='<p><b>'+esc(canonical)+'</b>を登録しました。</p>';
-  }
-  show('home','nHome');
-}
-function searchDynamic(){
-  const el=document.getElementById('searchBox');
-  if(!el)return;
-  const raw=(el.value||'').replace(/\s+/g,'').toLowerCase();
-  const all=dynamicAll();
-  const hotWords=['今話題のもの','今話題','話題のもの','話題'].map(x=>x.toLowerCase());
-  const hits=hotWords.includes(raw)
-    ? all.filter(x=>(x.theme||'').includes('本日の話題'))
-    : all.filter(x=>!raw||String(x.name).toLowerCase().replace(/\s+/g,'').includes(raw)||String(x.theme).toLowerCase().replace(/\s+/g,'').includes(raw)||String(x.type).toLowerCase().replace(/\s+/g,'').includes(raw));
-  document.getElementById('searchResult').innerHTML='<p class="small">'+hits.length+'件表示　※今話題の銘柄は自動更新</p>'+hits.map(x=>{
-    const i=dynamicHot.indexOf(x);
-    const dyn=i>=0;
-    return '<div class="saved"><b>'+esc(x.name)+'</b><br><span class="tag">'+esc(x.theme||'')+'</span>'+(x.reason?'<div class="small">'+esc(x.reason)+'</div>':'')+'<button class="full" type="button" '+(dyn?'data-dyn-register="'+i+'"':'data-register="'+list.indexOf(x)+'"')+'>この商品を登録</button></div>';
-  }).join('');
-  document.querySelectorAll('[data-dyn-register]').forEach(b=>b.onclick=()=>registerDynamic(b.dataset.dynRegister));
-  document.querySelectorAll('[data-register]').forEach(b=>b.onclick=()=>registerStarter(b.dataset.register));
-}
-function loadHotStocks(){
-  fetch('data/hot-stocks.json?v='+Date.now()).then(r=>r.json()).then(d=>{
-    dynamicHot=Array.isArray(d.stocks)?d.stocks:[];
-    if(document.getElementById('searchBox'))searchDynamic();
-  }).catch(()=>{dynamicHot=[];if(document.getElementById('searchBox'))searchDynamic();});
-}
-const _oldSearchProducts=searchProducts;
-searchProducts=searchDynamic;
-loadHotStocks();
-setInterval(loadHotStocks,1800000);
+function dynamicAll(){const a=list.concat(dynamicHot||[]),seen=new Set();return a.filter(x=>{const k=(x.name||'')+'|'+(x.symbol||'');if(seen.has(k))return false;seen.add(k);return true;});}
+function registerDynamic(i){const s=dynamicHot[Number(i)];if(!s)return;const n=s.name;if(products.some(p=>clean(p.name)===clean(n))){document.getElementById('result').innerHTML='<p><b>'+esc(n)+'</b>は登録済みです。</p>';}else{products.push({...s});save();document.getElementById('result').innerHTML='<p><b>'+esc(n)+'</b>を登録しました。</p>'}show('home','nHome');}
+function searchDynamic(){const el=document.getElementById('searchBox');if(!el)return;const q=(el.value||'').replace(/\s+/g,'').toLowerCase(),all=dynamicAll(),hotWords=['今話題のもの','今話題','話題のもの','話題'];const hits=hotWords.includes(q)?all.filter(x=>(x.theme||'').includes('本日の話題')):all.filter(x=>!q||String(x.name).toLowerCase().replace(/\s+/g,'').includes(q)||String(x.theme).toLowerCase().replace(/\s+/g,'').includes(q)||String(x.type).toLowerCase().replace(/\s+/g,'').includes(q));document.getElementById('searchResult').innerHTML='<p class="small">'+hits.length+'件表示　※今話題の銘柄は自動更新</p>'+hits.map(x=>{const i=dynamicHot.indexOf(x),dyn=i>=0;return '<div class="saved"><b>'+esc(x.name)+'</b><br><span class="tag">'+esc(x.theme||'')+'</span>'+(x.reason?'<div class="small">'+esc(x.reason)+'</div>':'')+'<button class="full" type="button" '+(dyn?'data-dyn-register="'+i+'"':'data-register="'+list.indexOf(x)+'"')+'>この商品を登録</button></div>'}).join('');document.querySelectorAll('[data-dyn-register]').forEach(b=>b.onclick=()=>registerDynamic(b.dataset.dynRegister));document.querySelectorAll('[data-register]').forEach(b=>b.onclick=()=>registerStarter(b.dataset.register));}
+function loadHotStocks(){fetch('data/hot-stocks.json?v='+Date.now()).then(r=>r.json()).then(d=>{dynamicHot=Array.isArray(d.stocks)?d.stocks:[];searchDynamic();}).catch(()=>{dynamicHot=[];searchDynamic();});}
+searchProducts=searchDynamic;loadHotStocks();setInterval(loadHotStocks,1800000);
 '''
               s=s.replace('</script></body>',addon+'</script></body>')
           p.write_text(s,encoding='utf-8')
           PY
-
       - name: Commit update
         run: |
           git config user.name 'github-actions[bot]'
