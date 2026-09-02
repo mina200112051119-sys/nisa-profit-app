@@ -1,4 +1,4 @@
-# v7 dynamic hot stocks
+# v8 dynamic hot stocks data only
 name: Update topic data
 on:
   schedule:
@@ -43,18 +43,14 @@ jobs:
                   if name and code and not name.startswith(('ＮＳＪ','Free')):
                       hot.setdefault(code,{'name':name,'symbol':code,'mentions':0,'reasons':[]})['mentions']+=1
           except Exception as e: print('NSJ error',e)
-          # Google News見出しからコードが取れるものも追加
           for x in items:
-              title=x['title']
-              for m in re.finditer(r'([A-Za-z0-9一-龯ぁ-んァ-ヶー＆・.]{2,40})\s*[<(（](\d{3,4}[A-Z]?)[>）)・]',title):
+              for m in re.finditer(r'([A-Za-z0-9一-龯ぁ-んァ-ヶー＆・.]{2,40})\s*[<(（](\d{3,4}[A-Z]?)[>）)・]',x['title']):
                   name=m.group(1).strip(' ・'); code=m.group(2)
                   if name and code:
-                      hot.setdefault(code,{'name':name,'symbol':code,'mentions':0,'reasons':[]})['mentions']+=1; hot[code]['reasons'].append(title[:100])
+                      hot.setdefault(code,{'name':name,'symbol':code,'mentions':0,'reasons':[]})['mentions']+=1; hot[code]['reasons'].append(x['title'][:100])
           signals=['注目','話題','急騰','ストップ高','上方修正','自社株買い','好材料','買い気配','高値','材料']
           for v in hot.values(): v['rank']=v['mentions']+sum(sum(w in r for w in signals) for r in v['reasons'])
-          dynamic=[]
-          for v in sorted(hot.values(),key=lambda x:(x['rank'],x['mentions']),reverse=True)[:30]:
-              dynamic.append({'name':v['name']+'（'+v['symbol']+'）','type':'個別株','theme':'本日の話題・ニュース','base':5,'down':-20,'up':20,'confidence':50,'symbol':v['symbol'],'rank':v['rank'],'reason':v['reasons'][0] if v['reasons'] else '本日の市場ニュースで掲載'})
+          dynamic=[{'name':v['name']+'（'+v['symbol']+'）','type':'個別株','theme':'本日の話題・ニュース','base':5,'down':-20,'up':20,'confidence':50,'symbol':v['symbol'],'rank':v['rank'],'reason':v['reasons'][0] if v['reasons'] else '本日の市場ニュースで掲載'} for v in sorted(hot.values(),key=lambda x:(x['rank'],x['mentions']),reverse=True)[:30]]
           seen=set(); unique=[]
           for x in items:
               if x['title'] not in seen: seen.add(x['title']); unique.append(x)
@@ -69,30 +65,10 @@ jobs:
           with open('data/hot-stocks.json','w',encoding='utf-8') as f: json.dump({'updated_at':updated,'stocks':dynamic},f,ensure_ascii=False,indent=2)
           print('dynamic hot stocks:',len(dynamic))
           PY
-      - name: Patch app for dynamic hot-stock search
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          p=Path('index.html'); s=p.read_text(encoding='utf-8')
-          if "quickSearch('今話題のもの')" not in s:
-              s=s.replace("<button type=\"button\" onclick=\"quickSearch('レアアース')\">レアアース</button>","<button type=\"button\" onclick=\"quickSearch('レアアース')\">レアアース</button><button type=\"button\" onclick=\"quickSearch('今話題のもの')\">今話題</button>")
-          marker='/* dynamic-hot-v2 */'
-          if marker not in s:
-              addon=r'''/* dynamic-hot-v2 */
-let dynamicHot=[];
-function dynamicAll(){const a=list.concat(dynamicHot||[]),seen=new Set();return a.filter(x=>{const k=(x.name||'')+'|'+(x.symbol||'');if(seen.has(k))return false;seen.add(k);return true;});}
-function registerDynamic(i){const s=dynamicHot[Number(i)];if(!s)return;const n=s.name;if(products.some(p=>clean(p.name)===clean(n))){document.getElementById('result').innerHTML='<p><b>'+esc(n)+'</b>は登録済みです。</p>';}else{products.push({...s});save();document.getElementById('result').innerHTML='<p><b>'+esc(n)+'</b>を登録しました。</p>'}show('home','nHome');}
-function searchDynamic(){const el=document.getElementById('searchBox');if(!el)return;const q=(el.value||'').replace(/\s+/g,'').toLowerCase(),all=dynamicAll(),hotWords=['今話題のもの','今話題','話題のもの','話題'];const hits=hotWords.includes(q)?all.filter(x=>(x.theme||'').includes('本日の話題')):all.filter(x=>!q||String(x.name).toLowerCase().replace(/\s+/g,'').includes(q)||String(x.theme).toLowerCase().replace(/\s+/g,'').includes(q)||String(x.type).toLowerCase().replace(/\s+/g,'').includes(q));document.getElementById('searchResult').innerHTML='<p class="small">'+hits.length+'件表示　※今話題の銘柄は自動更新</p>'+hits.map(x=>{const i=dynamicHot.indexOf(x),dyn=i>=0;return '<div class="saved"><b>'+esc(x.name)+'</b><br><span class="tag">'+esc(x.theme||'')+'</span>'+(x.reason?'<div class="small">'+esc(x.reason)+'</div>':'')+'<button class="full" type="button" '+(dyn?'data-dyn-register="'+i+'"':'data-register="'+list.indexOf(x)+'"')+'>この商品を登録</button></div>'}).join('');document.querySelectorAll('[data-dyn-register]').forEach(b=>b.onclick=()=>registerDynamic(b.dataset.dynRegister));document.querySelectorAll('[data-register]').forEach(b=>b.onclick=()=>registerStarter(b.dataset.register));}
-function loadHotStocks(){fetch('data/hot-stocks.json?v='+Date.now()).then(r=>r.json()).then(d=>{dynamicHot=Array.isArray(d.stocks)?d.stocks:[];searchDynamic();}).catch(()=>{dynamicHot=[];searchDynamic();});}
-searchProducts=searchDynamic;loadHotStocks();setInterval(loadHotStocks,1800000);
-'''
-              s=s.replace('</script></body>',addon+'</script></body>')
-          p.write_text(s,encoding='utf-8')
-          PY
-      - name: Commit update
+      - name: Commit data
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/topic-update.json data/hot-stocks.json index.html
-          git diff --cached --quiet || git commit -m 'chore: refresh dynamic hot stocks'
+          git add data/topic-update.json data/hot-stocks.json
+          git diff --cached --quiet || git commit -m 'chore: refresh market topics and hot stocks'
           git push
