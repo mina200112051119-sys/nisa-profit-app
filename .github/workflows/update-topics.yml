@@ -44,7 +44,7 @@ jobs:
           import os; os.makedirs('data',exist_ok=True)
           with open('data/topic-update.json','w',encoding='utf-8') as f: json.dump(out,f,ensure_ascii=False,indent=2)
           PY
-      - name: Add topic panel to app
+      - name: Add topic panel and hot-stock search to app
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -53,8 +53,16 @@ jobs:
               panel='''<section id="topics"><div class="card"><h2>最新の話題</h2><div id="topicUpdated" class="small">読み込み中…</div><div id="topicThemes" class="quick"></div><div id="topicHeadlines"></div></div></section>'''
               s=s.replace('</main>',panel+'</main>')
               script='''function loadTopics(){fetch('data/topic-update.json?v='+Date.now()).then(r=>r.json()).then(d=>{const u=document.getElementById('topicUpdated'),t=document.getElementById('topicThemes'),h=document.getElementById('topicHeadlines');if(!u)return;u.textContent=d.updated_at?'更新 '+new Date(d.updated_at).toLocaleString('ja-JP'):'更新情報なし';t.innerHTML=(d.themes||[]).slice(0,6).map(x=>'<span class="tag">'+esc(x.name)+' '+x.count+'</span>').join(' ');h.innerHTML=(d.headlines||[]).slice(0,8).map(x=>'<div class="saved"><a href="'+x.link+'" target="_blank" rel="noopener">'+esc(x.title)+'</a><div class="small">'+esc(x.source||'')+'</div></div>').join('')||'<p class="small">まだ話題データがありません。</p>'}).catch(()=>{const u=document.getElementById('topicUpdated');if(u)u.textContent='話題データを取得できませんでした。'})}loadTopics();setInterval(loadTopics,3600000);'''
-              s=s.replace('</script></body>',''+script+'</script></body>')
-              p.write_text(s,encoding='utf-8')
+              s=s.replace('</script></body>',script+'</script></body>')
+          hot=""";const hot=[['伊藤園（2593）','個別株','本日の話題・上昇',8,-20,20,60,'2593'],['ZenmuTech（338A）','個別株','本日の話題・サイバーセキュリティ',12,-35,40,52,'338A'],['かどや製油（2612）','個別株','本日の話題・食品・材料',7,-20,25,50,'2612'],['FFRIセキュリティ（3692）','個別株','本日の話題・サイバーセキュリティ',12,-30,35,58,'3692'],['キオクシアホールディングス（285A）','個別株','半導体・本日の話題',14,-35,40,55,'285A'],['フジクラ（5803）','個別株','データセンター・電力インフラ・本日の話題',12,-25,30,61,'5803']];"""
+          if 'const hot=' not in s:
+              s=s.replace('const list=starter.map(a=>({name:a[0],type:a[1],theme:a[2],base:a[3],down:a[4],up:a[5],confidence:a[6],symbol:a[7]}));','const list=starter.concat(hot).map(a=>({name:a[0],type:a[1],theme:a[2],base:a[3],down:a[4],up:a[5],confidence:a[6],symbol:a[7]}));') if 'const hot=' in s else s
+              s=s.replace("const starter=[", "const starter=[")
+          marker="const list=starter.map(a=>({name:a[0],type:a[1],theme:a[2],base:a[3],down:a[4],up:a[5],confidence:a[6],symbol:a[7]}));"
+          if 'const hot=' in s and marker in s:
+              s=s.replace(marker,"const list=starter.concat(hot).map(a=>({name:a[0],type:a[1],theme:a[2],base:a[3],down:a[4],up:a[5],confidence:a[6],symbol:a[7]}));")
+          s=s.replace("function searchProducts(){const q=(document.getElementById('searchBox').value||'').trim().toLowerCase(),hits=list.filter(x=>!q||x.name.toLowerCase().includes(q)||x.theme.toLowerCase().includes(q)||x.type.toLowerCase().includes(q));", "function searchProducts(){const q=(document.getElementById('searchBox').value||'').trim().toLowerCase(),hotWords=['今話題のもの','今話題','話題のもの','話題'],hits=hotWords.includes(q)?list.filter(x=>(x.theme||'').includes('本日の話題')):list.filter(x=>!q||x.name.toLowerCase().includes(q)||x.theme.toLowerCase().includes(q)||x.type.toLowerCase().includes(q));")
+          p.write_text(s,encoding='utf-8')
           PY
       - name: Commit update
         run: |
