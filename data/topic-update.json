@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T13:15:00.093285+00:00",
+  "updated_at": "2026-09-02T13:25:44.372455+00:00",
   "headlines": [
     {
       "title": "【日本株】AI革命を支える｢AI･半導体｣関連の2銘柄！株価は乱高下しても業績成長に勢いがある｢キオクシアHD｣、AI半導体テスタの覇者｢アドバンテスト｣に注目 - ダイヤモンド・オンライン",
@@ -26,10 +26,10 @@
       "source": "日本経済新聞"
     },
     {
-      "title": "31日寄り付き直後の日本株は反落､半導体関連株に売り - 四季報オンライン",
+      "title": "31日寄り付き直後の日本株は反落､半導体関連株に売り - shikiho.toyokeizai.net",
       "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFAwaDdxVHNFOE0zcUdqeUpoZkpGRGV5cmxSb2dmUGhxbThNdHN0OUx3WVlQY3pNd0RIM2xzeDFwWDJFck9FQWdMMTctTVhWQVhLaktmOTFRQQ?oc=5",
       "pubDate": "Mon, 31 Aug 2026 01:10:00 GMT",
-      "source": "四季報オンライン"
+      "source": "shikiho.toyokeizai.net"
     },
     {
       "title": "日経ＣＮＢＣセミナー 「AI半導体株価『年前半でピークアウトか』｣ ＮＱＮ張間氏 - QUICK Money World",
@@ -68,10 +68,10 @@
       "source": "ダイヤモンド・オンライン"
     },
     {
-      "title": "防衛費増額の追い風期待！来期増収増益予想の割安18銘柄 - 四季報オンライン",
+      "title": "防衛費増額の追い風期待！来期増収増益予想の割安18銘柄 - shikiho.toyokeizai.net",
       "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1LUzB5NTNvT21KOUZQbXVNWDJKTzM0M0V1TTVIQW9vbFdhZE8wY0ZtX2plbWNrVmk5ZnlPWkxHTC1ZbFJFWmszQlowTUhrdnVRLTVGT0Ftbw?oc=5",
       "pubDate": "Wed, 18 Feb 2026 08:00:00 GMT",
-      "source": "四季報オンライン"
+      "source": "shikiho.toyokeizai.net"
     },
     {
       "title": "防衛関連株 本命株・出遅れ株 一覧 - かりんの株レポ",
@@ -155,7 +155,7 @@
   "themes": [
     {
       "name": "AI",
-      "count": 21
+      "count": 24
     },
     {
       "name": "データセンター",
