@@ -9,18 +9,18 @@
 <title>新NISA利益予測</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f5f7;color:#202124;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif}
-header{background:#c9151e;color:#fff;padding:18px}header b{font-size:20px}header p{margin:5px 0 0;font-size:12px;opacity:.9}
-main{max-width:720px;margin:auto;padding:14px 12px 90px}.card{background:#fff;border-radius:17px;padding:17px;margin-bottom:12px;box-shadow:0 1px 6px #0001}
-h2{margin:0 0 12px;font-size:21px}h3{margin:18px 0 8px;font-size:17px}.small{font-size:12px;color:#777;line-height:1.6}.notice{background:#fff7d6;border-radius:13px;padding:12px;font-size:13px;line-height:1.6;margin-bottom:12px}
-input{width:100%;padding:13px;border:1px solid #ddd;border-radius:12px;font-size:16px;background:#fff}button{border:0;border-radius:12px;background:#c9151e;color:#fff;font-weight:700;padding:13px 15px;font-size:15px}.full{width:100%;margin-top:9px}
+header{background:#c9151e;color:#fff;padding:22px 18px}header b{font-size:24px}header p{margin:6px 0 0;font-size:14px;opacity:.95}
+main{max-width:720px;margin:auto;padding:14px 12px 95px}.card{background:#fff;border-radius:18px;padding:18px;margin-bottom:12px;box-shadow:0 1px 7px #0001}
+h2{margin:0 0 13px;font-size:22px}h3{margin:18px 0 8px;font-size:18px}.small{font-size:13px;color:#777;line-height:1.6}.notice{background:#fff7d6;border-radius:14px;padding:13px;font-size:14px;line-height:1.65;margin-bottom:13px}
+label{display:block;font-size:14px;font-weight:700;margin:12px 0 6px}input{width:100%;padding:14px;border:1px solid #ddd;border-radius:12px;font-size:16px;background:#fff}button{border:0;border-radius:12px;background:#c9151e;color:#fff;font-weight:700;padding:13px 15px;font-size:15px}.full{width:100%;margin-top:9px}
 .product{padding:14px 0;border-bottom:1px solid #eee}.product:last-child{border:0}.badge{display:inline-block;background:#eee;border-radius:99px;padding:4px 8px;font-size:11px;margin-top:5px}
-.empty{color:#777;font-size:13px}.saved{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #eee}.saved:last-child{border:0}.delete{background:#eee;color:#333;font-size:12px;padding:8px 10px}
-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;z-index:10;padding-bottom:env(safe-area-inset-bottom)}nav button{flex:1;background:transparent;color:#555;border-radius:0;font-size:12px;padding:11px 4px}nav button.active{color:#c9151e}
-.hidden{display:none}.result{margin-top:12px}
+.empty{color:#777;font-size:13px}.saved{padding:14px 0;border-bottom:1px solid #eee}.saved:last-child{border:0}.savedTop{display:flex;justify-content:space-between;gap:10px;align-items:center}.delete{background:#eee;color:#333;font-size:12px;padding:8px 10px;flex:none}.predict{margin-top:10px;width:100%}
+.result{margin-top:12px}.hidden{display:none}.prediction{background:#f8f8f8;border-radius:14px;padding:14px;margin-top:12px}.big{font-size:25px;font-weight:800}.profit{font-size:20px;font-weight:800;margin-top:5px}.row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #eee}.row:last-child{border:0}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;z-index:10;padding-bottom:env(safe-area-inset-bottom)}nav button{flex:1;background:transparent;color:#555;border-radius:0;font-size:13px;padding:12px 4px}nav button.active{color:#c9151e}
 </style>
 </head>
 <body>
-<header><b>新NISA利益予測</b><p>商品名だけで登録できるiPhone版</p></header>
+<header><b>新NISA利益予測</b><p>商品名だけで登録 → 金額を入れて利益予測</p></header>
 <main>
 <section id="home">
 <div class="card">
@@ -49,8 +49,9 @@ nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid 
 <section id="info" class="hidden">
 <div class="card">
 <h2>このアプリについて</h2>
-<p class="small">この版では、取引明細やCSVを取り込まず、商品名だけを登録します。</p>
-<p class="small">商品名だけでは、投資した金額や実際の利益額は計算できません。数字を勝手に作らず、必要な情報がない場合は表示しません。</p>
+<p class="small">取引明細やCSVを取り込まず、商品名だけを登録できます。</p>
+<p class="small">登録後に「利益予測」を押すと、毎月の積立額・期間・想定年利を入力して将来の金額を試算できます。</p>
+<p class="small">これはあくまで想定利回りによる計算です。実際の利益を保証するものではありません。</p>
 </div>
 </section>
 </main>
@@ -79,15 +80,24 @@ function addProduct(){
 function removeProduct(i){products.splice(i,1);save()}
 function render(){
  const el=document.getElementById('saved');
- el.innerHTML=products.length?products.map((x,i)=>'<div class="saved"><div><b>'+esc(x.name)+'</b><br><span class="small">'+esc(x.type)+'　｜　'+esc(x.nisa)+'</span></div><button class="delete" onclick="removeProduct('+i+')">削除</button></div>').join(''):'<p class="empty">まだ商品がありません。</p>';
+ el.innerHTML=products.length?products.map((x,i)=>'<div class="saved"><div class="savedTop"><div><b>'+esc(x.name)+'</b><br><span class="small">'+esc(x.type)+'　｜　'+esc(x.nisa)+'</span></div><button class="delete" onclick="removeProduct('+i+')">削除</button></div><button class="predict" onclick="openPredict('+i+')">この商品で利益予測</button><div id="form'+i+'" class="prediction hidden"><h3>利益予測</h3><label>毎月の積立額（円）</label><input id="monthly'+i+'" type="number" inputmode="numeric" min="0" placeholder="例：30000"><label>積立期間（年）</label><input id="years'+i+'" type="number" inputmode="numeric" min="1" step="1" placeholder="例：20"><label>想定年利（％）</label><input id="rate'+i+'" type="number" inputmode="decimal" min="0" step="0.1" placeholder="例：5"><button class="full" onclick="calculate('+i+')">計算する</button><div id="calc'+i+'"></div></div></div>').join(''):'<p class="empty">まだ商品がありません。</p>';
+}
+function openPredict(i){document.getElementById('form'+i).classList.toggle('hidden')}
+function calculate(i){
+ const monthly=Number(document.getElementById('monthly'+i).value);const years=Number(document.getElementById('years'+i).value);const rate=Number(document.getElementById('rate'+i).value);const out=document.getElementById('calc'+i);
+ if(monthly<=0||years<=0||rate<0||!Number.isFinite(monthly)||!Number.isFinite(years)||!Number.isFinite(rate)){out.innerHTML='<p class="empty">毎月の積立額・期間・想定年利を正しく入力してください。</p>';return}
+ const months=Math.round(years*12);const r=rate/100/12;const future=r===0?monthly*months:monthly*((Math.pow(1+r,months)-1)/r);const principal=monthly*months;const profit=future-principal;
+ const fmt=n=>Math.round(n).toLocaleString('ja-JP');
+ out.innerHTML='<div class="prediction"><p class="small">想定年利 '+rate+'％で計算</p><div>積立元金</div><div class="big">'+fmt(principal)+'円</div><div style="margin-top:10px">将来の評価額（予測）</div><div class="big">'+fmt(future)+'円</div><div class="profit">予想利益 +'+fmt(profit)+'円</div><p class="small">※毎月末に積み立て、複利で計算した概算です。実際の運用結果とは異なります。</p></div>';
 }
 function searchProducts(){
  const q=document.getElementById('searchBox').value.trim().toLowerCase();const el=document.getElementById('searchResult');
  if(!q){el.innerHTML='<p class="empty">商品名を入力してください。</p>';return}
  const hits=starter.filter(x=>x.name.toLowerCase().includes(q));
- el.innerHTML=hits.length?hits.map(x=>'<div class="product"><b>'+esc(x.name)+'</b><br><span class="small">'+esc(x.type)+'</span><br><span class="badge">'+esc(x.nisa)+'</span></div>').join(''):'<p class="empty">登録済みの候補にはありません。商品名をそのまま「商品登録」から登録できます。</p>';
+ el.innerHTML=hits.length?hits.map(x=>'<div class="product"><b>'+esc(x.name)+'</b><br><span class="small">'+esc(x.type)+'</span><br><span class="badge">'+esc(x.nisa)+'</span><button class="full" onclick="useStarter(\''+esc(x.name).replace(/'/g,"\\'")+'\')">この商品を登録</button></div>').join(''):'<p class="empty">候補にはありません。商品名をそのまま「商品登録」から登録できます。</p>';
 }
-function show(id,navId){document.querySelectorAll('main>section').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));document.getElementById(navId).classList.add('active');}
+function useStarter(name){document.getElementById('productName').value=name;show('home','nHome');window.scrollTo({top:0,behavior:'smooth'})}
+function show(id,navId){document.querySelectorAll('main>section').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));document.getElementById(navId).classList.add('active');window.scrollTo(0,0)}
 render();
 </script>
 </body>
