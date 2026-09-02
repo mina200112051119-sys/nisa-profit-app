@@ -1,4 +1,4 @@
-# v9 long-term stability
+# v10 fix hot-stock name matching and whitespace search
 name: Update topic data
 on:
   schedule:
@@ -120,5 +120,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/topic-update.json data/hot-stocks.json index.html
-          git diff --cached --quiet || git commit -m 'chore: harden app for long-term use'
+          git diff --cached --quiet || git commit -m 'fix: match hot stock names and search correctly'
           git push
