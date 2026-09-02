@@ -1,0 +1,65 @@
+name: Update company search master
+on:
+  schedule:
+    - cron: '27 0 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/update-company-master.yml'
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build company master
+        run: |
+          python - <<'PY'
+          import csv, io, json, urllib.request, os
+          from datetime import datetime, timezone
+          url='https://te-chan.github.io/JP-CompanyCode/company_list.csv'
+          req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
+          raw=urllib.request.urlopen(req,timeout=25).read().decode('utf-8-sig')
+          rows=list(csv.DictReader(io.StringIO(raw)))
+          companies=[]; seen=set()
+          for r in rows:
+              code=str(r.get('code','')).strip().upper(); name=str(r.get('name','')).strip()
+              if code and name and code not in seen:
+                  seen.add(code); companies.append({'code':code,'name':name})
+          os.makedirs('data',exist_ok=True)
+          with open('data/company-list.json','w',encoding='utf-8') as f:
+              json.dump({'updated_at':datetime.now(timezone.utc).isoformat(),'companies':companies},f,ensure_ascii=False,separators=(',',':'))
+          print('company master:',len(companies))
+          PY
+      - name: Patch app to search all listed companies
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html'); s=p.read_text(encoding='utf-8')
+          s=s.replace("let products=[],apiKey=localStorage.getItem(APIKEY)||'',dynamicHot=[];", "let products=[],apiKey=localStorage.getItem(APIKEY)||'',dynamicHot=[],companyList=[];")
+          s=s.replace("function allProducts(){const a=list.concat(dynamicHot||[]),seen=new Set();", "function allProducts(){const master=(companyList||[]).map(x=>({name:x.name+'（'+x.code+'）',type:'個別株',theme:'上場銘柄',base:5,down:-20,up:20,confidence:65,symbol:x.code}));const a=list.concat(dynamicHot||[],master),seen=new Set();")
+          if "async function loadCompanyList()" not in s:
+              marker='function searchProducts(){'
+              helper="async function loadCompanyList(){try{const r=await fetch('data/company-list.json?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();companyList=Array.isArray(d.companies)?d.companies:[]}catch(e){companyList=[]}searchProducts()}"
+              pos=s.find(marker)
+              if pos>=0: s=s[:pos]+helper+s[pos:]
+          if 'loadCompanyList();' not in s:
+              for marker in ['loadHotStocks();loadTopics();','loadHotStocks();']:
+                  if marker in s:
+                      s=s.replace(marker,'loadCompanyList();'+marker,1); break
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Validate and commit
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('data/company-list.json',encoding='utf-8'))
+          assert isinstance(d.get('companies'),list) and len(d['companies'])>1000
+          print('validated',len(d['companies']))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/company-list.json index.html
+          git diff --cached --quiet || git commit -m 'feat: search all listed companies by name'
+          git push
