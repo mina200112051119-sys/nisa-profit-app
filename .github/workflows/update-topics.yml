@@ -1,4 +1,4 @@
-# v8 dynamic hot stocks data only
+# v8 confidence-ranked hot stocks
 name: Update topic data
 on:
   schedule:
@@ -44,13 +44,22 @@ jobs:
                       hot.setdefault(code,{'name':name,'symbol':code,'mentions':0,'reasons':[]})['mentions']+=1
           except Exception as e: print('NSJ error',e)
           for x in items:
-              for m in re.finditer(r'([A-Za-z0-9一-龯ぁ-んァ-ヶー＆・.]{2,40})\s*[<(（](\d{3,4}[A-Z]?)[>）)・]',x['title']):
+              title=x['title']
+              for m in re.finditer(r'([A-Za-z0-9一-龯ぁ-んァ-ヶー＆・.]{2,40})\s*[<(（](\d{3,4}[A-Z]?)[>）)・]',title):
                   name=m.group(1).strip(' ・'); code=m.group(2)
                   if name and code:
-                      hot.setdefault(code,{'name':name,'symbol':code,'mentions':0,'reasons':[]})['mentions']+=1; hot[code]['reasons'].append(x['title'][:100])
+                      hot.setdefault(code,{'name':name,'symbol':code,'mentions':0,'reasons':[]})['mentions']+=1
+                      hot[code]['reasons'].append(title[:100])
           signals=['注目','話題','急騰','ストップ高','上方修正','自社株買い','好材料','買い気配','高値','材料']
-          for v in hot.values(): v['rank']=v['mentions']+sum(sum(w in r for w in signals) for r in v['reasons'])
-          dynamic=[{'name':v['name']+'（'+v['symbol']+'）','type':'個別株','theme':'本日の話題・ニュース','base':5,'down':-20,'up':20,'confidence':50,'symbol':v['symbol'],'rank':v['rank'],'reason':v['reasons'][0] if v['reasons'] else '本日の市場ニュースで掲載'} for v in sorted(hot.values(),key=lambda x:(x['rank'],x['mentions']),reverse=True)[:30]]
+          for v in hot.values():
+              v['signal_count']=sum(sum(w in r for w in signals) for r in v['reasons'])
+              v['rank']=v['mentions']*3+v['signal_count']
+          ranked=sorted(hot.values(),key=lambda x:(x['rank'],x['mentions']),reverse=True)[:30]
+          max_rank=max([v['rank'] for v in ranked] or [1])
+          dynamic=[]
+          for idx,v in enumerate(ranked):
+              confidence=round(55+40*(v['rank']/max_rank))
+              dynamic.append({'name':v['name']+'（'+v['symbol']+'）','type':'個別株','theme':'本日の話題・ニュース','base':5,'down':-20,'up':20,'confidence':confidence,'symbol':v['symbol'],'rank':v['rank'],'reason':v['reasons'][0] if v['reasons'] else '本日の市場ニュースで掲載'})
           seen=set(); unique=[]
           for x in items:
               if x['title'] not in seen: seen.add(x['title']); unique.append(x)
@@ -65,10 +74,24 @@ jobs:
           with open('data/hot-stocks.json','w',encoding='utf-8') as f: json.dump({'updated_at':updated,'stocks':dynamic},f,ensure_ascii=False,indent=2)
           print('dynamic hot stocks:',len(dynamic))
           PY
-      - name: Commit data
+      - name: Patch app for confidence-ranked hot-stock search
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html'); s=p.read_text(encoding='utf-8')
+          old_start='function searchProducts(){'
+          old_end='function quickSearch(q){'
+          a=s.find(old_start); b=s.find(old_end,a)
+          if a>=0 and b>=0:
+              new=r'''function searchProducts(){const raw=(document.getElementById('searchBox').value||'').trim(),q=raw.replace(/\s+/g,'').toLowerCase(),all=allProducts(),hotWords=['今話題のもの','今話題','話題のもの','話題'].map(x=>x.toLowerCase()),isHot=hotWords.includes(q),hits=(isHot?all.filter(x=>(x.theme||'').includes('本日の話題')):all.filter(x=>{const n=String(x.name).toLowerCase().replace(/\s+/g,''),t=String(x.theme||'').toLowerCase().replace(/\s+/g,''),k=String(x.type||'').toLowerCase().replace(/\s+/g,'');return !q||n.includes(q)||t.includes(q)||k.includes(q)})).sort((a,b)=>(Number(b.confidence)||0)-(Number(a.confidence)||0)||(Number(b.rank)||0)-(Number(a.rank)||0));document.getElementById('searchResult').innerHTML='<p class="small">'+hits.length+'件表示'+(isHot?'　※信用度の高い順':'　※「今話題」は自動更新')+'</p>'+hits.map(x=>'<div class="saved"><b>'+esc(x.name)+'</b><br><span class="tag">信用度 '+(Number(x.confidence)||0)+'%</span> <span class="tag">'+esc(x.theme||'')+'</span>'+(x.reason?'<div class="small">'+esc(x.reason)+'</div>':'')+'<button class="full" type="button" data-item="'+all.indexOf(x)+'">この商品を登録</button></div>').join('');document.querySelectorAll('[data-item]').forEach(b=>b.onclick=()=>registerItem(all[+b.dataset.item]))}
+'''
+              s=s[:a]+new+s[b:]
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit update
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/topic-update.json data/hot-stocks.json
-          git diff --cached --quiet || git commit -m 'chore: refresh market topics and hot stocks'
+          git add data/topic-update.json data/hot-stocks.json index.html
+          git diff --cached --quiet || git commit -m 'chore: rank hot stocks by confidence'
           git push
