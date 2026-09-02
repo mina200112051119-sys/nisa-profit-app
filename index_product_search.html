@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="新NISA利益予測">
+<meta name="theme-color" content="#d71920">
+<title>新NISA利益予測</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f4f6;color:#202124;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+header{background:#d71920;color:#fff;padding:22px 18px 20px}header h1{margin:0;font-size:28px}header p{margin:6px 0 0;font-size:15px}
+main{padding:16px 14px 100px;max-width:720px;margin:auto}.card{background:#fff;border-radius:22px;padding:20px;margin:0 0 14px;box-shadow:0 2px 12px #0000000d}
+h2{font-size:23px;margin:0 0 14px}.muted{color:#737373}.small{font-size:13px;line-height:1.6}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#f7f7f7;border-radius:15px;padding:13px}.label{font-size:12px;color:#777}.value{font-size:21px;font-weight:700;margin-top:4px}
+button,.filebtn{display:block;width:100%;border:0;border-radius:15px;padding:15px;background:#d71920;color:#fff;font-size:17px;font-weight:700;text-align:center}
+.filebox{border:2px dashed #ccc;border-radius:18px;padding:18px}.filebox input{display:none}
+.secondary{background:#eee;color:#333;margin-top:10px}.danger{background:#eee;color:#333}
+.row{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #eee}.row:last-child{border-bottom:0}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#eee;font-size:12px}.good{font-weight:700}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;z-index:5;padding-bottom:env(safe-area-inset-bottom)}
+nav button{background:none;color:#555;border-radius:0;font-size:14px;padding:14px 4px}.active{color:#d71920!important}
+.hidden{display:none}.notice{background:#fff7d6;border-radius:14px;padding:12px;font-size:13px;line-height:1.6}
+.product{padding:14px 0;border-bottom:1px solid #eee}.product:last-child{border-bottom:0}
+input[type=number],select{width:100%;padding:12px;border:1px solid #ccc;border-radius:12px;background:#fff;font-size:16px}
+</style>
+</head>
+<body>
+<header><h1>新NISA利益予測</h1><p>iPhone専用・データ連動版</p></header>
+<main>
+<section id="home" class="page">
+<div class="card"><h2>利益予測</h2>
+<div class="notice">想定年利を手入力する方式ではありません。取り込んだ商品の過去データ（収益率・変動の大きさ）から予測幅を計算します。過去の実績は将来の利益を保証しません。</div>
+<div class="grid" style="margin-top:12px">
+<div class="stat"><div class="label">対象商品</div><div id="count" class="value">0</div></div>
+<div class="stat"><div class="label">保有商品</div><div id="holdCount" class="value">0</div></div>
+</div>
+<div id="forecast" style="margin-top:12px"></div>
+</div>
+<div class="card"><h2>予測の見方</h2><p class="small">CSVに過去の収益率などの数値が入っている商品は、そのデータから低め・標準・高めの3つの結果を計算します。データがない商品は無理に数字を作らず「データ不足」と表示します。</p></div>
+</section>
+
+
+<section id="search" class="page hidden">
+<div class="card">
+<h2>商品名から探す</h2>
+<p class="muted">商品名を入力すると、登録済みの商品から検索します。</p>
+<input id="productSearch" type="text" placeholder="例：eMAXIS Slim 米国株式（S&P500）">
+<button id="searchBtn" style="margin-top:10px">検索</button>
+<div id="searchResult" style="margin-top:14px"></div>
+</div>
+<div class="card">
+<h2>楽天証券で確認</h2>
+<p class="small">登録済みデータにない商品は、楽天証券の公式商品検索で確認できます。</p>
+<a href="https://www.rakuten-sec.co.jp/web/fund/search/result.html" target="_blank" rel="noopener" style="display:block;text-align:center;background:#eee;color:#333;text-decoration:none;border-radius:15px;padding:14px;font-weight:700">楽天証券の商品検索を開く</a>
+</div>
+</section>
+
+<section id="ranking" class="page hidden">
+<div class="card"><h2>ランキング</h2><p class="muted small">取り込んだデータだけを使って表示します。データがない場合はランキングを作りません。</p>
+<div id="rankingList"></div></div>
+</section>
+
+<section id="import" class="page hidden">
+<div class="card"><h2>明細・商品データを取り込む</h2>
+<p class="muted">楽天証券から保存したCSVを「ファイル」から選びます。ID・パスワードは入力しません。</p>
+<div class="filebox"><label class="filebtn" for="csv">CSVを選択</label><input id="csv" type="file" accept=".csv,text/csv"></div>
+<button id="clear" class="secondary">このiPhoneのデータを削除</button>
+<div style="margin-top:16px"><h2 style="font-size:19px">保存状況</h2><div id="status">商品数：0<br>最終更新：—</div></div>
+</div>
+<div class="card"><h2>CSVについて</h2><p class="small">列名はできるだけ自動判定します。商品名・保有数量・評価額・損益・収益率・標準偏差・過去リターンなどが含まれていれば、利用できる項目から計算します。</p></div>
+</section>
+</main>
+<nav><button id="n1" class="active" onclick="show('home')">ホーム</button><button id="ns" onclick="show('search')">商品検索</button><button id="n2" onclick="show('ranking')">ランキング</button><button id="n3" onclick="show('import')">取込</button></nav>
+
+<script>
+const KEY="nisa_profit_data_v3";
+let data=JSON.parse(localStorage.getItem(KEY)||"[]");
+
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function yen(n){return Number.isFinite(n)?Math.round(n).toLocaleString()+"円":"—"}
+function num(v){if(v===null||v===undefined)return NaN;let s=String(v).replace(/[,%円¥\s]/g,"").replace(/▲/,"-");return parseFloat(s)}
+function norm(s){return String(s||"").trim().toLowerCase().replace(/\s/g,"").replace(/[（）()]/g,"")}
+function findVal(o,keys){
+ let ks=keys.map(norm);
+ for(const k of Object.keys(o)){if(ks.some(x=>norm(k).includes(x))) return o[k]}
+ return undefined
+}
+function parseCSV(t){
+ t=t.replace(/^\uFEFF/,"");
+ const lines=[];let row=[],cell="",q=false;
+ for(let i=0;i<t.length;i++){let c=t[i];
+  if(c=='"'){if(q&&t[i+1]=='"'){cell+='"';i++}else q=!q}
+  else if(c==","&&!q){row.push(cell);cell=""}
+  else if((c=="\n"||c=="\r")&&!q){if(c=="\r"&&t[i+1]=="\n")i++;row.push(cell);cell="";if(row.some(x=>x!==""))lines.push(row);row=[]}
+  else cell+=c;
+ }
+ if(cell!==""||row.length){row.push(cell);if(row.some(x=>x!==""))lines.push(row)}
+ if(lines.length<2)return [];
+ const headers=lines[0];
+ return lines.slice(1).map(r=>Object.fromEntries(headers.map((h,i)=>[h,r[i]??""]))).filter(o=>Object.values(o).some(v=>String(v).trim()!==""));
+}
+function productName(o){
+ return findVal(o,["商品名","銘柄名","ファンド名","銘柄","商品","name","fundname"])||"名称不明";
+}
+function metrics(o){
+ let ret=findVal(o,["年率リターン","年間リターン","過去リターン","リターン","収益率","騰落率","return"]);
+ let vol=findVal(o,["標準偏差","リスク","volatility"]);
+ let val=findVal(o,["評価額","時価評価額","現在価値","valuation","marketvalue"]);
+ let qty=findVal(o,["保有数量","数量","口数","qty"]);
+ let pnl=findVal(o,["評価損益","損益","profit","pnl"]);
+ ret=num(ret); vol=num(vol); val=num(val); qty=num(qty); pnl=num(pnl);
+ if(Number.isFinite(ret)&&Math.abs(ret)>1) ret/=100;
+ if(Number.isFinite(vol)&&Math.abs(vol)>1) vol/=100;
+ return {ret,vol,val,qty,pnl};
+}
+function confidence(m){return Number.isFinite(m.ret)&&Number.isFinite(m.vol)?"高":Number.isFinite(m.ret)?"中":"低"}
+function forecastOne(o,principal){
+ const m=metrics(o);
+ if(!Number.isFinite(m.ret))return null;
+ const r=Math.max(-.30,Math.min(.30,m.ret));
+ const v=Number.isFinite(m.vol)?Math.max(.01,Math.min(.50,m.vol)):Math.abs(r)*.5;
+ const low=Math.max(-.30,r-v), mid=r, high=Math.min(.40,r+v);
+ return {low,mid,high,confidence:confidence(m),years:5,principal};
+}
+function future(p,r,y){return p*Math.pow(1+r,y)-p}
+function render(){
+ document.getElementById("count").textContent=data.length;
+ const holdings=data.filter(o=>{let m=metrics(o);return (Number.isFinite(m.qty)&&m.qty>0)||(Number.isFinite(m.val)&&m.val>0)});
+ document.getElementById("holdCount").textContent=holdings.length;
+ let html="";
+ if(!data.length) html='<p class="muted">まだデータがありません。まず「取込」からCSVを選んでください。</p>';
+ else {
+  const fs=holdings.map(o=>{let m=metrics(o),f=forecastOne(o,m.val||100000);return f?{o,m,f}:null}).filter(Boolean);
+  if(!fs.length) html='<p class="muted">予測に使える過去リターンのデータがありません。数字を作らず「データ不足」としています。</p>';
+  else {
+   const total=fs.reduce((a,x)=>a+(x.m.val||0),0)||100000;
+   const mid=fs.reduce((a,x)=>a+(x.m.val||0)*x.f.mid,0)/(fs.reduce((a,x)=>a+(x.m.val||0),0)||1);
+   const f=fs[0].f; // 表示は代表値、個別商品は下
+   html='<div class="grid"><div class="stat"><div class="label">5年後・低め</div><div class="value">'+yen(total*Math.pow(1+(mid-.10),5))+'</div></div><div class="stat"><div class="label">5年後・標準</div><div class="value">'+yen(total*Math.pow(1+mid,5))+'</div></div></div>';
+   html+='<p class="small" style="margin-top:12px">保有商品の評価額を重みづけして計算。予測は参考値です。<br><b>信頼度：'+(fs.every(x=>x.f.confidence==="高")?"高":fs.some(x=>x.f.confidence==="中")?"中":"低")+'</b></p>';
+   html+='<h3>保有商品の予測</h3>'+fs.map(x=>'<div class="product"><b>'+esc(productName(x.o))+'</b><br><span class="small">過去リターン：'+(x.f.mid*100).toFixed(1)+'%　｜　信頼度：'+x.f.confidence+'</span><br><span class="good">5年後の利益（標準）：'+yen(future(x.m.val||100000,x.f.mid,5))+'</span></div>').join("");
+  }
+ }
+ document.getElementById("forecast").innerHTML=html;
+ document.getElementById("status").innerHTML="商品数："+data.length+"<br>最終更新："+(data.length?new Date().toLocaleString("ja-JP"):"—");
+ const scored=data.map(o=>{let m=metrics(o);return {o,m,score:Number.isFinite(m.ret)?m.ret:null}}).filter(x=>x.score!==null).sort((a,b)=>b.score-a.score).slice(0,20);
+ document.getElementById("rankingList").innerHTML=scored.length?scored.map((x,i)=>'<div class="row"><div><b>'+(i+1)+'. '+esc(productName(x.o))+'</b><br><span class="small">過去リターン：'+(x.score*100).toFixed(1)+'%　信頼度：'+confidence(x.m)+'</span></div></div>').join(""):'<p class="muted">リターンのデータがある商品がまだありません。</p>';
+}
+function show(id){
+ document.querySelectorAll(".page").forEach(x=>x.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
+ document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
+ document.getElementById(id==="home"?"n1":id==="search"?"ns":id==="ranking"?"n2":"n3").classList.add("active");
+ render();
+}
+document.getElementById("csv").addEventListener("change",e=>{
+ const f=e.target.files[0];if(!f)return;
+ const rd=new FileReader();
+ rd.onload=()=>{try{
+  const rows=parseCSV(rd.result); if(!rows.length){alert("CSVを読み取れませんでした。");return}
+  data=rows;localStorage.setItem(KEY,JSON.stringify(data));render();alert(rows.length+"件を取り込みました。");
+ }catch(err){alert("CSVの読み込みに失敗しました。")}};
+ rd.readAsText(f,"UTF-8");
+});
+document.getElementById("clear").addEventListener("click",()=>{
+ if(confirm("このiPhoneに保存したデータを削除しますか？")){data=[];localStorage.removeItem(KEY);render()}
+});
+render();
+
+const starter=[
+ {name:"eMAXIS Slim 米国株式（S&P500）",type:"投資信託",nisa:"つみたて投資枠・成長投資枠"},
+ {name:"eMAXIS Slim 全世界株式（オール・カントリー）",type:"投資信託",nisa:"つみたて投資枠・成長投資枠"},
+ {name:"楽天・プラス・S&P500インデックス・ファンド",type:"投資信託",nisa:"つみたて投資枠・成長投資枠"},
+ {name:"楽天・プラス・オールカントリー株式インデックス・ファンド",type:"投資信託",nisa:"つみたて投資枠・成長投資枠"}
+];
+document.getElementById("searchBtn").addEventListener("click",()=>{
+ const q=document.getElementById("productSearch").value.trim().toLowerCase();
+ if(!q){document.getElementById("searchResult").innerHTML='<p class="muted">商品名を入力してください。</p>';return}
+ const all=[...starter,...data.map(o=>({name:productName(o),type:"取り込みデータ",nisa:"CSVの情報"}))];
+ const hits=all.filter(x=>x.name.toLowerCase().includes(q));
+ document.getElementById("searchResult").innerHTML=hits.length?hits.map(x=>`<div class="product"><b>${esc(x.name)}</b><br><span class="small">${esc(x.type)}　｜　${esc(x.nisa)}</span></div>`).join(""):'<p class="muted">見つかりませんでした。楽天証券の商品検索で確認できます。</p>';
+});
+
+</script>
+</body></html>
