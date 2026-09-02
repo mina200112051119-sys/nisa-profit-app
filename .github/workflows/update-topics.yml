@@ -1,4 +1,4 @@
-# v11 clean news-extracted company names
+# v12 full listed-company search master
 name: Update topic data
 on:
   schedule:
@@ -49,7 +49,7 @@ jobs:
               title=x['title']
               for m in re.finditer(r'([A-Za-z0-9一-龯ぁ-んァ-ヶー＆・.]{2,40})\s*[<(（](\d{3,4}[A-Z]?)[>）)・]',title):
                   name=m.group(1).strip(' ・')
-                  name=re.sub(r'^個別\d{4}年\d{1,2}月\d{1,2}日','',name)
+                  name=re.sub(r'^個別\d{4}年\d{1,2}月\d{1,2日','',name)
                   code=m.group(2)
                   if name and code:
                       hot.setdefault(code,{'name':name,'symbol':code,'mentions':0,'reasons':[]})['mentions']+=1
@@ -78,6 +78,43 @@ jobs:
           with open('data/hot-stocks.json','w',encoding='utf-8') as f: json.dump({'updated_at':updated,'stocks':dynamic},f,ensure_ascii=False,indent=2)
           print('dynamic hot stocks:',len(dynamic))
           PY
+      - name: Update full listed-company search master
+        run: |
+          python - <<'PY'
+          import csv, io, json, urllib.request, os
+          url='https://te-chan.github.io/JP-CompanyCode/company_list.csv'
+          req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
+          raw=urllib.request.urlopen(req,timeout=25).read().decode('utf-8-sig')
+          rows=list(csv.DictReader(io.StringIO(raw)))
+          companies=[]
+          seen=set()
+          for r in rows:
+              code=str(r.get('code','')).strip().upper()
+              name=str(r.get('name','')).strip()
+              if code and name and code not in seen:
+                  seen.add(code); companies.append({'code':code,'name':name})
+          os.makedirs('data',exist_ok=True)
+          with open('data/company-list.json','w',encoding='utf-8') as f: json.dump({'updated_at':__import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat(),'companies':companies},f,ensure_ascii=False,separators=(',',':'))
+          print('company master:',len(companies))
+          PY
+      - name: Patch app for full company-name search
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html'); s=p.read_text(encoding='utf-8')
+          s=s.replace("let products=[],apiKey=localStorage.getItem(APIKEY)||'',dynamicHot=[];", "let products=[],apiKey=localStorage.getItem(APIKEY)||'',dynamicHot=[],companyList=[];")
+          s=s.replace("function allProducts(){const a=list.concat(dynamicHot||[]),seen=new Set();", "function allProducts(){const master=(companyList||[]).map(x=>({name:x.name+'（'+x.code+'）',type:'個別株',theme:'上場銘柄',base:5,down:-20,up:20,confidence:65,symbol:x.code}));const a=list.concat(dynamicHot||[],master),seen=new Set();")
+          marker="function searchProducts(){"
+          if "async function loadCompanyList()" not in s:
+              helper="async function loadCompanyList(){try{const r=await fetchWithTimeout('data/company-list.json?v='+Date.now(),15000);if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();companyList=Array.isArray(d.companies)?d.companies:[]}catch(e){companyList=[]}searchProducts()}"
+              pos=s.find(marker)
+              if pos>=0:s=s[:pos]+helper+s[pos:]
+          s=s.replace("loadHotStocks();loadTopics();", "loadCompanyList();loadHotStocks();loadTopics();")
+          old="return !q||n.includes(q)||t.includes(q)||k.includes(q)"
+          new="return !q||n.includes(q)||t.includes(q)||k.includes(q)||String(x.symbol||'').toLowerCase().includes(q)"
+          s=s.replace(old,new)
+          p.write_text(s,encoding='utf-8')
+          PY
       - name: Patch app for confidence-ranked hot-stock search
         run: |
           python - <<'PY'
@@ -86,7 +123,7 @@ jobs:
           old_start='function searchProducts(){'; old_end='function quickSearch(q){'
           a=s.find(old_start); b=s.find(old_end,a)
           if a>=0 and b>=0:
-              new=r'''function searchProducts(){const raw=(document.getElementById('searchBox').value||'').trim(),q=raw.replace(/\s+/g,'').toLowerCase(),all=allProducts(),hotWords=['今話題のもの','今話題','話題のもの','話題'].map(x=>x.toLowerCase()),isHot=hotWords.includes(q),hits=(isHot?all.filter(x=>(x.theme||'').includes('本日の話題')):all.filter(x=>{const n=String(x.name).toLowerCase().replace(/\s+/g,''),t=String(x.theme||'').toLowerCase().replace(/\s+/g,''),k=String(x.type||'').toLowerCase().replace(/\s+/g,'');return !q||n.includes(q)||t.includes(q)||k.includes(q)})).sort((a,b)=>(Number(b.confidence)||0)-(Number(a.confidence)||0)||(Number(b.rank)||0)-(Number(a.rank)||0));document.getElementById('searchResult').innerHTML='<p class="small">'+hits.length+'件表示'+(isHot?'　※信用度の高い順':'　※「今話題」は自動更新')+'</p>'+hits.map(x=>'<div class="saved"><b>'+esc(x.name)+'</b><br><span class="tag">信用度 '+(Number(x.confidence)||0)+'%</span> <span class="tag">'+esc(x.theme||'')+'</span>'+(x.reason?'<div class="small">'+esc(x.reason)+'</div>':'')+'<button class="full" type="button" data-item="'+all.indexOf(x)+'">この商品を登録</button></div>').join('');document.querySelectorAll('[data-item]').forEach(b=>b.onclick=()=>registerItem(all[+b.dataset.item]))}
+              new=r'''function searchProducts(){const raw=(document.getElementById('searchBox').value||'').trim(),q=raw.replace(/\s+/g,'').toLowerCase(),all=allProducts(),hotWords=['今話題のもの','今話題','話題のもの','話題'].map(x=>x.toLowerCase()),isHot=hotWords.includes(q),hits=(isHot?all.filter(x=>(x.theme||'').includes('本日の話題')):all.filter(x=>{const n=String(x.name).toLowerCase().replace(/\s+/g,''),t=String(x.theme||'').toLowerCase().replace(/\s+/g,''),k=String(x.type||'').toLowerCase().replace(/\s+/g,'');return !q||n.includes(q)||t.includes(q)||k.includes(q)||String(x.symbol||'').toLowerCase().includes(q)})).sort((a,b)=>(Number(b.confidence)||0)-(Number(a.confidence)||0)||(Number(b.rank)||0)-(Number(a.rank)||0));document.getElementById('searchResult').innerHTML='<p class="small">'+hits.length+'件表示'+(isHot?'　※信用度の高い順':'　※上場銘柄マスター対応')+'</p>'+hits.map(x=>'<div class="saved"><b>'+esc(x.name)+'</b><br><span class="tag">信用度 '+(Number(x.confidence)||0)+'%</span> <span class="tag">'+esc(x.theme||'')+'</span>'+(x.reason?'<div class="small">'+esc(x.reason)+'</div>':'')+'<button class="full" type="button" data-item="'+all.indexOf(x)+'">この商品を登録</button></div>').join('');document.querySelectorAll('[data-item]').forEach(b=>b.onclick=()=>registerItem(all[+b.dataset.item]))}
 '''
               s=s[:a]+new+s[b:]
           p.write_text(s,encoding='utf-8')
@@ -113,7 +150,7 @@ jobs:
         run: |
           python - <<'PY'
           import json
-          for path,key in [('data/topic-update.json','headlines'),('data/hot-stocks.json','stocks')]:
+          for path,key in [('data/topic-update.json','headlines'),('data/hot-stocks.json','stocks'),('data/company-list.json','companies')]:
               with open(path,encoding='utf-8') as f:d=json.load(f)
               assert isinstance(d.get(key),list), path+' invalid'
           print('data validation OK')
@@ -122,6 +159,6 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/topic-update.json data/hot-stocks.json index.html
-          git diff --cached --quiet || git commit -m 'fix: clean news company names for search'
+          git add data/topic-update.json data/hot-stocks.json data/company-list.json index.html
+          git diff --cached --quiet || git commit -m 'feat: search all listed companies by name'
           git push
