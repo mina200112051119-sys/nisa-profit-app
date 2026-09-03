@@ -1,8 +1,8 @@
 name: Update topic data live
 on:
   schedule:
-    - cron: '7 0 * * *'
-    - cron: '7 9 * * *'
+    - cron: '17 0 * * *'
+    - cron: '17 9 * * *'
   workflow_dispatch:
   push:
     paths:
@@ -17,7 +17,7 @@ jobs:
       - name: Fetch fresh Japanese market topics
         run: |
           python - <<'PY'
-          import json, urllib.request, urllib.parse, xml.etree.ElementTree as ET, re, os
+          import json, urllib.request, urllib.parse, xml.etree.ElementTree as ET, re, os, csv, io
           from datetime import datetime, timezone
           from html import unescape
 
@@ -35,21 +35,44 @@ jobs:
                       link=(it.findtext('link') or '').strip()
                       pub=(it.findtext('pubDate') or '').strip()
                       source=it.findtext('source') or ''
-                      if title and link:
-                          items.append({'title':title,'link':link,'pubDate':pub,'source':source})
-              except Exception as e:
-                  print('feed error',q,e)
+                      if title and link: items.append({'title':title,'link':link,'pubDate':pub,'source':source})
+              except Exception as e: print('feed error',q,e)
+
+          seen=set(); unique=[]
+          for x in items:
+              if x['title'] not in seen:
+                  seen.add(x['title']); unique.append(x)
+
+          # Load the full listed-company master so headlines without stock codes can still become hot stocks.
+          companies=[]
+          try:
+              raw=get('https://te-chan.github.io/JP-CompanyCode/company_list.csv').decode('utf-8-sig')
+              for r in csv.DictReader(io.StringIO(raw)):
+                  code=str(r.get('code','')).strip().upper(); name=str(r.get('name','')).strip()
+                  if code and name: companies.append((name,code))
+          except Exception as e: print('company master error',e)
 
           hot={}
-          for x in items:
+          def add_hot(name,code,title):
+              name=name.strip(' ・')
+              name=re.sub(r'^個別\d{4}年\d{1,2}月\d{1,2}日','',name)
+              if not name or not code: return
+              v=hot.setdefault(code,{'name':name,'symbol':code,'mentions':0,'reasons':[]})
+              v['mentions']+=1
+              if title and title[:120] not in v['reasons']: v['reasons'].append(title[:120])
+
+          # Prefer explicit company(code) patterns.
+          for x in unique:
               title=x['title']
               for m in re.finditer(r'([A-Za-z0-9一-龯ぁ-んァ-ヶー＆・.]{2,40})\s*[<(（](\d{3,4}[A-Z]?)[>）)・]',title):
-                  name=re.sub(r'^個別\d{4}年\d{1,2}月\d{1,2}日','',m.group(1).strip(' ・'))
-                  code=m.group(2)
-                  if name and code:
-                      v=hot.setdefault(code,{'name':name,'symbol':code,'mentions':0,'reasons':[]})
-                      v['mentions']+=1
-                      v['reasons'].append(title[:120])
+                  add_hot(m.group(1),m.group(2),title)
+
+          # Also match company names from the master when the headline omits the code.
+          for title_obj in unique:
+              title=title_obj['title']
+              for name,code in companies:
+                  if len(name)>=2 and name in title:
+                      add_hot(name,code,title)
 
           signals=['注目','話題','急騰','ストップ高','上方修正','自社株買い','好材料','買い気配','高値','材料']
           for v in hot.values():
@@ -62,11 +85,6 @@ jobs:
           for v in ranked:
               confidence=round(55+40*(v['rank']/max_rank))
               dynamic.append({'name':v['name']+'（'+v['symbol']+'）','type':'個別株','theme':'本日の話題・ニュース','base':5,'down':-20,'up':20,'confidence':confidence,'symbol':v['symbol'],'rank':v['rank'],'reason':v['reasons'][0] if v['reasons'] else '本日の市場ニュースで掲載'})
-
-          seen=set(); unique=[]
-          for x in items:
-              if x['title'] not in seen:
-                  seen.add(x['title']); unique.append(x)
 
           keywords={'AI':['AI','人工知能','生成AI'],'半導体':['半導体','メモリ','GPU'],'防衛':['防衛','ミサイル','安全保障'],'電力':['電力','原発','再生可能エネルギー'],'データセンター':['データセンター','データセンタ'],'宇宙':['宇宙','衛星','月面'],'レアアース':['レアアース','重要鉱物','海底資源'],'インフラ':['インフラ','建設','設備投資']}
           text=' '.join(x['title'] for x in unique).lower()
@@ -84,8 +102,9 @@ jobs:
               json.dump({'updated_at':updated,'stocks':dynamic},f,ensure_ascii=False,indent=2)
           print('updated:',updated,'hot stocks:',len(dynamic),'headlines:',len(unique))
           assert len(unique)>0
+          assert len(dynamic)>0
           PY
-      - name: Validate and commit
+      - name: Validate JSON
         run: |
           python - <<'PY'
           import json
@@ -94,6 +113,8 @@ jobs:
               assert isinstance(d.get(key),list) and len(d[key])>0
           print('validation ok')
           PY
+      - name: Commit refreshed data
+        run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/topic-update.json data/hot-stocks.json
