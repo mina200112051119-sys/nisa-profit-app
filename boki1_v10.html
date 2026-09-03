@@ -1,0 +1,50 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="apple-mobile-web-app-capable" content="yes"><title>日商簿記1級 v10</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;background:#f5f6fa;color:#222;margin:0}.wrap{max-width:720px;margin:auto;padding:14px}.card{background:#fff;border-radius:18px;padding:18px;margin:12px 0;box-shadow:0 2px 10px #0001}h1{font-size:24px;margin:8px 0}.small{font-size:13px;color:#666}.q{font-size:18px;font-weight:700;line-height:1.6}.entry{background:#f0f2f5;border-radius:12px;padding:14px;font-family:monospace;white-space:pre-wrap}button{width:100%;border:0;border-radius:13px;padding:15px;margin:6px 0;background:#eee;font-size:16px;text-align:left}.main{background:#222;color:#fff;text-align:center}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tag{display:inline-block;background:#eef0f5;border-radius:20px;padding:6px 10px;margin:3px;font-size:13px}.ok{background:#e8f7eb}.ng{background:#fff0f0}.back{text-align:center;background:#ddd}.bar{height:9px;background:#eee;border-radius:9px;overflow:hidden}.fill{height:100%;background:#555}.hide{display:none}</style></head><body><div class="wrap"><h1>📘 日商簿記1級</h1><div id="app"></div></div><script>
+const DATA=[
+['商業簿記','現金預金','当座借越','残高を超えた小切手の支払','当座借越は銀行からの立替で負債になる'],
+['商業簿記','売上・売掛金','貸倒引当金','将来の貸倒れへの備え','確定した貸倒れは貸倒損失、見積りは引当金'],
+['商業簿記','有価証券','その他有価証券','期末評価差額','原則としてその他有価証券評価差額金'],
+['商業簿記','収益認識','本人・代理人','総額・純額','本人は総額、代理人は手数料等の純額が基本'],
+['商業簿記','固定資産','売却・除却','帳簿価額との差額','売却益・売却損として処理'],
+['商業簿記','税効果','一時差異','繰延税金資産・負債','将来減算→資産、将来加算→負債'],
+['商業簿記','企業結合','のれん','取得原価と純資産の差額','取得原価が上回る差額はのれん'],
+['商業簿記','連結','内部取引','親子会社間取引の消去','企業集団を一つとみなして消去'],
+['商業簿記','連結','未実現利益','期末在庫に残る内部利益','外部に売れるまで連結上は未実現'],
+['商業簿記','退職給付','費用・負債','勤務に対応した認識','勤務期間に対応して費用・負債を認識'],
+['会計学','自己株式','取得・処分','純資産の処理','自己株式は株主資本から控除する'],
+['会計学','EPS','1株当たり利益','分子・分母','親会社株主に帰属する利益等と株式数を対応させる'],
+['会計学','OCI','その他の包括利益','純損益以外の評価差額等','項目ごとの表示区分を確認'],
+['会計学','キャッシュ・フロー','営業・投資・財務','区分判定','取引の性質から区分する'],
+['会計学','社債','発行・利息','帳簿価額と利息','実効金利法などの考え方を確認'],
+['工業簿記','材料費','価格差異・数量差異','標準と実際の比較','価格＝単価、数量＝使用量'],
+['工業簿記','製造間接費','予定配賦','配賦差額','予定配賦額と実際発生額の差を分析'],
+['工業簿記','部門費','補助部門費','直接・相互・階梯式','配賦方法の条件を見分ける'],
+['工業簿記','個別原価','仕損費','当該指図書等への処理','正常・異常や発生場所を確認'],
+['工業簿記','総合原価','仕掛品','平均法・先入先出法','完成品と期末仕掛品への配分'],
+['工業簿記','標準原価','差異分析','価格・数量等','差異の原因を分けて考える'],
+['原価計算','CVP','限界利益率','限界利益÷売上高','固定費回収と利益に使える割合'],
+['原価計算','直接原価計算','固定製造原価','期間原価','全部原価計算との違い'],
+['原価計算','意思決定','差額原価収益','関連原価','意思決定で変化する項目に注目'],
+['原価計算','設備投資','投資意思決定','将来CF・資本コスト','初期投資と将来キャッシュ・フローを比較'],
+['原価計算','ABC','活動基準原価計算','活動とコスト・ドライバー','活動別に原価を集計して配賦']
+];
+const Q=DATA.map((x,i)=>({id:i,cat:x[0],topic:x[1],conf:x[2],q:x[3],why:x[4],choices:[x[4],x[3]+'を無視して処理する',x[1]+'とは関係ない', '必ず売上として処理する'],ans:0}));
+let S=JSON.parse(localStorage.getItem('bokiV10')||'{"wrong":{},"conf":{},"days":{},"seen":{}}');let mode='home',pool=[],pos=0,score=0,catName='';
+function save(){localStorage.setItem('bokiV10',JSON.stringify(S))}function today(){return new Date().toISOString().slice(0,10)}function yesterday(){let d=new Date();d.setDate(d.getDate()-1);return d.toISOString().slice(0,10)}
+function touch(q){let d=today();S.days[d]=(S.days[d]||[]);if(!S.days[d].includes(q.id))S.days[d].push(q.id);S.seen[q.id]=(S.seen[q.id]||0)+1;save()}
+function wrong(q){S.wrong[q.topic]=(S.wrong[q.topic]||0)+1;S.conf[q.conf]=(S.conf[q.conf]||0)+1;save()}
+function home(){mode='home';render()}
+function start(m,filter){mode=m;score=0;pos=0;pool=Q.filter(filter||(()=>true));pool.sort(()=>Math.random()-.5);if(!pool.length){alert('このカテゴリーの問題は準備中です');home();return}render()}
+function category(){mode='category';render()}
+function cat(c){catName=c;mode='cat';render()}
+function answer(i){let q=pool[pos];touch(q);let ok=i===q.ans;if(!ok)wrong(q);score+=ok?1:0;mode='result';renderResult(q,ok)}
+function renderResult(q,ok){document.getElementById('app').innerHTML='<div class="card '+(ok?'ok':'ng')+'"><b>'+(ok?'⭕ 正解':'❌ 不正解')+'</b><p class="q">'+q.q+'</p><div class="entry">考え方：'+q.why+'</div><p><b>混同ポイント</b><br>'+q.conf+' と区別する。</p><button class="main" onclick="next()">次の問題</button><button class="back" onclick="home()">ホーム</button></div>'}
+function next(){pos++;if(pos>=pool.length){mode='finish';render();}else{mode='quiz';render()}}
+function quizTitle(){return mode==='why'?'🧠 なぜこの仕訳？':mode==='conf'?'🔀 似た仕訳を見分ける':'✏️ 仕訳・論点を解く'}
+function render(){let h='';if(mode==='home'){let y=S.days[yesterday()]||[];h='<div class="card"><p class="small">カテゴリー別に「昨日の続き」もできるようにしたよ。</p><button class="main" onclick="start(\'quiz\')">⚡ とにかく解く</button><button onclick="start(\'quiz\',q=>q.cat===\'商業簿記\')">📕 商業簿記</button><button onclick="start(\'quiz\',q=>q.cat===\'会計学\')">📗 会計学</button><button onclick="start(\'quiz\',q=>q.cat===\'工業簿記\')">📘 工業簿記</button><button onclick="start(\'quiz\',q=>q.cat===\'原価計算\')">📙 原価計算</button><button onclick="category()">📚 カテゴリー別に勉強</button><button onclick="start(\'why\')">🧠 なぜこの仕訳？</button><button onclick="start(\'conf\')">🔀 似た仕訳を見分ける</button><button onclick="status()">📊 学習状況・昨日の学習</button>'+(y.length?'<p class="small">昨日は '+y.length+'問 学習したよ。</p>':'')+'</div>'}
+else if(mode==='category'){h='<div class="card"><h2>📚 カテゴリー別に勉強</h2><p class="small">4分野を分けて、昨日の学習や弱点を意識して進められます。</p><div class="grid">'+['商業簿記','会計学','工業簿記','原価計算'].map(c=>'<button onclick="cat(\''+c+'\')">'+c+'</button>').join('')+'</div><button class="back" onclick="home()">戻る</button></div>'}
+else if(mode==='cat'){let n=DATA.filter(x=>x[0]===catName).length;h='<div class="card"><h2>📖 '+catName+'</h2><p>この分野の論点：<b>'+n+'個</b></p><p class="small">仕訳・理由・混同ポイントをまとめて練習。間違えた論点は学習状況に記録されます。</p><button class="main" onclick="start(\'quiz\',q=>q.cat===catName)">このカテゴリーを勉強する</button><button onclick="start(\'why\',q=>q.cat===catName)">なぜ？問題だけ</button><button onclick="start(\'conf\',q=>q.cat===catName)">混同チェックだけ</button><button class="back" onclick="category()">カテゴリー一覧へ</button></div>'}
+else if(mode==='quiz'||mode==='why'||mode==='conf'){let q=pool[pos];h='<div class="card"><span class="tag">'+q.cat+'</span><span class="tag">'+q.topic+'</span><h2>'+quizTitle()+'</h2><p class="q">'+q.q+'</p><p class="small">「なぜ？」を意識して選んでみよう。</p>'+q.choices.map((c,i)=>'<button onclick="answer('+i+')">'+c+'</button>').join('')+'<button class="back" onclick="home()">中断してホーム</button></div>'}
+else if(mode==='finish'){h='<div class="card"><h2>🎉 終了</h2><p>正解 '+score+' / '+pool.length+' 問</p><button class="main" onclick="start(\'quiz\')">もう一度解く</button><button onclick="status()">学習状況を見る</button><button class="back" onclick="home()">ホーム</button></div>'}
+else if(mode==='status'){let y=S.days[yesterday()]||[];let t=S.days[today()]||[];let wrongs=Object.entries(S.wrong).sort((a,b)=>b[1]-a[1]);h='<div class="card"><h2>📊 学習状況</h2><p>昨日：<b>'+y.length+'問</b>　今日：<b>'+t.length+'問</b></p><p class="small">昨日やった問題 '+(y.length?'→ '+y.map(id=>Q[id].topic).join('・'):'なし')+'</p><hr><p><b>カテゴリー別の間違い</b></p>'+wrongs.map(x=>'<span class="tag">'+x[0]+'：'+x[1]+'回</span>').join('')+'<p><b>混同しやすい論点</b></p>'+Object.entries(S.conf).sort((a,b)=>b[1]-a[1]).slice(0,12).map(x=>'<span class="tag">'+x[0]+'：'+x[1]+'回</span>').join('')+'<hr><button class="main" onclick="start(\'quiz\',q=>(S.wrong[q.topic]||0)>0)">❗ 間違えた論点だけ</button><button onclick="start(\'conf\',q=>(S.wrong[q.topic]||0)>0)">🔀 苦手な混同だけ</button><button class="back" onclick="home()">戻る</button></div>'}document.getElementById('app').innerHTML=h}
+function status(){mode='status';render()}render();
+</script></body></html>
