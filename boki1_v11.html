@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>簿記1級 学習ツール v11</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;margin:0;background:#f5f6f8;color:#222}.wrap{max-width:760px;margin:auto;padding:16px}.card{background:#fff;border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 2px 10px #0001}button,select{width:100%;padding:13px;margin:6px 0;border:0;border-radius:12px;background:#eee;font-size:16px}button.main{background:#222;color:#fff}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.grid button{margin:0}.muted{color:#666;font-size:13px}.ok{background:#e8f5e9!important}.ng{background:#ffebee!important}.entry{font-family:ui-monospace,monospace;background:#f1f3f5;padding:12px;border-radius:10px;white-space:pre-wrap}.hide{display:none}.pill{display:inline-block;background:#eee;border-radius:20px;padding:5px 9px;margin:3px;font-size:13px}</style></head><body><div class="wrap"><h1>📘 簿記1級 学習ツール</h1><div id="app"></div></div><script>
+const cats={
+ 商業簿記:['現金預金','有価証券','債権・債務','手形','引当金','商品売買','収益認識','金融商品','固定資産','減損','リース','外貨建取引','資産除去債務','税金・税効果','株式会社会計','本支店会計','連結会計'],
+ 会計学:['会計原則・基準','財務諸表','キャッシュ・フロー','株主資本等変動計算書','概念フレームワーク','企業結合・事業分離','連結・包括利益'],
+ 工業簿記:['原価の基礎','材料費','労務費','経費','製造間接費','部門費','個別原価計算','総合原価計算','標準原価計算','直接原価計算','工場会計'],
+ 原価計算:['CVP分析','原価予測','差額原価収益分析','意思決定','予算管理','戦略的原価計算','営業費計算']};
+const qs=[
+['商業簿記','現金預金','journal','当座預金から普通預金へ振り替えた。','当座預金 10,000 / 普通預金 10,000','預金科目間の振替なので、資産の振替。'],
+['商業簿記','現金預金','journal','小切手を受け取ったが、直ちに当座預金へ預け入れた。','当座預金 20,000 / 現金 20,000','手元現金を当座預金へ移した処理。'],
+['商業簿記','有価証券','journal','売買目的有価証券を取得し、代金を現金で支払った。','売買目的有価証券 30,000 / 現金 30,000','取得時は有価証券を資産計上する。'],
+['商業簿記','引当金','journal','売掛金100,000について貸倒れを見積もった。貸倒引当金を設定する。','貸倒引当金繰入 5,000 / 貸倒引当金 5,000','将来の貸倒れに備え費用と引当金を認識する。'],
+['商業簿記','収益認識','concept','商品を顧客に引き渡し、履行義務を充足した。収益を認識する時点は？','顧客に支配が移転した時点','収益は履行義務を充足した時に認識する。'],
+['商業簿記','税金・税効果','concept','将来減算一時差異から生じる税効果は？','繰延税金資産','将来の税金負担を減らす効果なので資産。'],
+['商業簿記','固定資産','journal','備品100,000を現金で購入した。','備品 100,000 / 現金 100,000','固定資産の取得は資産計上する。'],
+['商業簿記','減損','concept','固定資産の回収可能価額が帳簿価額を下回る場合の処理は？','減損損失を認識する','帳簿価額を回収可能価額まで減額する。'],
+['商業簿記','連結会計','concept','親会社が子会社の議決権を支配している場合、連結財務諸表では？','子会社を連結する','支配を基礎として親子会社を一体として表示する。'],
+['商業簿記','連結会計','journal','連結上、親子会社間の売掛金と買掛金を消去する。','買掛金 XXX / 売掛金 XXX','グループ内債権債務は連結上の外部債権債務ではない。'],
+['工業簿記','材料費','concept','材料の購入価格差異は主に何と実際価格との差？','標準価格と実際価格との差','価格差異は価格の差による差異。'],
+['工業簿記','労務費','concept','賃率差異は何の差？','標準賃率と実際賃率の差','賃率の違いから生じる差異。'],
+['工業簿記','製造間接費','concept','製造間接費配賦差異は何と何の差から生じる？','配賦額と実際発生額','配賦した額と実際額を比較する。'],
+['工業簿記','標準原価計算','concept','標準原価計算の目的として適切なのは？','原価管理と業績評価','標準と実際の差異を分析し管理に役立てる。'],
+['工業簿記','総合原価計算','concept','平均法では期首仕掛品と当期投入を平均して？','平均単価を計算する','期首と当期の原価を合わせて平均単価を求める。'],
+['原価計算','CVP分析','concept','損益分岐点売上高を求める基本的な考え方は？','固定費÷限界利益率','限界利益が固定費と等しくなる売上高。'],
+['原価計算','直接原価計算','concept','直接原価計算では固定製造原価をどう扱う？','期間費用として扱う','変動製造原価を製品原価とし、固定費は期間費用とする。'],
+['原価計算','意思決定','concept','追加注文を受けるかの意思決定で重視する原価は？','意思決定によって増減する原価','埋没原価ではなく関連原価を比較する。'],
+['会計学','キャッシュ・フロー','concept','借入金の返済による支出は通常どの区分？','財務活動によるキャッシュ・フロー','資金調達・返済に関するキャッシュ・フロー。'],
+['会計学','株主資本等変動計算書','concept','配当による利益剰余金の減少は？','株主資本の変動','株主への配当は純資産の変動となる。']
+];
+let state=JSON.parse(localStorage.getItem('bokiV11')||'{"wrong":{},"conf":{},"days":{}}');let mode='';let pool=[];let idx=0,score=0;
+function save(){localStorage.setItem('bokiV11',JSON.stringify(state))}function today(){return new Date().toISOString().slice(0,10)}function yesterday(){let d=new Date();d.setDate(d.getDate()-1);return d.toISOString().slice(0,10)}
+function home(){app.innerHTML=`<div class="card"><h2>やりたいこと</h2><button class="main" onclick="categories()">📚 カテゴリー別に勉強</button><button onclick="startRandom()">⚡ とにかく解く</button><button onclick="chooseJournal()">✏️ 仕訳を解く</button><button onclick="chooseWhy()">🧠 なぜこの仕訳？</button><button onclick="chooseConf()">🔀 似た仕訳を見分ける</button><button onclick="prediction()">🔮 予想問題</button><button onclick="status()">📊 学習状況・昨日の学習</button></div><div class="card"><b>今日：</b> ${state.days[today()]?.done||0}問　正解 ${state.days[today()]?.ok||0}問</div>`}
+function categories(){let h='<div class="card"><h2>カテゴリーを選ぶ</h2>';for(const c in cats)h+=`<button onclick="topics('${c}')">${c}</button>`;h+='<button onclick="home()">← 戻る</button></div>';app.innerHTML=h}
+function topics(c){let h=`<div class="card"><h2>${c}</h2><p class="muted">論点を選ぶと、問題数と勉強方法を選べます。</p>`;cats[c].forEach(t=>h+=`<button onclick="setup('${c}','${t}')">${t}</button>`);h+='<button onclick="categories()">← カテゴリーへ</button></div>';app.innerHTML=h}
+function setup(c,t){let n=qs.filter(q=>q[0]===c&&q[1]===t).length;app.innerHTML=`<div class="card"><h2>${c} ＞ ${t}</h2><p>現在の登録問題：${n}問</p><button onclick="runTopic('${c}','${t}','study',10)">📖 勉強する 10問</button><button onclick="runTopic('${c}','${t}','journal',10)">✏️ 仕訳 10問</button><button onclick="runTopic('${c}','${t}','why',10)">🧠 なぜ？ 10問</button><button onclick="runTopic('${c}','${t}','conf',10)">🔀 似た仕訳 10問</button><p class="muted">10問に満たない論点は、同じカテゴリーの別論点から補充して10問にします。</p><button onclick="topics('${c}')">← 論点へ</button></div>`}
+function makePool(base,typ){let a=qs.filter(q=>base(q));if(a.length<10){let cat=a[0]?.[0];if(cat)a=a.concat(qs.filter(q=>q[0]===cat&&!a.includes(q)));}a=a.sort(()=>Math.random()-.5);return a.slice(0,Math.min(10,a.length))}
+function runTopic(c,t,typ,n){pool=makePool(q=>q[0]===c&&q[1]===t,typ);mode=typ;idx=0;score=0;show()}
+function startRandom(){pool=qs.slice().sort(()=>Math.random()-.5).slice(0,Math.min(10,qs.length));mode='study';idx=0;score=0;show()}
+function chooseJournal(){pool=qs.filter(q=>q[2]==='journal').sort(()=>Math.random()-.5).slice(0,10);mode='journal';idx=0;score=0;show()}
+function chooseWhy(){pool=qs.filter(q=>q[2]==='journal').sort(()=>Math.random()-.5).slice(0,10);mode='why';idx=0;score=0;show()}
+function chooseConf(){pool=qs.filter(q=>q[2]==='journal').sort(()=>Math.random()-.5).slice(0,10);mode='conf';idx=0;score=0;show()}
+function prediction(){let arr=qs.slice().sort((a,b)=>(state.wrong[b[1]]||0)-(state.wrong[a[1]]||0));pool=arr.slice(0,10);mode='prediction';idx=0;score=0;show()}
+function show(){if(idx>=pool.length)return finish();let q=pool[idx], opts;if(mode==='journal'){opts=['この仕訳','反対の仕訳','収益認識の仕訳','決算振替'];}else if(mode==='why'){opts=['資産同士の振替だから','費用と収益を同時に認識するから','負債を減らすためだから','純資産だけを増やすから'];}else if(mode==='conf'){opts=['資産の増加・資産の減少','費用の発生・負債の増加','収益の発生・資産の減少','純資産の増加・費用の減少'];}else{opts=['正しい','誤り'];}
+let prompt=q[3];if(mode==='why')prompt=`次の仕訳を見て、「なぜこの仕訳になるのか」を選んでください。\n\n${q[4]}`;if(mode==='conf')prompt=`次の仕訳で、どの増減関係を見れば判断しやすい？\n\n${q[4]}`;let html=`<div class="card"><span class="pill">${q[0]}</span><span class="pill">${q[1]}</span><p>${idx+1}/${pool.length}</p><h3>${prompt}</h3>`;if(mode==='journal')html+=`<p class="muted">この取引の仕訳として正しいものを選ぶ練習</p>`;if(mode==='study'||mode==='prediction')html+=`<button onclick="answer(0)">正しい</button><button onclick="answer(1)">誤り</button>`;else opts.forEach((o,i)=>html+=`<button onclick="answer(${i})">${o}</button>`);html+=`<div id="result"></div></div>`;app.innerHTML=html}
+function answer(i){let q=pool[idx],correct=(mode==='study'||mode==='prediction')?0:0;let ok=i===correct;if(ok)score++;let d=state.days[today()]||{done:0,ok:0,topics:{}};d.done++;if(ok)d.ok++;d.topics=q[1]=(d.topics[q[1]]||0)+1;state.days[today()]=d;if(!ok){state.wrong[q[1]]=(state.wrong[q[1]]||0)+1;if(q[4])state.conf[q[1]]=state.conf[q[1]]||0}save();document.getElementById('result').innerHTML=`<div class="card ${ok?'ok':'ng'}"><b>${ok?'○ 正解':'× 不正解'}</b><p>${q[4]}</p><p class="muted">${q[5]}</p><button onclick="idx++;show()">次へ</button></div>`}
+function finish(){app.innerHTML=`<div class="card"><h2>結果</h2><p>${score} / ${pool.length}問 正解</p><button class="main" onclick="home()">ホームへ</button></div>`}
+function status(){let y=state.days[yesterday()];let wrong=Object.entries(state.wrong).sort((a,b)=>b[1]-a[1]).slice(0,8);let h='<div class="card"><h2>📊 学習状況</h2>';h+=`<p>今日：${state.days[today()]?.done||0}問 / 正解 ${state.days[today()]?.ok||0}問</p><p>昨日：${y?.done||0}問 / 正解 ${y?.ok||0}問</p>`;h+='<h3>間違いが多い論点</h3>';h+=wrong.length?wrong.map(x=>`<span class="pill">${x[0]}：${x[1]}回</span>`).join(''):'<p>まだありません</p>';if(y?.topics){h+='<h3>昨日やった論点</h3>'+Object.keys(y.topics).map(t=>`<button onclick="quickTopic('${t}')">${t}</button>`).join('')}h+='<button onclick="home()">← ホーム</button></div>';app.innerHTML=h}
+function quickTopic(t){for(const c in cats)if(cats[c].includes(t))return setup(c,t)}
+home();
+</script></body></html>
