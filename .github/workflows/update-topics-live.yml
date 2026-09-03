@@ -1,0 +1,101 @@
+name: Update topic data live
+on:
+  schedule:
+    - cron: '7 0 * * *'
+    - cron: '7 9 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/update-topics-live.yml'
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch fresh Japanese market topics
+        run: |
+          python - <<'PY'
+          import json, urllib.request, urllib.parse, xml.etree.ElementTree as ET, re, os
+          from datetime import datetime, timezone
+          from html import unescape
+
+          def get(url):
+              req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
+              return urllib.request.urlopen(req,timeout=25).read()
+
+          queries=['日本株 注目銘柄 今日','日本株 話題銘柄 今日','日本株 AI 半導体','日本株 防衛 インフラ','日本株 電力 データセンター','日本株 宇宙 レアアース']
+          items=[]
+          for q in queries:
+              try:
+                  root=ET.fromstring(get('https://news.google.com/rss/search?q='+urllib.parse.quote(q)+'&hl=ja&gl=JP&ceid=JP:ja'))
+                  for it in root.findall('./channel/item')[:15]:
+                      title=unescape((it.findtext('title') or '').strip())
+                      link=(it.findtext('link') or '').strip()
+                      pub=(it.findtext('pubDate') or '').strip()
+                      source=it.findtext('source') or ''
+                      if title and link:
+                          items.append({'title':title,'link':link,'pubDate':pub,'source':source})
+              except Exception as e:
+                  print('feed error',q,e)
+
+          hot={}
+          for x in items:
+              title=x['title']
+              for m in re.finditer(r'([A-Za-z0-9一-龯ぁ-んァ-ヶー＆・.]{2,40})\s*[<(（](\d{3,4}[A-Z]?)[>）)・]',title):
+                  name=re.sub(r'^個別\d{4}年\d{1,2}月\d{1,2}日','',m.group(1).strip(' ・'))
+                  code=m.group(2)
+                  if name and code:
+                      v=hot.setdefault(code,{'name':name,'symbol':code,'mentions':0,'reasons':[]})
+                      v['mentions']+=1
+                      v['reasons'].append(title[:120])
+
+          signals=['注目','話題','急騰','ストップ高','上方修正','自社株買い','好材料','買い気配','高値','材料']
+          for v in hot.values():
+              v['signal_count']=sum(sum(w in r for w in signals) for r in v['reasons'])
+              v['rank']=v['mentions']*3+v['signal_count']
+
+          ranked=sorted(hot.values(),key=lambda x:(x['rank'],x['mentions']),reverse=True)[:30]
+          max_rank=max([v['rank'] for v in ranked] or [1])
+          dynamic=[]
+          for v in ranked:
+              confidence=round(55+40*(v['rank']/max_rank))
+              dynamic.append({'name':v['name']+'（'+v['symbol']+'）','type':'個別株','theme':'本日の話題・ニュース','base':5,'down':-20,'up':20,'confidence':confidence,'symbol':v['symbol'],'rank':v['rank'],'reason':v['reasons'][0] if v['reasons'] else '本日の市場ニュースで掲載'})
+
+          seen=set(); unique=[]
+          for x in items:
+              if x['title'] not in seen:
+                  seen.add(x['title']); unique.append(x)
+
+          keywords={'AI':['AI','人工知能','生成AI'],'半導体':['半導体','メモリ','GPU'],'防衛':['防衛','ミサイル','安全保障'],'電力':['電力','原発','再生可能エネルギー'],'データセンター':['データセンター','データセンタ'],'宇宙':['宇宙','衛星','月面'],'レアアース':['レアアース','重要鉱物','海底資源'],'インフラ':['インフラ','建設','設備投資']}
+          text=' '.join(x['title'] for x in unique).lower()
+          themes=[]
+          for name,ks in keywords.items():
+              count=sum(text.count(k.lower()) for k in ks)
+              if count: themes.append({'name':name,'count':count})
+          themes.sort(key=lambda x:x['count'],reverse=True)
+
+          updated=datetime.now(timezone.utc).isoformat()
+          os.makedirs('data',exist_ok=True)
+          with open('data/topic-update.json','w',encoding='utf-8') as f:
+              json.dump({'updated_at':updated,'headlines':unique[:25],'themes':themes},f,ensure_ascii=False,indent=2)
+          with open('data/hot-stocks.json','w',encoding='utf-8') as f:
+              json.dump({'updated_at':updated,'stocks':dynamic},f,ensure_ascii=False,indent=2)
+          print('updated:',updated,'hot stocks:',len(dynamic),'headlines:',len(unique))
+          assert len(unique)>0
+          PY
+      - name: Validate and commit
+        run: |
+          python - <<'PY'
+          import json
+          for path,key in [('data/topic-update.json','headlines'),('data/hot-stocks.json','stocks')]:
+              d=json.load(open(path,encoding='utf-8'))
+              assert isinstance(d.get(key),list) and len(d[key])>0
+          print('validation ok')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/topic-update.json data/hot-stocks.json
+          git diff --cached --quiet || git commit -m 'chore: refresh market topics and hot stocks'
+          git push
