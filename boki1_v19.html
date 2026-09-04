@@ -1,0 +1,33 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>簿記1級 v19</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;margin:0;background:#f5f6f8;color:#222}header{background:#222;color:#fff;padding:16px;font-weight:700}main{max-width:720px;margin:auto;padding:14px}.card,button{background:#fff;border:1px solid #ddd;border-radius:12px;padding:14px;margin:7px 0;box-sizing:border-box}button{width:100%;font-size:16px;text-align:left}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.grid button{margin:0}.q{font-size:18px;font-weight:700;line-height:1.6}.ok{background:#e9f7ee;border-color:#65b97a}.ng{background:#fff0f0;border-color:#d66}.small{font-size:13px;color:#666}</style></head><body><header>📘 日商簿記1級 学習ツール v19</header><main id="app"></main><script>
+const KEY='bokiV19';
+const topics={商業簿記:['簿記の基本原理','現金預金','有価証券','売掛金と買掛金','その他の債権と債務','手形','債権の譲渡','引当金','債務の保証','商品の売買','収益認識','デリバティブ・金融商品','有形固定資産','無形固定資産','固定資産の減損','投資その他の資産','繰延資産','リース取引','外貨建取引','資産除去債務','収益と費用','税金','税効果会計','未決算','会計上の変更・誤謬訂正','決算','株式会社会計','本支店会計','連結会計','会計基準・法令'],会計学:['企業会計原則・会計基準','財務会計の概念フレームワーク','財務諸表','株主資本等変動計算書','キャッシュ・フロー計算書','企業結合・事業分離','連結会計・包括利益','会社法・会社計算規則等'],工業簿記:['工業簿記の本質','原価','原価計算','工業簿記の構造','材料費計算','労務費計算','経費計算','製造間接費計算','部門費計算','個別原価計算','総合原価計算','標準原価計算','製品の受払い','営業費計算','工場会計'],原価計算:['原価・営業量・利益関係分析','原価予測','直接原価計算','差額原価収益分析','意思決定','予算管理','戦略的原価計算']};
+const Q=[];const add=(c,t,q,o,a,e,x)=>Q.push({c,t,q,o,a,e,x});
+function addSet(c,t){
+const forms=[
+[`「${t}」について、最も適切なものはどれか。`,['論点の認識・測定条件を確認して処理する','必ず入金時に処理する','必ず利益だけで判断する','税務処理をそのまま会計処理にする'],0,'まず認識・測定条件を確認する。','入金時・利益額・税務だけで判断しない。'],
+[`「${t}」の問題で条件を読み落とさないため、最初に確認するのはどれか。`,['取引の事実と追加条件','選択肢の順番','問題文の文字数','前問の正解'],0,'追加条件が処理を変えることがある。','基本形を条件なしで当てはめない。'],
+[`「${t}」を仕訳にするとき、最初に考えるべきものはどれか。`,['増減する勘定科目と借方・貸方','答えの番号','翌年度の予算','担当者の評価'],0,'取引による勘定の増減から仕訳を組み立てる。','答えを暗記して条件を無視しない。'],
+[`「${t}」と似た論点を見分けるとき、最も有効なのはどれか。`,['認識要件・測定方法・表示を比較する','勘定科目名だけを見る','金額だけを見る','日付だけを見る'],0,'似た処理ほど条件を比較する。','科目名だけでは区別できない。'],
+[`決算時の「${t}」で確認すべきものはどれか。`,['決算日現在の認識・評価条件','翌年度の売上だけ','現金残高だけ','従業員数だけ'],0,'期末時点の状態と評価条件を確認する。','翌期の情報だけで決めない。'],
+[`「${t}」の計算問題で、数値を入れる前に行うべきことはどれか。`,['計算対象と認識・測定条件を整理する','とりあえず足し算する','選択肢の最大値を選ぶ','前問の数値を流用する'],0,'条件整理→式→計算の順で進める。','数字だけ先に計算しない。'],
+[`「${t}」で誤りやすいのはどれか。`,['似た論点の処理を条件なしで流用する','取引条件を確認する','認識時点を確認する','表示区分を確認する'],0,'混同を防ぐには条件差を確認する。','似ている＝同じ処理ではない。'],
+[`「${t}」を間違えた後の復習で最も重要なのはどれか。`,['認識・測定・仕訳・表示のどこで誤ったか特定する','正解番号だけ覚える','問題文を丸暗記する','時間だけ記録する'],0,'間違いの種類を記録すると類題対策になる。','正解だけ覚えると再発しやすい。'],
+[`1級の「${t}」で意識したい解き方はどれか。`,['複数条件を整理して処理を組み立てる','一つの仕訳を無条件で使う','長い選択肢を選ぶ','感覚だけで選ぶ'],0,'1級では条件整理と応用が重要。','単純暗記だけに頼らない。'],
+[`「${t}」について、最も注意すべき学習方法はどれか。`,['基本処理と例外・条件差をセットで覚える','正解肢だけ覚える','数字だけ覚える','問題文を読まずに解く'],0,'基本処理に条件差を加えて覚える。','似た処理の区別が重要。']];
+for(const f of forms)add(c,t,f[0],f[1],f[2],f[3],f[4]);}
+for(const c of Object.keys(topics))for(const t of topics[c])addSet(c,t);
+add('商業簿記','税効果会計','税引前利益1,000、損金不算入額100、税率30%。税効果を考慮しない当期税額はいくらか。',[300,330,270,100],1,'課税所得は1,100。1,100×30%=330。','税引前利益と課税所得を混同しない。');
+add('商業簿記','固定資産の減損','減損損失を認識した固定資産の帳簿価額は、原則として何に基づいて減額するか。',['回収可能価額','取得原価','必ずゼロ','税務上の簿価'],0,'回収可能価額まで減額する。','減損＝必ずゼロではない。');
+add('商業簿記','収益認識','商品を顧客へ引き渡し、契約上の履行義務を充足した。収益認識で中心となる判断はどれか。',['履行義務の充足時点','入金日だけ','請求書発行日だけ','仕入日だけ'],0,'履行義務の充足を基礎に収益を認識する。','入金日と収益認識日は一致するとは限らない。');
+add('工業簿記','標準原価計算','実際原価と標準原価との差異を分析する主な目的はどれか。',['差異の原因を把握して原価管理に役立てる','売上高だけを計算する','現金残高を確定する','税額だけを計算する'],0,'差異分析は原因把握と原価管理につなげる。','差異を単なる正誤だけで終わらせない。');
+add('原価計算','原価・営業量・利益関係分析','売価1,000円、変動費600円、固定費200,000円のとき、損益分岐点販売数量は何個か。',[200,300,400,500],3,'1個当たり限界利益は400円。200,000÷400=500個。','数量なら固定費÷1個当たり限界利益。');
+add('原価計算','意思決定','遊休能力があり追加固定費が発生しない特別注文を受けるか判断するとき、基本的に比較するのはどれか。',['追加収益と追加原価','過去の固定費すべて','通常販売価格だけ','総資産額だけ'],0,'関連する差額収益と差額原価を比較する。','埋没原価や無関係な固定費を混ぜない。');
+function shuf(a){return a.map(v=>({v:v})).sort(()=>Math.random()-.5).map(x=>x.v)}
+let state=JSON.parse(localStorage.getItem(KEY)||'{"wrong":{},"done":0}'),session=[],pos=0;
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}function home(){app.innerHTML='<div class="card"><h2>論点から10問</h2><p class="small">56論点。各論点10問＋一部の具体的な計算・仕訳問題。選択肢は毎回シャッフル。</p></div><div class="grid"><button onclick="topicsPage()">📚 論点別10問</button><button onclick="random(10)">⚡ 10問</button><button onclick="random(50)">⚡ 50問</button><button onclick="random(100)">⚡ 100問</button></div><button onclick="status()">📊 学習状況・間違い論点</button>'}
+function topicsPage(){let h='<button onclick="home()">← 戻る</button><h2>論点別10問</h2>';for(const c in topics){h+='<div class="card"><b>'+c+'</b>';for(const t of topics[c])h+='<button onclick="topic('+JSON.stringify(c)+','+JSON.stringify(t)+')">'+t+' → 10問</button>';h+='</div>'}app.innerHTML=h}
+function topic(c,t){session=shuf(Q.filter(q=>q.c===c&&q.t===t)).slice(0,10);pos=0;quiz()}
+function random(n){session=shuf(Q).slice(0,n);pos=0;quiz()}
+function quiz(){if(pos>=session.length){state.done+=session.length;save();app.innerHTML='<div class="card"><h2>終了</h2><p>'+session.length+'問完了。</p></div><button onclick="home()">ホームへ</button>';return}const q=session[pos],order=shuf(q.o.map((v,i)=>({v,i})));app.innerHTML='<button onclick="home()">← 終了</button><div class="small">'+(pos+1)+' / '+session.length+'　'+q.c+' ＞ '+q.t+'</div><div class="card"><div class="q">'+q.q+'</div></div>'+order.map((z,i)=>'<button class="ans" data-i="'+z.i+'" onclick="answer('+z.i+',this)">'+(i+1)+'. '+z.v+'</button>').join('')}
+function answer(i,el){const q=session[pos],bs=[...document.querySelectorAll('.ans')];bs.forEach(b=>b.disabled=true);const ok=i===q.a;if(ok)el.classList.add('ok');else{el.classList.add('ng');state.wrong[q.t]=(state.wrong[q.t]||0)+1;bs.forEach(b=>{if(+b.dataset.i===q.a)b.classList.add('ok')})}save();const d=document.createElement('div');d.className='card';d.innerHTML='<b>'+(ok?'○ 正解':'× 不正解')+'</b><p>'+q.e+'</p><p class="small">混同ポイント：'+q.x+'</p><button onclick="pos++;quiz()">次の問題 →</button>';app.appendChild(d)}
+function status(){const r=Object.entries(state.wrong).sort((a,b)=>b[1]-a[1]);app.innerHTML='<button onclick="home()">← 戻る</button><h2>学習状況</h2><div class="card">累計回答数：'+state.done+'問</div><div class="card"><b>間違いが多い論点</b>'+(r.length?r.slice(0,20).map(x=>'<p>'+x[0]+'：'+x[1]+'回</p>').join(''):'<p>まだ記録がありません。</p>')+'</div>'}home();</script></body></html>
