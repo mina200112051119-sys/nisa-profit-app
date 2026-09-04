@@ -1,0 +1,32 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>簿記1級 v20</title><style>body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;margin:0;background:#f5f6f8;color:#222}header{background:#222;color:white;padding:15px;font-weight:bold}main{max-width:720px;margin:auto;padding:12px}.card,button{background:white;border:1px solid #ddd;border-radius:12px;padding:13px;margin:6px 0;box-sizing:border-box}button{width:100%;font-size:16px;text-align:left}.grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.q{font-size:18px;font-weight:bold;line-height:1.6}.small{font-size:13px;color:#666}.ok{background:#e9f7ee;border-color:#69a879}.ng{background:#fff0f0;border-color:#d77}</style></head><body><header>📘 日商簿記1級 v20</header><main id="app"></main><script>
+const KEY='bokiV20';
+const topics={商業簿記:['簿記の基本原理','現金預金','有価証券','売掛金と買掛金','その他の債権と債務','手形','債権の譲渡','引当金','債務の保証','商品の売買','収益認識','デリバティブ・金融商品','有形固定資産','無形固定資産','固定資産の減損','投資その他の資産','繰延資産','リース取引','外貨建取引','資産除去債務','収益と費用','税金','税効果会計','未決算','会計上の変更・誤謬訂正','決算','株式会社会計','本支店会計','連結会計','会計基準・法令'],会計学:['企業会計原則・会計基準','財務会計の概念フレームワーク','財務諸表','株主資本等変動計算書','キャッシュ・フロー計算書','企業結合・事業分離','連結会計・包括利益','会社法・会社計算規則等'],工業簿記:['工業簿記の本質','原価','原価計算','工業簿記の構造','材料費計算','労務費計算','経費計算','製造間接費計算','部門費計算','個別原価計算','総合原価計算','標準原価計算','製品の受払い','営業費計算','工場会計'],原価計算:['原価・営業量・利益関係分析','原価予測','直接原価計算','差額原価収益分析','意思決定','予算管理','戦略的原価計算']};
+const patterns=['基礎','仕訳・処理','計算','条件変更','比較','誤り探し','決算','応用','理論','本試験型'];
+const special={
+'CVP分析':{q:['売価1,000円、変動費600円、固定費200,000円。損益分岐点販売数量は？','売価1,200円、変動費720円、固定費240,000円。損益分岐点販売数量は？'],a:[500,500],o:[[300,400,500,600],[400,500,600,700]],e:'固定費÷1個当たり限界利益。'},
+'意思決定':{q:['遊休能力があり特別注文で追加固定費なし。判断で重視するものは？','既存製品の製造を継続するか廃止するか。重視するのは？'],a:[0,0],o:[['差額収益と差額原価','過去の総原価','通常販売価格だけ','総資産'],['回避可能原価と差額収益','埋没原価','既発生固定費','帳簿価額']],e:'意思決定では関連原価・差額収益を使う。'},
+'税効果会計':{q:['税引前利益1,000、損金不算入100、税率30%。税効果を考えない法人税額は？','将来減算一時差異に対応する税効果で基本的に検討するものは？'],a:[330,0],o:[[300,330,360,400],['繰延税金資産','売上債権','現金','資本金']],e:'会計上の利益と課税所得、一時差異の性質を区別する。'},
+'標準原価計算':{q:['実際原価と標準原価の差額を分析する主目的は？','材料価格差異を分析するとき比較する単価は？'],a:[0,0],o:[['差異原因の把握','売上高の確定','現金管理','税額計算'],['実際単価と標準単価','売価と原価','予算固定費と実際固定費','前年単価と売価']],e:'標準原価計算は差異分析を原価管理に利用する。'}};
+const Q=[];
+function add(c,t,q,o,a,e,kind){Q.push({c,t,q,o,a,e,kind})}
+function make(c,t){for(let i=0;i<10;i++){let p=patterns[i],sp=special[t];if(sp&&sp.q[i%sp.q.length]){let k=i%sp.q.length;add(c,t,sp.q[k],sp.o[k],sp.a[k],sp.e,p);continue}let forms=[
+[`「${t}」の基本処理として最も適切なのは？`,['論点の認識・測定ルールに従う','必ず現金収支で処理する','必ず費用にする','必ず翌期に繰り延べる'],0,'まず認識・測定のルールを確認する。'],
+[`「${t}」に関する取引で、仕訳を考える最初の一歩は？`,['増減する勘定科目を特定する','税額だけ計算する','売上だけ確認する','前年度残高だけ見る'],0,'仕訳は取引による勘定の増減から考える。'],
+[`「${t}」の計算で、条件を1つ追加すると処理が変わる可能性がある。最初に確認するものは？`,['追加条件の認識・測定への影響','選択肢の順番','数字の桁数','問題文の長さ'],0,'1級では追加条件が答えを変える。'],
+[`「${t}」と似た論点を区別するなら、何を比較する？`,['認識要件・測定方法・表示','勘定科目名だけ','金額だけ','日付だけ'],0,'似た論点は条件・測定・表示を比較する。'],
+[`次のうち「${t}」で起こりやすい誤りは？`,['似た論点の処理を条件なしで当てはめる','条件を読む','認識時点を確認する','表示区分を確認する'],0,'「似ているから同じ処理」が混同ポイント。'],
+[`決算で「${t}」を処理するとき、確認すべきなのは？`,['決算日現在の認識・評価条件','翌期売上だけ','現金残高だけ','従業員数だけ'],0,'期末時点の状態を確認する。'],
+[`「${t}」について最も適切な理論的考え方は？`,['取引の実態と会計基準に基づいて判断する','税務処理を必ず優先する','現金主義だけで判断する','担当者の判断を優先する'],0,'会計処理は実態と基準に基づく。'],
+[`「${t}」の応用問題で注意することは？`,['複数の条件を整理してから処理する','最初に見た数字だけ使う','選択肢を先に暗記する','計算を省略する'],0,'条件を整理して処理を組み立てる。'],
+[`「${t}」を間違えた場合、復習で確認するべきものは？`,['認識・測定・仕訳・表示のどこで誤ったか','正解番号だけ','解答欄だけ','問題文の文字数'],0,'間違いの種類を記録すると混同対策になる。'],
+[`本試験で「${t}」が複合問題として出た場合、最初にすることは？`,['条件を分解して論点ごとに整理する','全部を暗記で処理する','一番長い選択肢を選ぶ','数字だけ先に計算する'],0,'複合問題は条件を分解する。']][i];add(c,t,forms[0],forms[1],forms[2],forms[3],p)}}
+for(const c of Object.keys(topics))for(const t of topics[c])make(c,t);
+function sh(a){a=a.map((v,i)=>({v,i}));for(let i=a.length-1;i;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+let S=JSON.parse(localStorage.getItem(KEY)||'{"wrong":{},"done":0}'),pool=[],idx=0;
+function save(){localStorage.setItem(KEY,JSON.stringify(S))}function home(){app.innerHTML='<div class="card"><h2>📚 論点別に10問</h2><p class="small">各論点を「基礎→仕訳→計算→条件→比較→誤り→決算→応用→理論→本試験型」の10形式で練習。</p></div><div class="grid"><button onclick="topicPage()">論点を選ぶ</button><button onclick="random(10)">⚡10問</button><button onclick="random(50)">⚡50問</button><button onclick="random(100)">⚡100問</button></div><button onclick="status()">📊 間違い・学習状況</button>'}
+function topicPage(){let h='<button onclick="home()">← 戻る</button><h2>論点を選ぶ</h2>';for(const c in topics){h+='<div class="card"><b>'+c+'</b>';for(const t of topics[c])h+=`<button onclick="topic('${c}','${t}')">${t}　10問</button>`;h+='</div>'}app.innerHTML=h}
+function topic(c,t){pool=sh(Q.filter(x=>x.c===c&&x.t===t));idx=0;quiz()}
+function random(n){pool=sh(Q).slice(0,n);idx=0;quiz()}
+function quiz(){if(idx>=pool.length){S.done+=pool.length;save();app.innerHTML='<div class="card"><h2>終了</h2><p>'+pool.length+'問完了。</p></div><button onclick="home()">ホームへ</button>';return}let q=pool[idx],a=sh(q.o);app.innerHTML='<button onclick="home()">← 終了</button><div class="small">'+(idx+1)+' / '+pool.length+'　'+q.c+' ＞ '+q.t+'　【'+q.kind+'】</div><div class="card q">'+q.q+'</div>'+a.map((x,i)=>`<button onclick="ans(${x.i},this)">${i+1}. ${x.v}</button>`).join('')}
+function ans(n,el){let q=pool[idx],bs=[...document.querySelectorAll('main button')];bs.forEach(b=>b.disabled=true);let ok=n===q.a;if(ok)el.classList.add('ok');else{el.classList.add('ng');S.wrong[q.t]=(S.wrong[q.t]||0)+1}let d=document.createElement('div');d.className='card';d.innerHTML='<b>'+(ok?'○ 正解':'× 不正解')+'</b><p>'+q.e+'</p><p class="small">間違いポイント：'+(ok?'正しい判断ができています。':'この論点の条件・認識・測定をもう一度確認。')+'</p><button onclick="idx++;quiz()">次へ →</button>';app.appendChild(d);save()}
+function status(){let r=Object.entries(S.wrong).sort((a,b)=>b[1]-a[1]);app.innerHTML='<button onclick="home()">← 戻る</button><h2>📊 学習状況</h2><div class="card">累計回答：'+S.done+'問</div><div class="card"><b>間違いが多い論点</b>'+(r.length?r.slice(0,20).map(x=>'<p>'+x[0]+'：'+x[1]+'回</p>').join(''):'<p>まだありません。</p>')+'</div>'}home();</script></body></html>
