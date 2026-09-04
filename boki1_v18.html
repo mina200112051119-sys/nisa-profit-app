@@ -1,0 +1,40 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>簿記1級 学習ツール v18</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;margin:0;background:#f5f6f8;color:#222}header{background:#222;color:#fff;padding:16px;font-weight:700}main{max-width:720px;margin:auto;padding:14px}.card,button,select{background:#fff;border:1px solid #ddd;border-radius:12px;padding:14px;margin:7px 0;box-sizing:border-box}button{width:100%;font-size:16px;text-align:left}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.grid button{margin:0}.q{font-size:18px;font-weight:700;line-height:1.6}.ans{display:block;width:100%;text-align:left}.ok{background:#e9f7ee;border-color:#65b97a}.ng{background:#fff0f0;border-color:#d66}.small{font-size:13px;color:#666}.hide{display:none}</style></head><body><header>📘 日商簿記1級 学習ツール v18</header><main id="app"></main><script>
+const KEY='bokiV18';
+const topics={
+'商業簿記':['簿記の基本原理','現金預金','有価証券','売掛金と買掛金','その他の債権と債務','手形','債権の譲渡','引当金','債務の保証','商品の売買','収益認識','デリバティブ・金融商品','有形固定資産','無形固定資産','固定資産の減損','投資その他の資産','繰延資産','リース取引','外貨建取引','資産除去債務','収益と費用','税金','税効果会計','未決算','会計上の変更・誤謬訂正','決算','株式会社会計','本支店会計','連結会計','会計基準・法令'],
+'会計学':['企業会計原則・会計基準','財務会計の概念フレームワーク','財務諸表','株主資本等変動計算書','キャッシュ・フロー計算書','企業結合・事業分離','連結会計・包括利益','会社法・会社計算規則等'],
+'工業簿記':['工業簿記の本質','原価','原価計算','工業簿記の構造','材料費計算','労務費計算','経費計算','製造間接費計算','部門費計算','個別原価計算','総合原価計算','標準原価計算','製品の受払い','営業費計算','工場会計'],
+'原価計算':['原価・営業量・利益関係分析','原価予測','直接原価計算','差額原価収益分析','意思決定','予算管理','戦略的原価計算']};
+const Q=[];const add=(c,t,q,o,a,e,x)=>Q.push({c,t,q,o,a,e,x});
+function common(c,t){return [
+['基本確認',`「${t}」について、最も適切な説明はどれか。`,[`その論点で定められた会計処理を行う`,`必ず現金収支と同時に処理する`,`必ず損益計算書だけに表示する`,`すべて税務上の処理を優先する`],0,`まず${t}の基本的な処理を確認する。`,`「現金収支と同時」「PLだけ」「税務優先」は一般化しすぎた誤り。`],
+['判断',`次のうち「${t}」を考える際に最も重要なものはどれか。`,[`取引の内容と認識・測定の条件`,`担当者の好み`,`前年度の利益額だけ`,`会社の預金残高だけ`],0,`論点では取引内容と認識・測定条件を確認する。`,`「利益額だけ」「預金残高だけ」で決めるものではない。`],
+['仕訳',`「${t}」に関する取引を処理するとき、最初に確認すべきことはどれか。`,[`取引によって増減する資産・負債・純資産・収益・費用`,`消費税だけ`,`翌期の予算だけ`,`営業担当者の評価だけ`],0,`仕訳は取引による勘定科目の増減を把握してから考える。`,`税金や予算だけから仕訳を決めない。`],
+['計算',`「${t}」の計算問題で、数値を入れる前に確認すべきことはどれか。`,[`問題文の認識・測定条件と計算対象`,`電卓の機種`,`会社の所在地だけ`,`前問の答えだけ`],0,`1級では条件を読み落とすと計算式が合っていても失点する。`,`数字だけ先に計算するのが典型的なミス。`],
+['理論',`「${t}」について、誤りやすい考え方はどれか。`,[`似た論点の処理を条件を見ずにそのまま当てはめる`,`取引条件を確認する`,`認識時点を確認する`,`表示区分を確認する`],0,`似た論点でも条件が違えば処理が変わることがある。`,`「似ているから同じ処理」が混同ポイント。`],
+['比較',`「${t}」と似た処理を区別するとき、最も有効なのはどれか。`,[`認識要件・測定方法・表示区分を比較する`,`勘定科目名だけを見る`,`金額だけを見る`,`日付だけを見る`],0,`似た仕訳は、認識・測定・表示の違いで見分ける。`,`科目名や金額だけで判断しない。`],
+['条件',`次のうち「${t}」で特に注意したいものはどれか。`,[`問題文に示された追加条件`,`文章の長さだけ`,`選択肢の順番`,`数字の桁数だけ`],0,`1級は追加条件が処理を変えることがある。`,`条件を飛ばして基本形を選ぶのは要注意。`],
+['決算',`決算時に「${t}」を処理する場合、確認すべきものはどれか。`,[`決算日現在の状態と認識・評価の条件`,`翌年度の売上だけ`,`現金残高だけ`,`従業員数だけ`],0,`決算では期末時点の認識・評価条件を確認する。`,`翌期の情報だけで期末処理を決めない。`],
+['出題',`「${t}」で1級らしい問題を解くとき、最も意識したいことはどれか。`,[`複数の条件を整理して処理を組み立てる`,`暗記した一つの仕訳を無条件で使う`,`選択肢の一番長いものを選ぶ`,`計算をせず感覚で選ぶ`],0,`1級では複数条件を整理する力が重要。`,`単純暗記だけでは対応しにくい。`],
+['復習',`「${t}」を間違えたとき、最初に振り返るべきことはどれか。`,[`認識・測定・仕訳・表示のどこで判断を誤ったか`,`正解番号だけ`,`問題文の文字数`,`解答時間だけ`],0,`間違いの種類を特定すると次の類題に活かせる。`,`正解だけ覚えると同じ混同を繰り返しやすい。`]
+]}
+for(const c of Object.keys(topics))for(const t of topics[c])for(const z of common(c,t)){let [k,q,o,a,e,x]=z;add(c,t,q,o,a,e,x)}
+// 一部論点は具体的な仕訳・計算問題も追加
+add('商業簿記','税効果会計','税引前当期純利益1,000、税率30%、損金不算入額100がある。税効果を考慮しない法人税等はいくらか。',[300,330,270,100],1,'税効果を考えない当期税額は課税所得1,100×30%=330。','税引前利益と課税所得を混同しない。');
+add('商業簿記','減損','減損損失を認識した固定資産について、原則として認識後の帳簿価額はどうなるか。',[『回収可能価額まで減額する』,'取得原価まで増額する','必ずゼロにする','減価償却を中止して変更しない'],0,'減損損失認識後は回収可能価額まで帳簿価額を減額する。','「減損＝ゼロ」ではない。');
+add('商業簿記','収益認識','商品を顧客へ引き渡し、契約上の履行義務を充足した。収益認識で最も重要なのはどれか。',['履行義務の充足を判断する','入金日だけを見る','請求書発行日だけを見る','仕入日だけを見る'],0,'収益認識では履行義務の充足時点を判断する。','入金日＝収益認識日とは限らない。');
+add('工業簿記','標準原価計算','標準原価計算で実際材料費と標準材料費の差額を分析する主な目的はどれか。',['原価差異の原因を把握する','売上高だけを計算する','現金残高を確定する','税額だけを算定する'],0,'標準原価との差異を分析し、原価管理に利用する。','差異は単なる正誤ではなく原因分析につなげる。');
+add('原価計算','CVP分析','売価1,000円、変動費600円、固定費200,000円のとき、損益分岐点販売数量は何個か。',[200,300,400,500],2,'1個当たり限界利益400円なので200,000÷400=500個。','固定費÷限界利益率ではなく、数量なら固定費÷1個当たり限界利益。');
+add('原価計算','意思決定','特別注文を受けるか判断するとき、遊休能力があり追加固定費が発生しない場合、基本的に比較するのはどれか。',['追加収益と追加変動費などの差額','過去の固定費すべて','通常販売価格だけ','総資産額だけ'],0,'意思決定では関連する差額収益・差額原価を比較する。','埋没原価や関連しない固定費を混ぜない。');
+function shuffle(a){a=a.map((v,i)=>({v,i}));for(let i=a.length-1;i;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+let state=JSON.parse(localStorage.getItem(KEY)||'{"wrong":{},"done":0}');let session=[];let pos=0;
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}function home(){app.innerHTML=`<div class="card"><h2>論点から勉強</h2><p class="small">1論点10問。仕訳・計算・理論・比較・条件読み取りを混ぜて出題。</p></div><div class="grid"><button onclick="topicsPage()">📚 論点別10問</button><button onclick="startRandom(10)">⚡ 10問</button><button onclick="startRandom(50)">⚡ 50問</button><button onclick="startRandom(100)">⚡ 100問</button></div><button onclick="journalPage()">✏️ 仕訳を重点練習</button><button onclick="statusPage()">📊 学習状況・間違い論点</button>`}
+function topicsPage(){let h='<button onclick="home()">← 戻る</button><h2>論点別10問</h2>';for(const c of Object.keys(topics)){h+=`<div class="card"><b>${c}</b>`;for(const t of topics[c])h+=`<button onclick="startTopic('${c}','${t}')">${t}　→ 10問</button>`;h+='</div>'}app.innerHTML=h}
+function startTopic(c,t){session=shuffle(Q.filter(q=>q.c===c&&q.t===t)).slice(0,10);pos=0;quiz()}
+function startRandom(n){session=shuffle(Q).slice(0,n);pos=0;quiz()}
+function journalPage(){let arr=Q.filter(q=>q.q.includes('仕訳')||q.t.includes('債権')||q.t.includes('商品')||q.t.includes('税効果')||q.t.includes('有価証券')).slice(0,20);session=shuffle(arr).slice(0,10);pos=0;quiz()}
+function quiz(){if(pos>=session.length){app.innerHTML='<div class="card"><h2>終了</h2><p>おつかれさま。'+session.length+'問完了。</p></div><button onclick="home()">ホームへ</button>';state.done+=session.length;save();return}let q=session[pos],opts=shuffle(q.o.map((v,i)=>({v,i})));app.innerHTML=`<button onclick="home()">← 終了</button><div class="small">${pos+1}/${session.length}　${q.c} ＞ ${q.t}</div><div class="card"><div class="q">${q.q}</div></div>${opts.map((z,i)=>`<button class="ans" onclick="answer(${z.i},${i},this)">${i+1}. ${z.v}</button>`).join('')}`}
+function answer(ai,shown,el){let q=session[pos],buttons=[...document.querySelectorAll('.ans')];buttons.forEach(b=>b.disabled=true);if(ai===q.a){el.classList.add('ok')}else{el.classList.add('ng');state.wrong[q.t]=(state.wrong[q.t]||0)+1;buttons.forEach((b,i)=>{if(b.textContent.startsWith((q.o.findIndex((_,j)=>j===q.a)+1)+'. '))b.classList.add('ok')})}let d=document.createElement('div');d.className='card';d.innerHTML=`<b>${ai===q.a?'○ 正解':'× 不正解'}</b><p>${q.e}</p><p class="small">混同ポイント：${q.x}</p><button onclick="pos++;quiz()">次の問題 →</button>`;app.appendChild(d);save()}
+function statusPage(){let rows=Object.entries(state.wrong).sort((a,b)=>b[1]-a[1]);app.innerHTML='<button onclick="home()">← 戻る</button><h2>学習状況</h2><div class="card">累計回答数：'+state.done+'問</div><div class="card"><b>間違いが多い論点</b>'+ (rows.length?rows.slice(0,15).map(x=>`<p>${x[0]}：${x[1]}回</p>`).join(''):'<p>まだ記録がありません。</p>')+'</div>'}
+home();
+</script></body></html>
