@@ -1,6 +1,12 @@
 {
-  "updated_at": "2026-10-04T05:51:00.632896+00:00",
+  "updated_at": "2026-10-04T14:49:07.628549+00:00",
   "headlines": [
+    {
+      "title": "日本株 値上がり率ランキング(値動き) - 日本経済新聞",
+      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBULWkyT3dyX1VUS1l5R3FlZTN2M2hpb0NoWm9Qek0za0t2QjE3b0g3cTlaODFrTlJ0TEd6VzdUNmhOLWRFekE1TUNaRHl1MUY1VkdRRFYyLWk5LTQ4Vjd3MmxXdUlDMm8?oc=5",
+      "pubDate": "Fri, 02 Oct 2026 06:50:00 GMT",
+      "source": "日本経済新聞"
+    },
     {
       "title": "グラファイトD、SWCC◆今日のフィスコ注目銘柄◆ - 株探",
       "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE12MFdpU1pzcklDOW9GX1NMTDJIc0dmVlJaQllFNXRMRUdGaFBCcy13WU9oa3VDeGpBUVRNOFN3N0JGdk5EUjhuMkdPZi1EQVU3cmc?oc=5",
@@ -74,28 +80,16 @@
       "source": "ダイヤモンド・オンライン"
     },
     {
+      "title": "DyDo、ＱＤレーザ◆今日のフィスコ注目銘柄◆ - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBTZlpGLWpmd0RfaERvc3BodGRjSFRHRXJkbGkxZWpwbVNEeHd5ZGVyOE9FcDctc2RsSV95WTZOdXRMTVR4dnpaUDczRkN0aV9GTGJNNFdERERjWkU5ZnVNTA?oc=5",
+      "pubDate": "Fri, 28 Aug 2026 07:00:00 GMT",
+      "source": "株探"
+    },
+    {
       "title": "イビデン、ヤマハ発、ソフトバンクGなど／本日の注目個別銘柄(フィスコ) - Yahoo!ファイナンス",
       "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbk1ZaHcybTF0WkZBeERRcmt3X2Jod3k0UjlSQ0E3VHBmY0k1WkVxYnBWVHRZdjlyTF9aQUpRYWs4TTlwdzR1amhFY0QzamkxdExzWXkyZ290amcxOFJaUDMtMWQxU244RUwyTzlYY0pkU3lvTEV4YTZmbE9mNzdlbGVUWG9vdU0?oc=5",
       "pubDate": "Wed, 05 Aug 2026 07:00:00 GMT",
       "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "本日注目すべき【好決算】銘柄 日本マイクロ、ＡＲＣＨＩＯ、ＴＯＰＰＡＮ (12日引け後 発表分) - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9RWE0xSGVLZmp0OU5UY0hDSHdZVmRsZzE4ZVdlWC11YV9IVGx6ZUFzUlhWWjU2RlIxQnByQ2N5RFJSTnc0cUE0VjhXOTNVOHJKbjk0SDY0ZC1yM1EyM2doZA?oc=5",
-      "pubDate": "Thu, 13 Aug 2026 07:00:00 GMT",
-      "source": "株探"
-    },
-    {
-      "title": "三菱商事など個人に人気の大手商社株はなぜ下落しているのか？/日経平均反落【今日の注目株＆日本株市場見通し】「デイリーZAi」6月23日号 - ダイヤモンド・オンライン",
-      "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9DSXdJVld2NjR0R2hJQUtfVGljNEpSZ19faTZjS1NWY1ZjQWdWaUJzRzVhUGVoY0Y2SnpodUxLeFZ4UFF3LTNfMXNSNkhmZndWMlZv?oc=5",
-      "pubDate": "Tue, 23 Jun 2026 10:24:49 GMT",
-      "source": "ダイヤモンド・オンライン"
-    },
-    {
-      "title": "日経平均株価 構成銘柄一覧 - 日本経済新聞",
-      "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5GdE1xZW04ZjNkTXQ3MEFWd1dCZEJwem5BeUJUMWlMNzl4SURNbUN6TjB4cUtDRkRwZFBoYWtPbHIyaW42eTNiNVowWlRpZlBoS3BoV3l3bmVKVWI3SGhUV3M4NnY4UURSSjBj?oc=5",
-      "pubDate": "Tue, 19 May 2026 07:18:27 GMT",
-      "source": "日本経済新聞"
     },
     {
       "title": "【日本株】株価上昇に期待できる｢2026年の大本命株｣5銘柄！ フィジカルAIが話題の｢ファナック｣、今期は減益も来期は2ケタ増益予想の｢トヨタ自動車｣に注目！ - ダイヤモンド・オンライン",
@@ -110,16 +104,16 @@
       "source": "Yahoo!ファイナンス"
     },
     {
-      "title": "話題株ピックアップ【夕刊】（3）：太陽ＨＤ、日本製鉄、高島屋 - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1tZDIxeUJDUDlBb0QzY1ozNll6dXIyQWlpY0pYY2tlT1ZjQ1poZmFFY3liNXAzVkZLdGtqVWRUWjdlMHVJcnRXRFJoM3d3aG5PRDN0MEVRSlFSMUJwb2RqcA?oc=5",
-      "pubDate": "Wed, 25 Feb 2026 08:00:00 GMT",
+      "title": "話題株ピックアップ【夕刊】（1）：Ｊディスプレ、オキサイド、ローム - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBJc0tEcmJUdFc3RFlZY3h3VVRTMnV3MEllSE0zakpTbG1GQW51QmZRZFRTaW9ZOEdmN0pMQVVnalE3cUh5S0p5NmlnTDJkS19zRlRtTGxaX3JtblJXdUtUOA?oc=5",
+      "pubDate": "Mon, 09 Mar 2026 07:00:00 GMT",
       "source": "株探"
     },
     {
-      "title": "トランプ氏資産運用アドバイザーで話題！？くら寿司USAを分析！ - マネックス証券",
+      "title": "トランプ氏資産運用アドバイザーで話題！？くら寿司USAを分析！ - info.monex.co.jp",
       "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5zZkVvdXRWc0d3MWFNZE5hRzM0cENBZzF5TnlLNENUWndNenIwQXdUSF95UDlta0VyZExOdEdWTXZZclhWeWp1eC11dU12NEprdE1WV0lEQ1pINzVfOWZ6Wg?oc=5",
       "pubDate": "Thu, 28 May 2026 07:00:00 GMT",
-      "source": "マネックス証券"
+      "source": "info.monex.co.jp"
     },
     {
       "title": "現在、株の世界では「国策銘柄」が話題となり、「17の戦略分野」という言葉もトレンドとなっています。本誌はその戦略分野としての「政策銘柄」を取り上げ短期、中長期の投資テーマに絞った成長株投資ムックです。 - PR TIMES",
@@ -128,16 +122,22 @@
       "source": "PR TIMES"
     },
     {
+      "title": "値上がり率 :投信ランキング :投資信託 :マーケット :日経電子版 - 日本経済新聞",
+      "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5lODVpU3lQby0yNDV5LS1ubDh2SExETi16X01yLWRvaUZ4eUh6bTRhRXVXZm9VcnN6dF9mWkVnUlBJVGs1b1k2aTU2LUJodkJjV1djTzItSGFfUUhqSHlYQVdqV1VEV1kzdHc?oc=5",
+      "pubDate": "Fri, 02 Oct 2026 07:00:00 GMT",
+      "source": "日本経済新聞"
+    },
+    {
       "title": "バークシャーがデルタ航空＆メーシーズ取得、「K字経済」意識？/日経平均反発【今日の注目株＆日本株市場見通し】「デイリーZAi」5月27日号 - ダイヤモンド・オンライン",
       "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1OZ1ZoSVJTMTNvWjRQUERmUjg5SjhoMFlvekdpVWE3b1ZEV1A2R3BkV3E3QjBSUEdFdk11Nk9uekVJWnRDOU1VSW50UGhwQ3BjU3Bj?oc=5",
       "pubDate": "Wed, 27 May 2026 10:40:33 GMT",
       "source": "ダイヤモンド・オンライン"
     },
     {
-      "title": "注目株ランキング【日経】株価検索アクセス数 上位200銘柄 - 日本経済新聞",
-      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5UUGJObTBvOFl4ZDJ0ZURrdnNTb19qLTRnUllRWnhOeXBOaHNDYm9vLVBMbllUa2dxV3lJa1F4ZXBwQ0VVdG42WjJsbUxyRzNKNjNqRnh4alYzcDJaZFluZUdR?oc=5",
-      "pubDate": "Tue, 08 Oct 2024 05:27:09 GMT",
-      "source": "日本経済新聞"
+      "title": "話題株ピックアップ【夕刊】（3）：太陽ＨＤ、日本製鉄、高島屋 - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1tZDIxeUJDUDlBb0QzY1ozNll6dXIyQWlpY0pYY2tlT1ZjQ1poZmFFY3liNXAzVkZLdGtqVWRUWjdlMHVJcnRXRFJoM3d3aG5PRDN0MEVRSlFSMUJwb2RqcA?oc=5",
+      "pubDate": "Wed, 25 Feb 2026 08:00:00 GMT",
+      "source": "株探"
     },
     {
       "title": "7月高配当株ランキング！ 丹青社・積水ハウス・日本駐車場開発/日経平均反発【今日の注目株＆日本株市場見通し】「デイリーZAi」7月3日号（ダイヤモンド・ザイ） - Yahoo!ニュース",
@@ -155,19 +155,19 @@
   "themes": [
     {
       "name": "AI",
-      "count": 45
+      "count": 40
     },
     {
       "name": "データセンター",
-      "count": 26
+      "count": 28
     },
     {
       "name": "防衛",
-      "count": 20
+      "count": 19
     },
     {
       "name": "半導体",
-      "count": 12
+      "count": 13
     },
     {
       "name": "電力",
@@ -175,15 +175,15 @@
     },
     {
       "name": "レアアース",
-      "count": 10
-    },
-    {
-      "name": "宇宙",
-      "count": 6
+      "count": 12
     },
     {
       "name": "インフラ",
       "count": 6
+    },
+    {
+      "name": "宇宙",
+      "count": 5
     }
   ]
 }
