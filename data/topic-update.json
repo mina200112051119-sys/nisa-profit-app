@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-07T05:57:48.241558+00:00",
+  "updated_at": "2026-10-07T16:36:53.419626+00:00",
   "headlines": [
     {
       "title": "霞ヶ関キャピタル、ＴＤＫ◆今日のフィスコ注目銘柄◆ - 株探",
@@ -32,12 +32,6 @@
       "source": "ダイヤモンド・オンライン"
     },
     {
-      "title": "【注目トピックス 日本株】バイク王、東エレク◆今日のフィスコ注目銘柄◆ - マネーポストWEB",
-      "link": "https://news.google.com/rss/articles/CBMiR0FVX3lxTFBXd0JVODNQSFBESXppTUh4eXdjX21fZzl2RkRDczVZTGZhNlJZeGF5LWRTeVVGX0lTdjR2REF4Y0R0cU0zc2pz?oc=5",
-      "pubDate": "Wed, 30 Sep 2026 23:49:43 GMT",
-      "source": "マネーポストWEB"
-    },
-    {
       "title": "パーソルHD、さくら◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
       "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOZGtsZmMzVlREbjRJNXVmTWdDLXV3bEpxYXpPM1ZPaGpOMERDTFo0ZGo5dC1rUzFzby14RHNyN2xKODhSUTZvZmp2R0Fnd1ViMG5tNWFhYVl0UkF2QjVTLXA1eUxWVmhySmdteFFYa0R6bEFYYUxVVHpOcHJ4VTFVaC0wakZPS2s?oc=5",
       "pubDate": "Thu, 03 Sep 2026 07:00:00 GMT",
@@ -48,6 +42,12 @@
       "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE53LTRKT0xRazNzVllwbWRMVC1kenZQMk1KTDdkcUdwTDFDOFRvWC1uZ2pvVlVCeUlMNUtXSW1Rb25wVzlyQTVvNV9aZks5dzhBR1Fn?oc=5",
       "pubDate": "Thu, 25 Jun 2026 10:03:56 GMT",
       "source": "ダイヤモンド・オンライン"
+    },
+    {
+      "title": "【注目トピックス 日本株】バイク王、東エレク◆今日のフィスコ注目銘柄◆ - マネーポストWEB",
+      "link": "https://news.google.com/rss/articles/CBMiR0FVX3lxTFBXd0JVODNQSFBESXppTUh4eXdjX21fZzl2RkRDczVZTGZhNlJZeGF5LWRTeVVGX0lTdjR2REF4Y0R0cU0zc2pz?oc=5",
+      "pubDate": "Wed, 30 Sep 2026 23:49:43 GMT",
+      "source": "マネーポストWEB"
     },
     {
       "title": "キオクシアＨＤ、ＫＯＫＵＳＡＩ◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
@@ -76,7 +76,7 @@
     {
       "title": "アクセル、ソフトバンク◆今日のフィスコ注目銘柄◆ - 株探",
       "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5yczhRdmI4RXVuU3pKQ0N4U0dNX1Y0Nnd4V1gxVmlxTXFuNXhkOTU1cjV0NDFBMHhZem1LbHJQY1dvdGVROGhwZ1pKSm1veTk0QUJzU2ZyMVlHVm5uR0xxSA?oc=5",
-      "pubDate": "Mon, 28 Sep 2026 23:50:36 GMT",
+      "pubDate": "Tue, 29 Sep 2026 07:00:00 GMT",
       "source": "株探"
     },
     {
@@ -183,7 +183,7 @@
     },
     {
       "name": "宇宙",
-      "count": 6
+      "count": 5
     }
   ]
 }
