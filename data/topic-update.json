@@ -1,12 +1,6 @@
 {
-  "updated_at": "2026-11-01T06:01:14.261424+00:00",
+  "updated_at": "2026-11-01T16:06:07.824806+00:00",
   "headlines": [
-    {
-      "title": "積水化成、キオクシアＨＤ◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQdWNGZGFkWDg3ZEg5WFlHWWh4a3dzRE5kYW9zam04SVp1dTFQaUdtTUVMcmg2d3Vqa2FvZWNETjN6bXJiQ0htbmVYNEtpQ2RhOFZfWGttUG9CUUZ3N3ViSnh6Yi1VbWF4UTJ1c2cwWHNGQWFNUUhrakNybGxSeW1HWUVNNjRCMGc?oc=5",
-      "pubDate": "Wed, 28 Oct 2026 23:57:30 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
     {
       "title": "ＯＬＣ、フィデアＨＤ◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
       "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNV0dvN1d5ZXVHZ2NzSHdjMGZiQ2ZSVTVOa1NvTnQ1RXRadEF5MVp3TjBaSnU0djd2Y1I4RGNQSWxCWjdQM1RjcjFuSjgxVmFtSkFtSjc1TjVDeUZ0cnljNk02Qm9SdkVxdU9ZVnJFOTJob092WlJLVjRKbDJZSGRodzJWYUdFQkU?oc=5",
@@ -14,15 +8,21 @@
       "source": "Yahoo!ファイナンス"
     },
     {
-      "title": "ＯＳＧ、ワッツ◆今日のフィスコ注目銘柄◆ - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5Bd25uRUlldVVidlNKVVJGamFpenRVVzRmNjhpbFVhU1VMUDVDdUJIT19yaXdwOXk2LXhLTkJLLVRmZzAxamRNanZweno3Q3VoQ3UwREJOZndaS1V0T1NKMA?oc=5",
-      "pubDate": "Mon, 12 Oct 2026 23:48:57 GMT",
+      "title": "ＱＰＳＨＤ、ＥＬＥＭＥＮＴＳ◆今日のフィスコ注目銘柄◆ - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5HZ2dRVG9pd254YjRMYVlhMmJheUpyU2pFWG43QmdvVVcwOUplT2FPM1d3R1NUSlZvaGpFMU0wY0EwV19hUUhHelB1c0xmVExLLWlXWkVPdl9nTDBiZ0NOeA?oc=5",
+      "pubDate": "Thu, 15 Oct 2026 00:03:55 GMT",
       "source": "株探"
     },
     {
-      "title": "日化薬、ＧＳユアサ◆今日のフィスコ注目銘柄◆ - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5ockFiVjJmOUVIaXhFRzFscmJSdjQ5Yzl4cHBHTG5CUWJvZ0sySTIxb29kWXhGVTQ1eGMxSWE1MXpQUnhJV1k4Q05LLWJzd2lPSWxRUko5dTVtSktvM2FTQg?oc=5",
-      "pubDate": "Tue, 08 Sep 2026 07:00:00 GMT",
+      "title": "積水化成、キオクシアＨＤ◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQdWNGZGFkWDg3ZEg5WFlHWWh4a3dzRE5kYW9zam04SVp1dTFQaUdtTUVMcmg2d3Vqa2FvZWNETjN6bXJiQ0htbmVYNEtpQ2RhOFZfWGttUG9CUUZ3N3ViSnh6Yi1VbWF4UTJ1c2cwWHNGQWFNUUhrakNybGxSeW1HWUVNNjRCMGc?oc=5",
+      "pubDate": "Wed, 28 Oct 2026 23:57:30 GMT",
+      "source": "Yahoo!ファイナンス"
+    },
+    {
+      "title": "ＯＳＧ、ワッツ◆今日のフィスコ注目銘柄◆ - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5Bd25uRUlldVVidlNKVVJGamFpenRVVzRmNjhpbFVhU1VMUDVDdUJIT19yaXdwOXk2LXhLTkJLLVRmZzAxamRNanZweno3Q3VoQ3UwREJOZndaS1V0T1NKMA?oc=5",
+      "pubDate": "Tue, 13 Oct 2026 07:00:00 GMT",
       "source": "株探"
     },
     {
@@ -32,15 +32,75 @@
       "source": "Yahoo!ファイナンス"
     },
     {
-      "title": "注目株ランキング【日経】株価検索アクセス数 上位200銘柄 - 日本経済新聞",
-      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5UUGJObTBvOFl4ZDJ0ZURrdnNTb19qLTRnUllRWnhOeXBOaHNDYm9vLVBMbllUa2dxV3lJa1F4ZXBwQ0VVdG42WjJsbUxyRzNKNjNqRnh4alYzcDJaZFluZUdR?oc=5",
-      "pubDate": "Tue, 08 Oct 2024 05:27:09 GMT",
+      "title": "本日の注目個別銘柄：anfac、CSHD、郵船など - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBWTy1RRkFETDZZaTlTRW1aZUlMTmtncXZMeHpLN2laUG80QUVUUHhOeV9KQXNHVExfM2VUeDl4X0dXVW5qSW0zS0FaV2xJaTNBaDJrXzFJOTR4YmMxRGpueA?oc=5",
+      "pubDate": "Tue, 18 Aug 2026 07:00:00 GMT",
+      "source": "株探"
+    },
+    {
+      "title": "神東塗料、網屋◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNcEJVZjNZU2pVRE5FajFXY1dINXkxbU1hUlBuV2xiVGtmS05tUlpxeEVGZzF1T1lrWTNaUkl1d05veFlZdGkxb2NNZWtTaGNtRzhrQjN5bjBRUkZaNlEtUGZyQUNXQnlvVlVwdTJrTjNVVk1DNHhvNmlUUWxoZkVJZ24yMFMxUmM?oc=5",
+      "pubDate": "Wed, 28 Oct 2026 00:05:17 GMT",
+      "source": "Yahoo!ファイナンス"
+    },
+    {
+      "title": "霞ヶ関キャピタル、ＴＤＫ◆今日のフィスコ注目銘柄◆ - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9ObWVORnY5MFpOajRuTlhEMDI4UndPb2NOWjI2Z05EWE11U0M4T0ZzWjFXX1pLQy04V2J0V19taWNNV1ZmYUo1anEycVNPLVF6YnBjdFBjSFlremszakxocA?oc=5",
+      "pubDate": "Tue, 06 Oct 2026 07:00:00 GMT",
+      "source": "株探"
+    },
+    {
+      "title": "コーエーテクモ、ソフトバンクＧ◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPcGZjSU1WTEltdnBpSUd6VlRIeU9LZ3I1eGVHYVBERzdNaGM2TkEwYWcweW9CY1RyTWYwRDd4MnFDXy1Pb1hwbFptbk9mb1RUTjZ1amR0b0lrNDVkTEZ6T3cyT0dmWWZfNU83OTF0Zmt1Zm83MW8zUndMMEdqNnVYOWg1YkZOM1k?oc=5",
+      "pubDate": "Mon, 26 Oct 2026 23:45:51 GMT",
+      "source": "Yahoo!ファイナンス"
+    },
+    {
+      "title": "川崎船、ヒトトヒトＨＤ◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNR1dQY1pMNEFMbnkweVpMMFZwRnZ4eU9JVjI3Y0RkVVMycW04T2ZkWkRvdVBEZUltVmhnclRaNjhjajhNWnNKaDhtLUdnN3ZvNzkzSXVVeTkxb1FEbExLRDZUamUtZXgtQm53WXNuY3JJYzAxWGotTG9uZFBCM2JMWE9EMnlRSmc?oc=5",
+      "pubDate": "Sun, 25 Oct 2026 23:47:43 GMT",
+      "source": "Yahoo!ファイナンス"
+    },
+    {
+      "title": "ストライクグループ、トヨタ自◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPR2kyYURieFBXYXRoYjhQVTZlMnJuekFtTExUVmpaOFNaZ3hZZXpWcl9UQmdUSnU0WGIwZzExS0lLRUp2WWtNUWxpS2ctbWdMNFUxQ0RUb3gxV2xQdEhFSXV4SUcxVnVSb2hfdGtJdlVLY0o3Q1ZpZGU1QWNaZlpoNmVtaXROVVE?oc=5",
+      "pubDate": "Thu, 22 Oct 2026 07:00:00 GMT",
+      "source": "Yahoo!ファイナンス"
+    },
+    {
+      "title": "シライ電子、アドバンテス◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPWXMzUWJ2WHZCUWp1SUpwbldyTEh2MENZZjlBOVViMDZpbFVNTTFPUVY5SE0zZTFHZEpWMFBfcFdWSFBkNFp5bHVOTVA4U2ROeFVYeUNLWmE1bE5hLW1IUHlOMG1XYUVvXzJUU29UY2gtM1lRTXZDNXN6ZF9pWUJJR2hEQVRmU00?oc=5",
+      "pubDate": "Tue, 20 Oct 2026 07:00:00 GMT",
+      "source": "Yahoo!ファイナンス"
+    },
+    {
+      "title": "大末建、プリモＧＨＤ◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOZ2lBRjZiZkFjeVV2bUxQOHE3dnh3bnp1TEJzNHRRdnNaV0tTMEkwRGRic0ZBSTZ3Z08tTXI2OG8tT3lmaWFHbUFzY0ZoMVhnUk52LVpVN2I0Z3diMGExekIyR3Y4TXFkRzY2RENKcElUY3dmRDk3QVBvWEFZREZfY3VyVEJEV2s?oc=5",
+      "pubDate": "Fri, 16 Oct 2026 07:00:00 GMT",
+      "source": "Yahoo!ファイナンス"
+    },
+    {
+      "title": "関電化、キオクシアＨＤ◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOZWhDTDNESjhneDg4X3Nwek5fczdzNTJmQktSSWVSeFJsb2JydXZLZHBGYURXdUFFZWpnRlpGWHdxbW1kd3hSdG5uUWwyb3dDR1p0MjZHcVFOZzZmZ0lpclpsR2hEY0dEWEdpUmNZVVJjbHVKZEVQTHNOaTlIU0l2b0FFRzNmSkk?oc=5",
+      "pubDate": "Thu, 22 Oct 2026 23:43:51 GMT",
+      "source": "Yahoo!ファイナンス"
+    },
+    {
+      "title": "Ｓｙｎｓ、パナHD◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOelMweGJkX3JXTjJ5TTU4alZNaEY0cFMtRFNUcHVtb0Y4cGtGRkNoeVVjR1dYdmtEdHVCekZ4NmRkek1hVlotU1J6dVQ0UDlOZUFJMEZMTVQ5RHVPVlZjR2JjdV9IV1ptcHVtZXR2dWNHOFVGYmJHcnZPTmFJcnZoc3pRb1pTU3c?oc=5",
+      "pubDate": "Wed, 21 Oct 2026 07:00:00 GMT",
+      "source": "Yahoo!ファイナンス"
+    },
+    {
+      "title": "値上がり率 :投信ランキング :投資信託 :マーケット :日経電子版 - 日本経済新聞",
+      "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5lODVpU3lQby0yNDV5LS1ubDh2SExETi16X01yLWRvaUZ4eUh6bTRhRXVXZm9VcnN6dF9mWkVnUlBJVGs1b1k2aTU2LUJodkJjV1djTzItSGFfUUhqSHlYQVdqV1VEV1kzdHc?oc=5",
+      "pubDate": "Fri, 30 Oct 2026 07:00:00 GMT",
       "source": "日本経済新聞"
     },
     {
-      "title": "アップル、ips◆今日のフィスコ注目銘柄◆ - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE11d1NEQkdjdmN1Q04tNEVoeXBWWE54eHNlYjhZXzZBQ0s2d2gtejN5MzRkdjlrVHVnZWlvT0V3X2tCWnZ3M2dBQkdWYVQ1akt1Y0lmbUc1Sm56V2k0RmQ2MA?oc=5",
-      "pubDate": "Fri, 18 Sep 2026 07:00:00 GMT",
+      "title": "話題株ピックアップ【夕刊】（2）：ＪＸ金属、物語コーポ、薬王堂ＨＤ - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5Ba0k5YWRGOF9RZEJRUUZMc1NRUWo2WkJXNy1NWGUzbFZ4bkNrYkZzZ1BYak83V3ZwM1VEMlk5MGhLekFfRkQ5ZGJvZUdZSTZPVTMtUWFDc1hMS0RBMGxUag?oc=5",
+      "pubDate": "Mon, 07 Sep 2026 07:00:00 GMT",
       "source": "株探"
     },
     {
@@ -50,106 +110,46 @@
       "source": "ダイヤモンド・オンライン"
     },
     {
-      "title": "ＧＭＯ－ＦＧ、アドバンテス◆今日のフィスコ注目銘柄◆ - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBCUjhXbE1CZERWMHN3SWJlWnNPQnVkQzNwRE0zZ0p4eFBDOEVSbUc5djRlMGZTM1YtYlNOLXZFUzAtS3JFejhMa2xyWVJrdjRqVEpUMFJ6VG5Xd3BBcTRtRg?oc=5",
-      "pubDate": "Fri, 11 Sep 2026 07:00:00 GMT",
-      "source": "株探"
-    },
-    {
-      "title": "ファーストリテ、アドバンテス◆今日のフィスコ注目銘柄◆ - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBWdGthQnBIdV81QkpCT1lzbldSMkFFM09PQ1BYeDY5cHlmaWx2c1hsZkx1Y1N5Rm83TjRKTHFWQkMyUExobHg5OVRzbkpLdXFnVnFJVzl6MlpWaFBNOV9vMA?oc=5",
-      "pubDate": "Fri, 10 Jul 2026 07:00:00 GMT",
-      "source": "株探"
-    },
-    {
-      "title": "三菱ＵＦＪ、ストライクグループ◆今日のフィスコ注目銘柄◆ - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5BMHY4M21EeE05V0Q0YzRYcjNHTGV3Rl9nMmpreGMxbEg3V3BmLVFSUHZhSmc2UEt4N3dxUDA3aGpOOEV2OEhNTE83R2hhdHR6ZHY4N3RDbE9POG80emlHMg?oc=5",
-      "pubDate": "Mon, 31 Aug 2026 07:00:00 GMT",
-      "source": "株探"
-    },
-    {
-      "title": "“注目株”はリターン・リバーサルで狙え！（10/29号）【東証プライム】(フィスコ) - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPVFEyZE8yUVRadkFUU2c0aFhkeG5WRjFHOUdxdXFDSEtUbFJJUjNNZ2NkWjRjZWFEQzBabERzZ01nSmVLZ3FkYVZuN3VmLUdKWEYyRG9KczMyNHZTc01jSUV4dWpsU1VEQ0ZibHFnZV9uaHZoS0k5RHY3dHZBRW1uZ2x5bXc1aFE?oc=5",
-      "pubDate": "Thu, 29 Oct 2026 00:00:00 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "ＩＮＧＳ、キオクシアＨＤ◆今日のフィスコ注目銘柄◆ - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9JRllOZHkyYkVIRnpKWFJVbDZSVTBXc3VGSmpmZFRKSk96ZjFlcUxYbUR4YXhJWWw5cTNlWG5FeklucW1aMF9BVnhobUR1b3ZKaXl0QldCdFVZYTRkOFpsZA?oc=5",
-      "pubDate": "Tue, 25 Aug 2026 07:00:00 GMT",
-      "source": "株探"
-    },
-    {
-      "title": "HPCシステムズ、AIRMAN◆今日のフィスコ注目銘柄◆ - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBwd1JUQjlKNjhDV0hLZEdTbjh3eHlqQjhuSXdGMVEtX3BtSlNWM01xSzBUR1hDSTdnNkk1eFpTbTF5NkJGREFIOVZicXdIVnZDNUpZUWxrUVh5VE0xN3RreQ?oc=5",
-      "pubDate": "Tue, 23 Jun 2026 07:00:00 GMT",
-      "source": "株探"
-    },
-    {
-      "title": "本日注目の【自社株買い】銘柄 (22日大引け後 発表分) - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBwUzJ1RmQzZm41QWdUSFRWNmpGNWNKSHNobFhBalRZYThUeVBkcjNwT05XWGtHcUk5dmVaekU3WDk3MkxINnV1TjFYS2NMcWdvWEFvNjQ4OUs4ZWVxV1BiRw?oc=5",
-      "pubDate": "Mon, 25 May 2026 07:00:00 GMT",
-      "source": "株探"
-    },
-    {
-      "title": "話題株ピックアップ【夕刊】（1）：日本マイクロ、古野電、パルＨＤ - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFA2S0J6aGZORWRSOEFXM0FKUDNXakpfNnFHX29wVXlvY05QLXdiR3dlZEpTbjFydGhGSDhCLUlDTVpYU1FFN3BjbGV6ekRxNUUyb2U5MXZBMHRsTTlhLVJ5NQ?oc=5",
-      "pubDate": "Wed, 07 Oct 2026 07:00:00 GMT",
-      "source": "株探"
-    },
-    {
       "title": "日経平均株価 構成銘柄一覧 - 日本経済新聞",
       "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5GdE1xZW04ZjNkTXQ3MEFWd1dCZEJwem5BeUJUMWlMNzl4SURNbUN6TjB4cUtDRkRwZFBoYWtPbHIyaW42eTNiNVowWlRpZlBoS3BoV3l3bmVKVWI3SGhUV3M4NnY4UURSSjBj?oc=5",
       "pubDate": "Tue, 19 May 2026 07:18:27 GMT",
       "source": "日本経済新聞"
     },
     {
-      "title": "今、話題の「モメンタム」とは？ 投資を上昇トレンドでとらえる21銘柄集中の日本株ファンド（Finasee） - Yahoo!ニュース",
-      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1MMGF4cnRDeUgxZlBnRnkwTHhpRVpfcDMyMlpZb0pVMnJqODRxZjNYSlpybFFHODlUVlRFZVpEVVR1Y0xUbWhvS3BtUjFudkJkenRILUQxbUZUMmE0SFd1WVJic1o4Tnc5TnkzU3Q2UEFIRWVFS0FaU1J6dzNUSU0?oc=5",
-      "pubDate": "Fri, 23 Oct 2026 07:00:00 GMT",
-      "source": "Yahoo!ニュース"
+      "title": "注目株ランキング【日経】株価検索アクセス数 上位200銘柄 - 日本経済新聞",
+      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5UUGJObTBvOFl4ZDJ0ZURrdnNTb19qLTRnUllRWnhOeXBOaHNDYm9vLVBMbllUa2dxV3lJa1F4ZXBwQ0VVdG42WjJsbUxyRzNKNjNqRnh4alYzcDJaZFluZUdR?oc=5",
+      "pubDate": "Tue, 08 Oct 2024 05:27:09 GMT",
+      "source": "日本経済新聞"
     },
     {
-      "title": "話題株ピックアップ【夕刊】（3）：ファストリ、日本空港ビル、ピアズ - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1tR2hqZlduQUtHYjRjQS10bmpXR2RsdnJQYTZtQmtrRnMyUFNxaTd0WDNjaF92NDVHYmFnNWJmOUtBMC1pSjJDdHN4RVUtTEMzUEo1MjFUMjJ6M1VjanAwRg?oc=5",
+      "title": "本日の【自社株買い】銘柄 (24日大引け後 発表分) - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFByTUt1ZWVNZmNQQmdfb1JydUVwTTlETTFJMk5PVl9xb242R3UwLU1NVG81dTRtVnZxMl9IWTRTQXVnN1YwSXFfbGNQRlNlX2VmZ0VCVHlMT0tGaXRtRlhtVg?oc=5",
+      "pubDate": "Mon, 24 Aug 2026 07:00:00 GMT",
+      "source": "株探"
+    },
+    {
+      "title": "本日の【上場来高値更新】 日本郵政、やまびこなど21銘柄 - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9qZTlXZExLUGRCalFQTWFWOHExZ3Q2MUlCakNaSmhmZjY0bk5FdVU2SEhtNDRSRlNla095TUdoS0RoVk1sa3lZY21BODY2ZTZPNjl2enNwRmhNU0FxdndIRw?oc=5",
       "pubDate": "Thu, 03 Sep 2026 07:00:00 GMT",
       "source": "株探"
     },
     {
-      "title": "話題株ピックアップ【昼刊】：ティアフォー、ブシロード、キオクシア(株探ニュース) - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOeF91NnRIcC10NmtYRnp5NVJ1a1JGTElPaVp1T0lVV2JRY0lfdENTaWRmMTJkVXUxUW4xb3NhWWFnZUdTUEZUaGlTR3V5cEEtNWVWVE9MSkFweEFlZE1OcE9LelRxZTkyUXhrU003Q1ltYlVGcWtEN2xrUC1kQkx5bjBwUTJyZU0?oc=5",
-      "pubDate": "Thu, 08 Oct 2026 07:00:00 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "話題株ピックアップ【夕刊】（1）：日本電技、ＫＯＡ、愛媛銀 - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5wRGhrV2xjbzRMbFM2LXhoR2dtY2xoS0sxSWlicFJZZzNmVk02YnRXUmFiWVdJaWRkeGlFSjV3ejhtVGpwVXBlbGtUdkZ3R3R5b1U2SlpqVjVvczY0RVZGLQ?oc=5",
-      "pubDate": "Fri, 24 Jul 2026 07:00:00 GMT",
+      "title": "本日の【上場来高値更新】 日本郵政、ふくおかＦＧなど12銘柄 - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE82T1FCVDRVcVo0cmNuY1dMV1UyeFJJb281Zy1wYzhnVlA3LUNTM3Q3R2xON01xcEtpb1BxdVlLcTdBY1VUQlhPcXZmRFRTWWRDZ1VXYlRTRVJ6SnFIWDZDUA?oc=5",
+      "pubDate": "Fri, 04 Sep 2026 07:00:00 GMT",
       "source": "株探"
     },
     {
-      "title": "話題株ピックアップ【昼刊】：ＢＡＳＥ、関西電、ガンホー(株探ニュース) - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPYmd3VUZMeV9rczNOaTNST01RbmZxd0FvbDdoSlo4TVNkSEtKaWJmYmM3UmNyMnlwV0VQN0VPNk9CMXI4eW43OC1JN1pmU2JkdUYtVUNBQURKcEl6ODA2dFpHUDZXN3JMVEsxLWg0RmhER2RHdm11MWxROGdpVUx4b2FiZGRRcDA?oc=5",
-      "pubDate": "Mon, 31 Aug 2026 07:00:00 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "フジクラ・川崎重工・サンリオ買いやすく…3月末基準で株式分割/日経平均続伸【今日の注目株＆日本株市場見通し】「デイリーZAi」3月25日号 - ダイヤモンド・オンライン",
-      "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1LVzk0VFdSLWNNRDBBWnhNeVVVYWI3MUgyMXV1SlV0QnpLT2FLTnEwWmtKQ3dobXVDbzJiUmd2NUMxNVJVTHpEM0hoU3NNS0pLdFFJ?oc=5",
-      "pubDate": "Wed, 25 Mar 2026 10:05:30 GMT",
-      "source": "ダイヤモンド・オンライン"
-    },
-    {
-      "title": "話題株ピックアップ【夕刊】（3）：三浦工、ソフトフロン、さいか屋 - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE91S0NoOXloUzJObURXelZjd1c2M3BCdWZ4NG82VEdRUmtIRzd6RlIzVFJSQXkwMDZTbXZKYjVCWFRlZXRTUjBaemljNFFkMDNFMzFteHM3VWhIQUx4TDRqSg?oc=5",
-      "pubDate": "Wed, 09 Sep 2026 07:00:00 GMT",
+      "title": "本日の【株式分割】銘柄 (5日大引け後 発表分) - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBCTG9xbVNNX2ZPem9uYnZIZnNBTWJEdGRpd2ZvY1JBTVdyX2xHUjFIOVhMeVNYb09BYUdJTUJUXzFjQWprR3d3RnVKbXczWDg4RnJtTEI1UkdUTlkyZzhHNg?oc=5",
+      "pubDate": "Fri, 05 Jun 2026 07:00:00 GMT",
       "source": "株探"
     },
     {
-      "title": "話題株ピックアップ【夕刊】（3）：アイピーエス、ネクステージ、サイバーセキュリティー関連(株探ニュース) - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPWUF1R1Bvd2hFbWlFTjJYWlNXZDdGU3FZTzlodjJpb3VXV3JWNmRLMGUyVjh0dTgxd3R5ZE5LTFFPRUJ1QmJsbVJHc0ZRaFhZUXp1dDFEbEdWcUFDN0lyWlFndUpTNC1uN05HV3lkd2czN3AyclJYOHNCRzBETVc4X2dvbEJtME0?oc=5",
-      "pubDate": "Tue, 06 Oct 2026 07:00:00 GMT",
-      "source": "Yahoo!ファイナンス"
+      "title": "話題株ピックアップ【夕刊】（3）：ＯＢＣ、泉州電、オービック - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5qTWE3MEhjdFltMVE5MDNmX3pDU1l3bzdfRTFUb1BsOG9NNVZPNDBmd01WeDdFcEowOGJ3Z2tOZkZOeUZQM2pzTlZVVm9qUGJrNXNPT1dORkRLeF83akFMTw?oc=5",
+      "pubDate": "Wed, 28 Oct 2026 06:55:02 GMT",
+      "source": "株探"
     }
   ],
   "themes": [
@@ -159,19 +159,19 @@
     },
     {
       "name": "AI",
-      "count": 27
+      "count": 25
     },
     {
       "name": "防衛",
-      "count": 21
+      "count": 22
     },
     {
       "name": "半導体",
-      "count": 16
+      "count": 15
     },
     {
       "name": "レアアース",
-      "count": 11
+      "count": 10
     },
     {
       "name": "電力",
@@ -179,11 +179,11 @@
     },
     {
       "name": "宇宙",
-      "count": 8
+      "count": 7
     },
     {
       "name": "インフラ",
-      "count": 8
+      "count": 7
     }
   ]
 }
