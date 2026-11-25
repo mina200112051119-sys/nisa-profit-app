@@ -1,96 +1,6 @@
 {
-  "updated_at": "2026-11-24T20:13:15.452266+00:00",
+  "updated_at": "2026-11-25T08:30:17.435070+00:00",
   "headlines": [
-    {
-      "title": "東京海上、アドバンテス◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPdTRvV09LWG9GcnBWbWwwME5jZUZJWVh4UWxaUm4wSWxhM0dUd0NhTkRNUnV0S0tldXNJamQzNFpmRFhsOS02QTBxcU50aVV3T0tuXzI3ZWgtbTU2RGtyZ0UtTFQ3YTVVX0xqU29lb2NVUlAyVlJCZjBTSThYVTFCV0hiUlcyLVE?oc=5",
-      "pubDate": "Thu, 19 Nov 2026 23:40:44 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "オプトエレクト、フェローテク◆今日のフィスコ注目銘柄◆ - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1wN2t2cXN1Nk1hWDItbC1adFNQa3ROOVViMTVUY1pkMXk0OTZNUWlwc2lwY2pVZlV5UjNMRE9NOVlRck5UVmJoSzF1OTgwQjdnYzRxbUFaXzFOX282NWRHUQ?oc=5",
-      "pubDate": "Mon, 05 Oct 2026 07:00:00 GMT",
-      "source": "株探"
-    },
-    {
-      "title": "朝日インテック、日電子◆今日のフィスコ注目銘柄◆ 投稿日時： 2026/11/16 08:45[フィスコ] - みんかぶ",
-      "link": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE1Tbk0zX0VLZlBxVGZGdE1ldklxNlJxT0taUVFoYUJKVXNTRDVsRnJDYWRZMFZqTHY0cXo1YWFYRUxIQUFEQWc?oc=5",
-      "pubDate": "Sun, 15 Nov 2026 23:45:22 GMT",
-      "source": "みんかぶ"
-    },
-    {
-      "title": "インフォメティス、アドバンテス◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOdWlYUTNuZ01XbDM4eE1NN1NBdFBmUE9LR3NrVXdzV2lmUkczZjY1ajJHYV9OWkRFcEZRbURQTWpyWl9QekZqdVdvc2d6dDJqU0NxR2xXRGJRRC1IQ3VjSGV2TGt5Mm9DQ1R2OENvQXFDRkRSS0R3Z3p4dzh4VlJDQ1FwdGRJdmc?oc=5",
-      "pubDate": "Thu, 19 Nov 2026 00:19:08 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "アップル、ips◆今日のフィスコ注目銘柄◆ - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE11d1NEQkdjdmN1Q04tNEVoeXBWWE54eHNlYjhZXzZBQ0s2d2gtejN5MzRkdjlrVHVnZWlvT0V3X2tCWnZ3M2dBQkdWYVQ1akt1Y0lmbUc1Sm56V2k0RmQ2MA?oc=5",
-      "pubDate": "Fri, 18 Sep 2026 07:00:00 GMT",
-      "source": "株探"
-    },
-    {
-      "title": "オープンG、古野電気◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQVVppNjZrTWdERnZ0XzBxR3N3N1dSYzk0cldyWDhpekttVzhPT2lqWGU1V01Nck1ZQXpudlFiVElQUlc1S3E5ZmxIam15UWNPdWFLTW1UQmNoa01YNm1uWVdRR2FSMmlNWm1HaTFpYjR4ZzhjanI4bkh3SDVnMXNZenRSbW8xcUU?oc=5",
-      "pubDate": "Mon, 16 Nov 2026 23:45:48 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "日本オラクル、ＡＲＣＨＩＯＮ◆今日のフィスコ注目銘柄◆ - 株探",
-      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE95X2dYR0ZWLVR5RmdBV1RHRU5vVkR3a0lFN0hrb1VLb0RjMV9KZjdWaUUtUUtITVBqc2dDZ2VWMTFiNG9CV2gyUWFERV9aMWQ2Z050Y1BFcU5RSU9vRTZzeA?oc=5",
-      "pubDate": "Fri, 25 Sep 2026 07:00:00 GMT",
-      "source": "株探"
-    },
-    {
-      "title": "綜研化学、キッセイ薬◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNVlJqREJYejlVdXFXbS04WlVuenNhdlM4NEROekM2dGlqYWV4QTJUOUtxUlpRbHFNcHNreXA1NGpkaE1LSTFPemFHQks5bFpZSDl4d3RWRVZrQkxkTE0zMVVuMGFBODdwaVcyZEh1dUVIN2VQaHp4b1V3dTd1TlZMa2dsSjQ1cHc?oc=5",
-      "pubDate": "Tue, 17 Nov 2026 23:48:06 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "朝日インテック、日電子◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQbU5fMjFQQXF2RWw2anRBSVNsa05rTHVQQ08wWnBLQTFrX2h1eGxYdGF0TlhWOFhSQzFIR3liV3h3c3RqUFBvZjllelRXdnZfREQ3Z1daTnZQeFNsaUlsa05xRDJtWDRHNGJZMERpMldUTkdaS1FoTnlyeE45VTVrc1dKUk9ybzg?oc=5",
-      "pubDate": "Sun, 15 Nov 2026 23:45:22 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "レンゴー、パナHD◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPT0x0aU1Oa3hjbzJOUDZuM3ZyQXR4Y3l0ZjhFYnZUc0huVWZIXzV5TXpxUEN6RXYzUk41VGo3blRLR2hVeDNQSzliT1g1OTZZS0tpSWVTQ1Fhc1BZN01RRGo1MkJraEM2QlZTUjBzelZMSTFIYzdtWDJJYm52cThhOEpLTG1odWc?oc=5",
-      "pubDate": "Wed, 04 Nov 2026 08:00:00 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "東エレク、日アビオ◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPdmowWjNsYXBBQUtheUx5Sl90UXAxMG1rTGhTQmg4STBWazlkZ1QxdU9BdFZGaHJqdGxoZkVkWVFFd21DT0ZNcEh5NWQ1UWR1WThsbGttZTVtVXpLYXVpNnhRdk5DaVgyN2pzeDYxSFUyRUlON2RlOERnaU84QjFYVm0yaHh0RUU?oc=5",
-      "pubDate": "Mon, 02 Nov 2026 08:00:00 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "ZACROS、HENNGE◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOaVhRRHo2YnV3QzI2N1ROb1lvRHI3X2Q1RHpvYkwyODBkeVNJMjNtODlTYnlSTjlQUzF6TU9mSGJqUW5EM0Z1cHBuRlJUYlpWMFBMQk52R0U1QWtDZWVmdXVGdXNtenRjN2dsTERVS2FKbzB6V2U4X1N4M2syZ052dEVqeTcyeGc?oc=5",
-      "pubDate": "Fri, 06 Nov 2026 08:00:00 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "スクエニＨＤ、ソフトバンクＧ◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPbkhzZldIUXI0cDhsVnVBejBrUkVaUDZRci1TTzRQa1RPeEdkeFdvamhvVVFsUmNYNWc0b3J5LXgwTllsUVhyMlFJa1V6Qm5wQUFBQ1JwVUxiekdBWkk5Q2FvdjM5VUt2REV1R2F0YnpHZzdXVjBwR0xDNFNRaGNxZ0w2bzZmSWs?oc=5",
-      "pubDate": "Thu, 12 Nov 2026 08:00:00 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "ＧＭＯ－ＦＧ、ソシオネクスト◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQNjB1aTBTZEZKNmx3QzBkdDFteUlkWUpxaXZ0WmZEWmpqVEFoYnJOV2toQmNmYnpEWm55VFpmU29hanRUZl9Kc0JNT1FqNE1NNmhDNEduSzRDYlc2ai1IaXB5QmQ4WVAyTm83VllsWkQ0R09JLUdaeW14ckhiTDFYZzNNNW1zZGc?oc=5",
-      "pubDate": "Thu, 12 Nov 2026 23:49:46 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
-    {
-      "title": "ＪＸ金属、丸一鋼管◆今日のフィスコ注目銘柄◆ - Yahoo!ファイナンス",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOeXk4Y2stZ2ZHekZMbHdFRGdtaURkYmNiLXhuUE9lNjdpcktPS092cTdEdTVCMTRpVmlZWnJOUHliSmFxQ2F2dnBMVlRiR2x4QW95MUZVd2pmbEpJdkhBNzhUaW40RUQwQzU0MTVDcGt0TlhiTVc4RjItbXRzczM2OUxzRVlSX0k?oc=5",
-      "pubDate": "Tue, 10 Nov 2026 08:00:00 GMT",
-      "source": "Yahoo!ファイナンス"
-    },
     {
       "title": "日経平均株価 構成銘柄一覧 - 日本経済新聞",
       "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5GdE1xZW04ZjNkTXQ3MEFWd1dCZEJwem5BeUJUMWlMNzl4SURNbUN6TjB4cUtDRkRwZFBoYWtPbHIyaW42eTNiNVowWlRpZlBoS3BoV3l3bmVKVWI3SGhUV3M4NnY4UURSSjBj?oc=5",
@@ -128,6 +38,18 @@
       "source": "SBI証券"
     },
     {
+      "title": "【日本株】話題の対話型AI機能「ChatGPT」関連銘柄 - マネクリ",
+      "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFAyNnhubFRxZ3ZhY3RyNno0SkdHb3VlVjdPZ01ncnBIWDhpTk5JNU1YRGw5QTJELV9YNnpaMmIyUldDVkl5XzN0ck40ZHNCZGZBakdMc9IBV0FVX3lxTFBPbEJ4U1lSU3U4SGFjb294a1JPRlMwdnBGcXN6ZjFrWUZoRkY3NUZBam5UY0ZIZmVfZWYtcm9yZmNwSnRtLUkzYTNMSHFucWp1UmxFVkRqSQ?oc=5",
+      "pubDate": "Thu, 02 Mar 2023 08:00:00 GMT",
+      "source": "マネクリ"
+    },
+    {
+      "title": "政治関連の話題で揺れた日米株式市場 HOTな銘柄、COOLな銘柄 | 株のことならネット証券会社【三菱UFJ eスマート証券】 - 三菱UFJ eスマート証券",
+      "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9FTjZRWlQtQVVIUWFYVldidjNKSHNUby02ZDkzWTF6OWp0QWpqQjI4NXoyYXY1aW5zc2dkNEM2NUZPUHUya0JVYjlSZmpLMEtxN3lR?oc=5",
+      "pubDate": "Fri, 15 Nov 2024 08:00:00 GMT",
+      "source": "三菱UFJ eスマート証券"
+    },
+    {
       "title": "過去1週間の株価上昇率ランキング - 株探",
       "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9JblBiVlNicXVhVlhwSmdvcnh4b2VWa1NRRUxldUJJNml2NThhcncwVTJzQkFLeEphWDU2Y3FUZU13OHY1bGE3ZzE1WUJFLUE?oc=5",
       "pubDate": "Tue, 08 Apr 2025 07:29:01 GMT",
@@ -146,44 +68,122 @@
       "source": "株探"
     },
     {
-      "title": "【日本株】話題の対話型AI機能「ChatGPT」関連銘柄 - マネクリ",
-      "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFAyNnhubFRxZ3ZhY3RyNno0SkdHb3VlVjdPZ01ncnBIWDhpTk5JNU1YRGw5QTJELV9YNnpaMmIyUldDVkl5XzN0ck40ZHNCZGZBakdMc9IBV0FVX3lxTFBPbEJ4U1lSU3U4SGFjb294a1JPRlMwdnBGcXN6ZjFrWUZoRkY3NUZBam5UY0ZIZmVfZWYtcm9yZmNwSnRtLUkzYTNMSHFucWp1UmxFVkRqSQ?oc=5",
-      "pubDate": "Thu, 02 Mar 2023 08:00:00 GMT",
+      "title": "話題株ピックアップ【夕刊】（1）：サイバーセキ、ティアフォー、テクマト - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5EX3ZJZzFtSkVJY1dhYTNuQXJZdHE0aU5XNzR4OEdoNzl3SGNQdGNzUHB3RjBVZm0za04wZ2NaZzFKYVNvaFJwaFdGR0Fpd0pmLURMOHlvb1dYV2djQUFzZg?oc=5",
+      "pubDate": "Thu, 08 Oct 2026 07:00:00 GMT",
+      "source": "株探"
+    },
+    {
+      "title": "ニュースリリース - PayPay証券",
+      "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFA3ODZrb2xjekY5NXdDcm9vcXdNOWlWQ3Q1MVNYaW5Tb0dFbF95ZTdMVW1oNWY5OVNLeVJDa0VMTFphTF9FRTRKUWlCejllRWJJVzQ1ZDVfSExELXhnb0E?oc=5",
+      "pubDate": "Wed, 17 Feb 2021 08:00:00 GMT",
+      "source": "PayPay証券"
+    },
+    {
+      "title": "話題株ピックアップ【夕刊】（1）：データセク、トムソン、アドテスト - 株探",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9tMTVMSVZJMmZEOWR3SkV5RTZrdjllV3FjT3hzRWNDV0ZGNlM1ajBOT0RCQkxRdUZBT3g1aVk3b1p0X0V3TWhkYUd2TnlzdjJ3R1RMSlVNWEdoaUxsZkhXag?oc=5",
+      "pubDate": "Tue, 24 Nov 2026 06:44:27 GMT",
+      "source": "株探"
+    },
+    {
+      "title": "話題株ピックアップ【夕刊】（3）：イビデン、ＳＢＧ、フジクラ(株探ニュース) - Yahoo!ファイナンス",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOWk9tQ2MwSjNxUVU3cFhzQ2VJTHRmRnE0VEZVN19JZGZUZkJsWGp6QmVUUnlCOFI0dUFxZnhOU1hUSXQ5eFotaWZZX3dET2hBZ2dwb1h6aVRvOU9fZzJDdmUxVVpwcDQ0YVNidjcxSTF6aElKX0FLRTBKeWZ0NnJlcmFWbjZkMzA?oc=5",
+      "pubDate": "Wed, 25 Nov 2026 06:53:24 GMT",
+      "source": "Yahoo!ファイナンス"
+    },
+    {
+      "title": "【日本株】2027年NISA注目5銘柄：AI半導体株の次を狙う - トウシル",
+      "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBRQjFnRjRGODVOakZtWm1nR01qTEQ1enktWVdkeV82N1FhVHJMRFhkYlZ2LTM4c2pBV2xEWmxwcjcxOHlCYzVJak5BT2dUc3lYMVQtM0VmMXVDdw?oc=5",
+      "pubDate": "Fri, 20 Nov 2026 07:30:00 GMT",
+      "source": "トウシル"
+    },
+    {
+      "title": "日経平均株価、米AI・半導体株安が下押し材料（先読み株式相場） - 日本経済新聞",
+      "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFB5aXY1MXJoTUplRkNfTUdjcEpXNWdyTXZLRFNXLTNaUHloTGFSa0dDdFVrQy1oTm5LUS1KcWUzaUV5Si1iNDdxVkcxUlZtcHBVXzV1Y2h6Vkw4Q3BCX3JKUXRHdTFFZmZlSGw1eQ?oc=5",
+      "pubDate": "Tue, 24 Nov 2026 22:35:58 GMT",
+      "source": "日本経済新聞"
+    },
+    {
+      "title": "韓国のDoosan、1日で12%急落…Nvidia発のAI株調整に揺らぐ - BigGo ファイナンス",
+      "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1mS3ZrVG5tS0dkZEQ1ZEU3Yml2dzBLN1pIQnNtdzZGX25xbVlBcFR1dHBUT2FweDItSnlTRzF2c0piQkw3X2ZZTGM3X21QNTItTEgzdk1YdlFtcEJJZktGbWtjX2ZJZ3JfdzhuZkxOUFBHTUFR?oc=5",
+      "pubDate": "Wed, 25 Nov 2026 01:06:00 GMT",
+      "source": "BigGo ファイナンス"
+    },
+    {
+      "title": "日本株はなぜ「AI失望売り」で全面安になったのか？浮かび上がった「次の主役企業」 | ＤＯＬ特別レポート - ダイヤモンド・オンライン",
+      "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE5UazVHN242cVdWenZSYnZsakdtc3lYWXVkRGNrNzVBMTBtbURZWFl3Z2M5TnpCRjZmNVlrbVlHOWdXanU3bmwwTi1iU18?oc=5",
+      "pubDate": "Fri, 20 Nov 2026 20:00:00 GMT",
+      "source": "ダイヤモンド・オンライン"
+    },
+    {
+      "title": "AI・半導体銘柄への逆風を元キオクシア研究開発者の億り人が分析 エヌビディア・フアンCEOの電撃復帰前は「どんなに好決算でも株価が全く上がらなかった」のはなぜか(マネーポストWEB) - Yahoo!ファイナンス",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNQ1RPMkoxV2s4NklfWXpuWmd6OE03SVJtUWRYcktmdnFXQXUyUDE3T01PYmdKdWdqcERidGxCcS1DTXN3OFN1aTBpOU5Eb1ZRSGZsSkVsUFh6a3FJaVpDYzFzckNLSFJ5dFdEUVFTLXF1aDhoMFZGQTJtQlo4aGlFMVl4MnBCRDA?oc=5",
+      "pubDate": "Tue, 24 Nov 2026 22:15:00 GMT",
+      "source": "Yahoo!ファイナンス"
+    },
+    {
+      "title": "日本株は反落へ、米ハイテク株急落を嫌気－フアン氏復帰の好感続かず - TBS NEWS DIG",
+      "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1MMFRpejJSX1JXUlVpLVlvZksteTEyM0QwS2J2NFpEVTh6d1djWDhBOFZYNExUd2pzYUFJR0JscW4yOXJkVEhQaktPenVmaTBWcHZoQmRRTnFwQkItc01FZTJUT3hyU09LMHB6b3lZMGNuVXla?oc=5",
+      "pubDate": "Wed, 25 Nov 2026 00:56:00 GMT",
+      "source": "TBS NEWS DIG"
+    },
+    {
+      "title": "【日本株】AI・半導体株の再エントリー、二番底を待つのも一手 - マネクリ",
+      "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5pU3lqQUJFSXk2R0tuOGNOc3hILXJzUmwxOHZxR3ktcFpVNVVvOHVSX1Z3c0p4TjJsUk5xODRobWpsdk1BWmh5Nk02RzlCWER6OUNOZ9IBV0FVX3lxTFBIN1NXZVVxT0tHNkpKNFRCLS1kMS0xb2dQX01LNTFxX3hDNHE3YTBIN0haRVNJSGs2eE53XzBXX3Q2WExMQ3N2OXdxQWtzQ2p6bVluc0t5QQ?oc=5",
+      "pubDate": "Tue, 17 Nov 2026 04:20:00 GMT",
       "source": "マネクリ"
+    },
+    {
+      "title": "エヌビディア大幅反発で日本のAI半導体株はどう動く？中国規制やガバナンスの死角を徹底解説【野村証券・村山誠氏】 - テレ東BIZ",
+      "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBsNkJLY294LVdIZ2FFZ2owclN5SXBWZmVsRHFTZXNtS0MzWG9WR0pIcWlfTWdSbTdEdm1fajExWFA2YXhSM1U3LVlSWnRqWjc3QXpTNmF4V0UxLUFNR2lQWmNFV08?oc=5",
+      "pubDate": "Tue, 24 Nov 2026 10:00:00 GMT",
+      "source": "テレ東BIZ"
+    },
+    {
+      "title": "配当利回り4.8%超の「割安高配当株TOP15」…AI・半導体の割高感も後退して目先はリバウンドの動きへ - Infoseek",
+      "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBRUF9ra0s3VWNzaFp1TXJkd1JsTUFSMFVOb1JSdUo5ZzdfS1p2MmxZRW1EXy1VTktfc3Vma1A2R3pqbXl0X2pLblpmVE5ybkVLekQxTC12LVZ6cGxNSUdYbQ?oc=5",
+      "pubDate": "Wed, 25 Nov 2026 07:00:00 GMT",
+      "source": "Infoseek"
+    },
+    {
+      "title": "主力AI・半導体株乱高下の裏で注目したい好決算銘柄 - SBI証券",
+      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE16LUhXeVJucGh4eVpKSzZJemkxdjVFX3FmaXhsY2VQZUN3dWVYM2VyRFVlakhJUXA4X3U1Ni0yclNtRVVjODdSQllENWVjNnJ6RU8xWmo4RnRvU0xqTmowU3RYQ2RHcHZaaHp0TGdhVVQtYXplSWUwYVc4UXdTTDg?oc=5",
+      "pubDate": "Fri, 16 Oct 2026 07:00:00 GMT",
+      "source": "SBI証券"
     }
   ],
   "themes": [
     {
       "name": "データセンター",
-      "count": 28
+      "count": 32
     },
     {
       "name": "AI",
-      "count": 26
+      "count": 28
     },
     {
       "name": "防衛",
-      "count": 19
-    },
-    {
-      "name": "半導体",
-      "count": 16
-    },
-    {
-      "name": "電力",
-      "count": 11
+      "count": 20
     },
     {
       "name": "レアアース",
-      "count": 10
+      "count": 14
+    },
+    {
+      "name": "電力",
+      "count": 13
+    },
+    {
+      "name": "半導体",
+      "count": 12
     },
     {
       "name": "インフラ",
-      "count": 10
+      "count": 8
     },
     {
       "name": "宇宙",
-      "count": 8
+      "count": 4
     }
   ]
 }
